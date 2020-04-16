@@ -10,3 +10,8 @@
 /Server/.vs/Server/v16
 /Client/Temp
 /Server/Lobby/obj
+/Server/Game/obj
+/Server/Game/bin/Debug/netcoreapp3.1
+/Server/Lobby/bin/Debug/netcoreapp3.1
+/Server/Service/bin/Debug/netcoreapp3.1
+/Server/Service/obj
