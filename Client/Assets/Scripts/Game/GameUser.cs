@@ -15,26 +15,15 @@ public class GameUser : MonoBehaviour
         var y = Random.Range(min.y, max.y);
         var cube = PoolFactory.Get<Cube>("Cube");
 
-        //if(isMe)
-        //{
-        //    cube = PoolFactory.Get<MyCube>("Cube");
-        //}
-        //else
-        //{
-        //    cube = PoolFactory.Get<EnemyCube>("Cube");
-        //}
-
         cube.transform.parent = transform;
-        cube.transform.localPosition = new Vector3(x, y, 0f);
+        cube.transform.position = new Vector3(x, y, 0f);
         cubes.Add(cube);
 
-        //var redMin = redBox.bounds.min;
-        //var redMax = redBox.bounds.max;
-        //var redX = Random.Range(redMin.x, redMax.x);
-        //var redY = Random.Range(redMin.y, redMax.y);
-        //var monster = PoolFactory.Get<Monster>("Monster");
-        //monster.transform.parent = transform;
-        //monster.transform.localPosition = redBox.bounds.max; //new Vector3(redX, redY, 0f);
-        //monsters.Add(monster);
+        var paths = zone.paths;
+        var monster = PoolFactory.Get<Monster>("Monster");
+        monster.transform.parent = transform;
+        monster.transform.position = paths[0].transform.position;
+        monster.Move(paths);
+        monsters.Add(monster);
     }
 }

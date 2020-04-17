@@ -1691,6 +1691,10 @@
     <Compile Include="Assets\Markets\Best HTTP (Pro)\Examples\SocketIO\SocketIOChatSample.cs" />
     <Compile Include="Assets\Markets\Best HTTP (Pro)\Examples\SocketIO\SocketIOWePlaySample.cs" />
     <Compile Include="Assets\Markets\Best HTTP (Pro)\Examples\Websocket\WebSocketSample.cs" />
+    <Compile Include="Assets\Markets\iTween\Sample\MoveSample.cs" />
+    <Compile Include="Assets\Markets\iTween\Sample\RotateSample.cs" />
+    <Compile Include="Assets\Markets\iTween\Sample\SampleInfo.cs" />
+    <Compile Include="Assets\Markets\iTween\iTween.cs" />
     <Compile Include="Assets\Packages\Network\Runtime\Payloader.cs" />
     <Compile Include="Assets\Packages\UI\Runtime\Route.cs" />
     <Compile Include="Assets\Packages\UI\Runtime\Router.cs" />
@@ -1715,6 +1719,7 @@
     <Compile Include="Assets\Scripts\Pool\PoolRegister.cs" />
     <None Include="Assets\Markets\Best HTTP (Pro)\license.txt" />
     <None Include="Assets\Markets\JsonDotNet\link.xml" />
+    <None Include="Assets\Markets\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Markets\Best HTTP (Pro)\ReleaseNotes.txt" />
     <None Include="Assets\Markets\Best HTTP (Pro)\link_android_subset.xml" />
     <None Include="Assets\Markets\Best HTTP (Pro)\BestHTTP\SecureProtocol\License.txt" />
