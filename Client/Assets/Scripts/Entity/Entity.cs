@@ -2,5 +2,9 @@
 
 public class Entity : MonoBehaviour
 {
-
+    public virtual void Spawn()
+    {
+        
+        
+    }
 }

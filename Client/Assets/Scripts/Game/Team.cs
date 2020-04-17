@@ -3,8 +3,8 @@ using UnityEngine;
 
 public enum TeamId
 {
+    Blue,
     Red,
-    Blue
 }
 
 public class Team : MonoBehaviour

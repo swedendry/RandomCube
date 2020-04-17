@@ -12,8 +12,8 @@ public class Game : MonoBehaviour
 {
     private GameState gameState = GameState.Ready;
 
-    public GameUser red;
-    public GameUser blue;
+    public GameUser my;
+    public GameUser enemy;
 
     private void Update()
     {
@@ -25,8 +25,8 @@ public class Game : MonoBehaviour
 
     private void GameReady()
     {
-        red.Create();
-        blue.Create();
+        my.Create(true, Map.blue);
+        enemy.Create(false, Map.red);
     }
 
     private void GameStart()
