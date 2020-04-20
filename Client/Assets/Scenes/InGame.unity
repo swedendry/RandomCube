@@ -2689,6 +2689,8 @@ MonoBehaviour:
     dummy: {fileID: 131823710068661722, guid: 29f477ddefe05044fa29baaeaa1fa75c, type: 3}
   - key: Monster
     dummy: {fileID: 6897113599400192363, guid: 2ef64e1d6d6e49f49a3106f7ee3ef4ea, type: 3}
+  - key: Missile
+    dummy: {fileID: 517109113901288482, guid: 45ccf47581350c8499395882898e72dc, type: 3}
 --- !u!4 &1086809503
 Transform:
   m_ObjectHideFlags: 0
@@ -4278,7 +4280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1517949632
 MonoBehaviour:
   m_ObjectHideFlags: 0
