@@ -16,6 +16,9 @@ public class Monster : Entity
 
     public override void Spawn()
     {
+        iTween.Stop(gameObject);
+        hp = 400f;
+        speed = 1f;
         hp_text.text = ((int)hp).ToString();
 
         base.Spawn();
@@ -31,7 +34,6 @@ public class Monster : Entity
     public void Move(int targetIndex)
     {
         this.targetIndex = targetIndex;
-        speed = 1f;
 
         var position = paths[targetIndex].position;
         var nextIndex = targetIndex + 1;
@@ -53,6 +55,7 @@ public class Monster : Entity
 
     private void Finish()
     {
+        iTween.Stop(gameObject);
         OnFinish?.Invoke(this);
     }
 
@@ -63,6 +66,7 @@ public class Monster : Entity
 
         if(hp <= 0)
         {
+            iTween.Stop(gameObject);
             OnDie?.Invoke(this, collider);
         }
     }

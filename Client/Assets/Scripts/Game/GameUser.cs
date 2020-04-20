@@ -43,8 +43,11 @@ public class GameUser : MonoBehaviour
         var paths = zone.paths;
         var monster = PoolFactory.Get<Monster>("Monster");
         monster.transform.parent = transform;
+        monster.transform.localPosition = Vector3.zero;
         monster.transform.position = paths[0].transform.position;
         monster.gameObject.SetActive(true);
+        monster.OnDie = OnDie;
+        monster.OnFinish = OnFinish;
         monster.Spawn();
         monster.Move(paths);
         monsters.Add(monster);
@@ -77,10 +80,18 @@ public class GameUser : MonoBehaviour
     private void OnDie(Monster target, Missile collider)
     {
         gameUser.SP += 10;
+
+        target.transform.position = Vector3.zero;
+        monsters.Remove(target);
+        PoolFactory.Return("Monster", target);
     }
 
     private void OnFinish(Monster target)
     {
         gameUser.Life -= 1;
+
+        target.transform.position = Vector3.zero;
+        monsters.Remove(target);
+        PoolFactory.Return("Monster", target);
     }
 }

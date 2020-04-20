@@ -7,6 +7,8 @@ public class Pool
 
     protected readonly Queue<GameObject> entries = new Queue<GameObject>();
 
+    private int seq = 0;
+
     public Pool(PoolObject poolObject)
     {
         this.poolObject = poolObject;
@@ -15,6 +17,8 @@ public class Pool
     private void Create()
     {
         var entity = Object.Instantiate(poolObject.dummy);
+        entity.name = entity.name + seq;
+        seq++;
         entries.Enqueue(entity);
     }
 
