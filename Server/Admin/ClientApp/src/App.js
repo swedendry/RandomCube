@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import React from 'react';
+import { Router, Route, Switch } from "react-router-dom";
+import history from './helpers/history';
+import PrivateRoute from './helpers/privateRoute';
 
-import './custom.css'
+import Login from './views/Login';
+import Home from './views/Home';
 
-export default class App extends Component {
-  static displayName = App.name;
-
-  render () {
+export default function App() {
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
-    );
-  }
-}
+        <Router history={history} >
+            <Switch>
+                <Route path="/login" component={Login} />
+                <PrivateRoute path="/" component={Home} />
+            </Switch>
+        </Router>
+    )
+};
