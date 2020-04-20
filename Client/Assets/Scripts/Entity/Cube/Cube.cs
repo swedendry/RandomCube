@@ -9,6 +9,8 @@ public class Cube : Entity
     public float speed = 5.0f;
     private Animator anim;
     private IEnumerator coroutineShot;
+    public float AP = 10f;
+    public float AS = 1.5f;
 
     private void Start()
     {
@@ -67,13 +69,14 @@ public class Cube : Entity
     {
         Shot();
 
-        yield return new WaitForSeconds(1f);
+        var delay = 1f / AS;
+        yield return new WaitForSeconds(1f / delay);
 
         StartShot();
     }
 
     public void Hit(Missile collider)
     {
-        Debug.Log(collider.name);
+        
     }
 }

@@ -1,17 +1,19 @@
 ﻿using Extension;
-using UI;
 using UnityEngine.UI;
 
-public class UserComponent : UIComponent
+namespace UI.Lobby
 {
-    public Text id_text;
-    public Text name_text;
-
-    public override void Upsert()
+    public class UserComponent : UIComponent
     {
-        base.Upsert();
+        public Text id_text;
+        public Text name_text;
 
-        id_text.SetText(ServerInfo.User.Id);
-        name_text.SetText(ServerInfo.User.Name);
+        public override void Upsert()
+        {
+            base.Upsert();
+
+            id_text.SetText(ServerInfo.User.Id);
+            name_text.SetText(ServerInfo.User.Name);
+        }
     }
 }

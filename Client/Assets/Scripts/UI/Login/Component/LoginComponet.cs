@@ -1,15 +1,17 @@
 ﻿using Extension;
-using UI;
 using UnityEngine.UI;
 
-public class LoginComponet : UIComponent
+namespace UI.Login
 {
-    public Text title_text;
-
-    public override void Upsert()
+    public class LoginComponet : UIComponent
     {
-        base.Upsert();
+        public Text title_text;
 
-        title_text.SetText("Login");
+        public override void Upsert()
+        {
+            base.Upsert();
+
+            title_text.SetText("Login");
+        }
     }
 }

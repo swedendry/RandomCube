@@ -7,9 +7,9 @@ public class Missile : Entity
 
     private Cube owner;
     private Monster target;
-    private readonly float speed = 3f;
+    private readonly float speed = 10f;
     private bool shoting = false;
-
+    
     private void Update()
     {
         if (!shoting || target == null)

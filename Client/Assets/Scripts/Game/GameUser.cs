@@ -8,8 +8,23 @@ public class GameUser : MonoBehaviour
     private readonly List<Monster> monsters = new List<Monster>();
     private readonly List<Missile> missiles = new List<Missile>();
 
+    private Zone zone;
+    private GameUserViewModel gameUser;
+
     public void Create(bool isMe, Zone zone)
     {
+        gameUser = isMe ? ServerInfo.MyUser : ServerInfo.EnemyUser;
+        gameUser.SP = 100;
+        gameUser.Life = 3;
+        this.zone = zone;
+
+        CreateMonster();
+    }
+
+    public void CreateCube()
+    {
+        gameUser.SP -= 10;
+
         var box = zone.box.GetComponent<BoxCollider>();
         var min = box.bounds.min;
         var max = box.bounds.max;
@@ -21,12 +36,16 @@ public class GameUser : MonoBehaviour
         cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cubes.Add(cube);
+    }
 
+    private void CreateMonster()
+    {
         var paths = zone.paths;
         var monster = PoolFactory.Get<Monster>("Monster");
         monster.transform.parent = transform;
         monster.transform.position = paths[0].transform.position;
         monster.gameObject.SetActive(true);
+        monster.Spawn();
         monster.Move(paths);
         monsters.Add(monster);
     }
@@ -41,17 +60,27 @@ public class GameUser : MonoBehaviour
         missile.transform.parent = transform;
         missile.transform.position = owner.transform.position;
         missile.gameObject.SetActive(true);
-        missile.OnHit = Hit;
+        missile.OnHit = OnHit;
         missile.Shot(owner, target);
         missiles.Add(missile);
     }
 
-    public void Hit(Cube owner, Monster target, Missile collider)
+    private void OnHit(Cube owner, Monster target, Missile collider)
     {
         owner.Hit(collider);
-        target.Hit(collider);
+        target.Hit(owner, collider);
 
         missiles.Remove(collider);
         PoolFactory.Return("Missile", collider);
+    }
+
+    private void OnDie(Monster target, Missile collider)
+    {
+        gameUser.SP += 10;
+    }
+
+    private void OnFinish(Monster target)
+    {
+        gameUser.Life -= 1;
     }
 }
