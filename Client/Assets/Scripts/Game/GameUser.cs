@@ -18,6 +18,7 @@ public class GameUser : MonoBehaviour
         var cube = PoolFactory.Get<Cube>("Cube");
         cube.transform.parent = transform;
         cube.transform.position = new Vector3(x, y, 0f);
+        cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cubes.Add(cube);
 
@@ -25,6 +26,7 @@ public class GameUser : MonoBehaviour
         var monster = PoolFactory.Get<Monster>("Monster");
         monster.transform.parent = transform;
         monster.transform.position = paths[0].transform.position;
+        monster.gameObject.SetActive(true);
         monster.Move(paths);
         monsters.Add(monster);
     }
@@ -38,6 +40,7 @@ public class GameUser : MonoBehaviour
         var missile = PoolFactory.Get<Missile>("Missile");
         missile.transform.parent = transform;
         missile.transform.position = owner.transform.position;
+        missile.gameObject.SetActive(true);
         missile.OnHit = Hit;
         missile.Shot(owner, target);
         missiles.Add(missile);
