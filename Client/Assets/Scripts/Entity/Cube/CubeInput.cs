@@ -15,7 +15,7 @@ public class CubeInput : MonoBehaviour
                 var cube = hit.collider.GetComponent<Cube>();
                 if (cube)
                 {   //cube
-                    if(selectedCube)
+                    if (selectedCube)
                     {
                         selectedCube.DeSelected();
                     }
@@ -32,6 +32,21 @@ public class CubeInput : MonoBehaviour
                 }
             }
         }
-
+        else if (Input.GetMouseButtonDown(1))
+        {
+            if (selectedCube)
+            {
+                var layerMask = LayerMask.GetMask("Cube");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, 10000f, layerMask))
+                {
+                    var cube = hit.collider.GetComponent<Cube>();
+                    if (cube)
+                    {
+                        selectedCube.Move(cube.transform.position);
+                    }
+                }
+            }
+        }
     }
 }

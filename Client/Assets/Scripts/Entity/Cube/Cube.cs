@@ -8,6 +8,7 @@ public class Cube : Entity
 
     public float speed = 5.0f;
     private Animator anim;
+    private Renderer render;
     private IEnumerator coroutineShot;
     public float AP = 10f;
     public float AS = 1.5f;
@@ -15,6 +16,15 @@ public class Cube : Entity
     private void Start()
     {
         anim = GetComponent<Animator>();
+        render = GetComponent<Renderer>();
+
+        //var r = UnityEngine.Random.Range(0, 1f);
+        //var g = UnityEngine.Random.Range(0, 1f);
+        //var b = UnityEngine.Random.Range(0, 1f);
+        //render.material.color = Color.green;
+
+        //render.sharedMaterial.color = Color.green;
+        //render.material.SetColor("_Color", Color.green);
 
         StartShot();
     }
