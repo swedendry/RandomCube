@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Service.Services
 {
@@ -29,28 +27,46 @@ namespace Service.Services
         public T data { get; set; }
     }
 
+    public static class PayloadPack
+    {
+        public static Payload<T> Success<T>(T data)
+        {
+            return new Payload<T>()
+            {
+                code = PayloadCode.Success,
+                data = data,
+            };
+        }
+
+        public static Payload Fail(PayloadCode code)
+        {
+            return new Payload()
+            {
+                code = code,
+            };
+        }
+
+        public static string Error(Exception ex)
+        {
+            return ex.ToMessage();
+        }
+    }
+
     public static class Payloader
     {
         public static OkObjectResult Success<T>(T data)
         {
-            return new OkObjectResult(new Payload<T>()
-            {
-                code = PayloadCode.Success,
-                data = data,
-            });
+            return new OkObjectResult(PayloadPack.Success(data));
         }
 
         public static OkObjectResult Fail(PayloadCode code)
         {
-            return new OkObjectResult(new Payload()
-            {
-                code = code,
-            });
+            return new OkObjectResult(PayloadPack.Fail(code));
         }
 
         public static NotFoundObjectResult Error(Exception ex)
         {
-            return new NotFoundObjectResult(ex.ToMessage());
+            return new NotFoundObjectResult(PayloadPack.Error(ex));
         }
     }
 }

@@ -50,6 +50,9 @@ public class GameUser : MonoBehaviour
         monster.OnFinish = OnFinish;
         monster.Spawn();
         monster.Move(paths);
+
+        Debug.Log(string.Format("{0}:{1}:{2}", monster.name, monster.transform.parent.name, monster.transform.position.x));
+
         monsters.Add(monster);
     }
 
@@ -82,6 +85,8 @@ public class GameUser : MonoBehaviour
         gameUser.SP += 10;
 
         target.transform.position = Vector3.zero;
+
+        Debug.Log(string.Format("OnDie {0}", target.name));
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
     }
@@ -91,6 +96,8 @@ public class GameUser : MonoBehaviour
         gameUser.Life -= 1;
 
         target.transform.position = Vector3.zero;
+
+        Debug.Log(string.Format("OnFinish {0}", target.name));
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
     }
