@@ -24,23 +24,14 @@ public class Pool
 
     public GameObject Get()
     {
-        if (poolObject.key == "Monster")
-            Debug.Log(string.Format("Pool Get Count {0}", entries.Count));
-
         if (entries.Count <= 0)
             Create();
 
-        var entity = entries.Dequeue();
-        if (poolObject.key == "Monster")
-            Debug.Log(string.Format("Pool Get {0}", entity.name));
-
-        return entity;
+        return entries.Dequeue();
     }
 
     public void Return(GameObject entity)
     {
-        if (poolObject.key == "Monster")
-            Debug.Log(string.Format("Pool Return {0}", entity.name));
         entity.gameObject.SetActive(false);
         entries.Enqueue(entity);
     }

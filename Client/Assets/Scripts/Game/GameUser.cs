@@ -16,6 +16,7 @@ public class GameUser : MonoBehaviour
         gameUser = isMe ? ServerInfo.MyUser : ServerInfo.EnemyUser;
         gameUser.SP = 100;
         gameUser.Life = 3;
+
         this.zone = zone;
 
         CreateMonster();
@@ -41,17 +42,16 @@ public class GameUser : MonoBehaviour
     private void CreateMonster()
     {
         var paths = zone.paths;
+        var startPosition = paths[0].transform.position;
         var monster = PoolFactory.Get<Monster>("Monster");
         monster.transform.parent = transform;
         monster.transform.localPosition = Vector3.zero;
-        monster.transform.position = paths[0].transform.position;
+        monster.transform.position = new Vector3(startPosition.x, startPosition.y, 0f);
         monster.gameObject.SetActive(true);
         monster.OnDie = OnDie;
         monster.OnFinish = OnFinish;
         monster.Spawn();
         monster.Move(paths);
-
-        Debug.Log(string.Format("{0}:{1}:{2}", monster.name, monster.transform.parent.name, monster.transform.position.x));
 
         monsters.Add(monster);
     }
@@ -86,7 +86,6 @@ public class GameUser : MonoBehaviour
 
         target.transform.position = Vector3.zero;
 
-        Debug.Log(string.Format("OnDie {0}", target.name));
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
     }
@@ -97,7 +96,6 @@ public class GameUser : MonoBehaviour
 
         target.transform.position = Vector3.zero;
 
-        Debug.Log(string.Format("OnFinish {0}", target.name));
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
     }
