@@ -26,16 +26,30 @@ public class GameUser : MonoBehaviour
     {
         gameUser.SP -= 10;
 
+        CreateCube(1);
+    }
+
+    public void CreateCube(int grade)
+    {
         var box = zone.box.GetComponent<BoxCollider>();
         var min = box.bounds.min;
         var max = box.bounds.max;
         var x = Random.Range(min.x, max.x);
         var y = Random.Range(min.y, max.y);
+
+        CreateCube(grade, new Vector3(x, y, 0f));
+    }
+
+    public void CreateCube(int grade, Vector3 position)
+    {
         var cube = PoolFactory.Get<Cube>("Cube");
         cube.transform.parent = transform;
-        cube.transform.position = new Vector3(x, y, 0f);
+        cube.transform.localPosition = position;
+        cube.transform.localRotation = Quaternion.identity;
         cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
+        cube.OnCombine = OnCombine;
+        cube.Spawn(grade);
         cubes.Add(cube);
     }
 
@@ -69,6 +83,20 @@ public class GameUser : MonoBehaviour
         missile.OnHit = OnHit;
         missile.Shot(owner, target);
         missiles.Add(missile);
+    }
+
+    private void OnCombine(Cube owner, Cube target)
+    {
+        var grade = owner.grade;
+        var position = target.transform.position;
+
+        cubes.Remove(owner);
+        PoolFactory.Return("Cube", owner);
+
+        cubes.Remove(target);
+        PoolFactory.Return("Cube", target);
+
+        CreateCube(grade + 1, position);
     }
 
     private void OnHit(Cube owner, Monster target, Missile collider)

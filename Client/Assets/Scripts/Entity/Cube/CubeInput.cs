@@ -43,7 +43,7 @@ public class CubeInput : MonoBehaviour
                     var cube = hit.collider.GetComponent<Cube>();
                     if (cube)
                     {
-                        selectedCube.Move(cube.transform.position);
+                        selectedCube.Combine(cube);
                     }
                 }
             }
