@@ -20,10 +20,10 @@ public class Monster : Entity
     public TextMesh hp_text;
 
     private List<Transform> paths;
-    private int targetIndex = 0;
     private float speed = 1f;
     private float hp = 400f;
     private State state = State.Spawn;
+    private readonly Dictionary<string, GameObject> skills = new Dictionary<string, GameObject>();
 
     public override void Spawn()
     {
@@ -47,8 +47,6 @@ public class Monster : Entity
 
     public void Move(int targetIndex)
     {
-        this.targetIndex = targetIndex;
-
         var position = paths[targetIndex].position;
         position.z = 0f;
         var nextIndex = targetIndex + 1;
@@ -75,6 +73,7 @@ public class Monster : Entity
 
         state = State.Finish;
         iTween.Stop(gameObject);
+        DeleteSkills();
         OnFinish?.Invoke(this);
     }
 
@@ -86,26 +85,55 @@ public class Monster : Entity
         hp -= cube.AP;
         hp_text.text = ((int)hp).ToString();
 
-        StartCoroutine(Particle());
+        var skillKey = "Skill_Ice";
+        if (skills.ContainsKey(skillKey))
+        {   //같은 스킬 활성화중
+            DeleteSkill(skillKey);
+        }
+
+        StartCoroutine(Particle("Skill_Ice"));
 
         if (hp <= 0)
         {
             state = State.Die;
             iTween.Stop(gameObject);
+            DeleteSkills();
             OnDie?.Invoke(this, collider);
         }
     }
 
-    private IEnumerator Particle()
+    private void DeleteSkills()
     {
-        var key = "Skill_Ice";
+        foreach (var skill in skills)
+        {
+            StopCoroutine(Particle(skill.Key));
+            PoolFactory.Return(skill.Key, skill.Value);
+        }
+
+        skills.Clear();
+    }
+
+    private void DeleteSkill(string key)
+    {
+        if (!skills.ContainsKey(key))
+            return;
+
+        var skill = skills[key];
+        StopCoroutine(Particle(key));
+        PoolFactory.Return(key, skill);
+        skills.Remove(key);
+    }
+
+    private IEnumerator Particle(string key)
+    {
         var skill = PoolFactory.Get(key);
         skill.transform.parent = transform;
         skill.transform.localPosition = Vector3.zero;
         skill.gameObject.SetActive(true);
+        skills.Add(key, skill);
 
         yield return new WaitForSeconds(0.5f);
 
-        PoolFactory.Return(key, skill);
+        DeleteSkill(key);
     }
 }

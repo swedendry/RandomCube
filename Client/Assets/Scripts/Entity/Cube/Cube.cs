@@ -13,7 +13,7 @@ public class Cube : Entity
     public float speed = 5.0f;
     private Animator anim;
     private IEnumerator coroutineShot;
-    public float AP = 10f;
+    public float AP = 50f;
     public float AS = 1.5f;
     public int grade = 0;
 

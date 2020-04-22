@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,7 +20,8 @@ public class GameUser : MonoBehaviour
 
         this.zone = zone;
 
-        CreateMonster();
+        StartCoroutine(CreateMonster());
+        //CreateMonster();
     }
 
     public void CreateCube()
@@ -53,10 +55,24 @@ public class GameUser : MonoBehaviour
         cubes.Add(cube);
     }
 
-    private void CreateMonster()
+    private IEnumerator CreateMonster()
     {
         var paths = zone.paths;
-        var startPosition = paths[0].transform.position;
+
+        CreateMonster(paths);
+        yield return new WaitForSeconds(1f);
+        CreateMonster(paths);
+        yield return new WaitForSeconds(1f);
+        CreateMonster(paths);
+
+        yield return new WaitForSeconds(10f);
+
+        StartCoroutine(CreateMonster());
+    }
+
+    private void CreateMonster(List<GameObject> paths)
+    {
+        var startPosition = paths.FirstOrDefault().transform.position;
         var monster = PoolFactory.Get<Monster>("Monster");
         monster.transform.parent = transform;
         monster.transform.localPosition = Vector3.zero;
@@ -112,7 +128,7 @@ public class GameUser : MonoBehaviour
     {
         gameUser.SP += 10;
 
-        target.transform.position = Vector3.zero;
+        //target.transform.position = zone.paths.LastOrDefault().transform.position;
 
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
@@ -122,7 +138,7 @@ public class GameUser : MonoBehaviour
     {
         gameUser.Life -= 1;
 
-        target.transform.position = Vector3.zero;
+        //target.transform.position = zone.paths.LastOrDefault().transform.position;
 
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
