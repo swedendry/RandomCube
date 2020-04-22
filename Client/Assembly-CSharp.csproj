@@ -1718,6 +1718,8 @@
     <Compile Include="Assets\Scripts\Network\BaseHttp.cs" />
     <Compile Include="Assets\Scripts\Network\BaseSignalr.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GameServer.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\Models\Body.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\Models\User.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServer.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServerUser.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\Models\Body.cs" />
@@ -1726,6 +1728,7 @@
     <Compile Include="Assets\Scripts\Network\LobbyServer\Models\Entry.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\Models\User.cs" />
     <Compile Include="Assets\Scripts\Network\PayloadHttp.cs" />
+    <Compile Include="Assets\Scripts\Network\PayloadSignalr.cs" />
     <Compile Include="Assets\Scripts\Network\Payloader.cs" />
     <Compile Include="Assets\Scripts\Network\ServerDefine.cs" />
     <Compile Include="Assets\Scripts\Network\ServerInfo.cs" />

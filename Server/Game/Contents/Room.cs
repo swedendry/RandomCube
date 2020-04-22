@@ -1,5 +1,4 @@
-﻿using Game.Extensions;
-using Game.Hubs;
+﻿using Game.Hubs;
 using Game.Models;
 using Microsoft.AspNetCore.SignalR;
 using Service.Services;

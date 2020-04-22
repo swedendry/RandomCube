@@ -1,18 +1,150 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BestHTTP.SignalRCore;
+using BestHTTP.SignalRCore.Messages;
+using Network;
+using Network.GameServer;
+using System;
 using UnityEngine;
 
 public class GameServer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameServer sInstance;
+
+    public string BaseUri = "https://localhost:44341/game";
+
+    private readonly PayloadSignalr signalr = new PayloadSignalr();
+
+    private void Awake()
     {
-        
+        if (sInstance != null)
+        {
+            if (sInstance != this)
+            {
+                Destroy(gameObject);
+            }
+            return;
+        }
+        sInstance = this;
+
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnApplicationQuit()
     {
-        
+        sInstance = null;
+
+        Release();
+    }
+
+    private void Release()
+    {
+        signalr.OnConnected -= OnConnected;
+        signalr.OnClosed -= OnClosed;
+        signalr.OnError -= OnError;
+        signalr.OnMessage -= OnMessage;
+
+        signalr.Close();
+    }
+
+    private void Init()
+    {
+        signalr.OnConnected += OnConnected;
+        signalr.OnClosed += OnClosed;
+        signalr.OnError += OnError;
+        signalr.OnMessage += OnMessage;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Connect();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Close();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var id = SystemInfo.deviceUniqueIdentifier;
+            var name = SystemInfo.deviceName;
+
+            Login(id, name);
+        }
+    }
+
+    private void OnConnected(HubConnection connection)
+    {
+        Debug.Log("OnConnected");
+    }
+
+    private void OnClosed(HubConnection connection)
+    {
+        Debug.Log("OnClosed");
+    }
+
+    private void OnError(HubConnection connection, string error)
+    {
+        Debug.Log("OnError : " + error);
+    }
+
+    public void Connect()
+    {
+        signalr.Connect(GetUri());
+    }
+
+    public void Close()
+    {
+        Release();
+    }
+
+    public void Login(string id, string name)
+    {
+        var cs = new CS_Login()
+        {
+            Id = id,
+            Name = name
+        };
+
+        Send("Login", cs);
+    }
+
+    private Uri GetUri()
+    {
+        return new Uri(BaseUri);
+    }
+
+    private void OnInvocation(string target, object[] arguments)
+    {
+        switch (target)
+        {
+            case "Login":
+                {
+                    var sc = signalr.GetRealArguments<Payload<SC_Login>>(arguments);
+
+                    Debug.Log(string.Format("{0}:{1}:{2}:{3}", sc.code, sc.data.User.Id, sc.data.User.ConnectionId, sc.data.User.Name));
+                }
+                break;
+        }
+    }
+
+    private bool OnMessage(HubConnection connection, Message message)
+    {
+        switch (message.type)
+        {
+            case MessageTypes.Invocation:
+                {
+                    OnInvocation(message.target, message.arguments);
+                }
+                break;
+        }
+
+        return true;
+    }
+
+    private void Send(string method, params object[] args)
+    {
+        signalr.Send(method, args);
     }
 }

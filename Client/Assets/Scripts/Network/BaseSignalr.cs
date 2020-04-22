@@ -3,13 +3,12 @@ using BestHTTP.SignalRCore;
 using BestHTTP.SignalRCore.Encoders;
 using BestHTTP.SignalRCore.Messages;
 using System;
-using UnityEngine;
 
 namespace Network
 {
-    public class BaseSignalr : MonoBehaviour
+    public class BaseSignalr
     {
-        private HubConnection connection;
+        protected HubConnection connection;
 
         public event Action<HubConnection> OnConnected;
         public event Action<HubConnection> OnClosed;
@@ -49,7 +48,7 @@ namespace Network
                 connection.Send(target, args);
         }
 
-        public T GetRealArguments<T>(object[] arguments)
+        public virtual T GetRealArguments<T>(object[] arguments)
         {
             try
             {

@@ -17,3 +17,7 @@
 /Server/Service/obj
 /Server/.vs/Server/DesignTimeBuild
 /Server/.vs/Server/config
+/Server/GameServer/bin/Debug/netcoreapp3.1
+/Server/GameServer/obj
+/Server/LobbyServer/bin/Debug/netcoreapp3.1
+/Server/LobbyServer/obj

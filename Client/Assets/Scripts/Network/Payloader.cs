@@ -7,6 +7,7 @@ namespace Network
     {
         Success = 0,
         Failure,    //결과값 실패
+        Error,      //에러
         Unknown,    //알수 없음
 
         DbNull,    //DB NULL

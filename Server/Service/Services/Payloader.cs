@@ -8,6 +8,7 @@ namespace Service.Services
     {
         Success = 0,
         Failure,    //결과값 실패
+        Error,      //에러
         Unknown,    //알수 없음
 
         DbNull,    //DB NULL
@@ -46,9 +47,13 @@ namespace Service.Services
             };
         }
 
-        public static string Error(Exception ex)
+        public static Payload<string> Error(Exception ex)
         {
-            return ex.ToMessage();
+            return new Payload<string>()
+            {
+                code = PayloadCode.Error,
+                data = ex.ToMessage(),
+            };
         }
     }
 
@@ -69,4 +74,29 @@ namespace Service.Services
             return new NotFoundObjectResult(PayloadPack.Error(ex));
         }
     }
+
+    //public static class Payloader
+    //{
+    //    public static OkObjectResult Success<T>(T data)
+    //    {
+    //        return new OkObjectResult(new Payload<T>()
+    //        {
+    //            code = PayloadCode.Success,
+    //            data = data,
+    //        });
+    //    }
+
+    //    public static OkObjectResult Fail(PayloadCode code)
+    //    {
+    //        return new OkObjectResult(new Payload()
+    //        {
+    //            code = code,
+    //        });
+    //    }
+
+    //    public static NotFoundObjectResult Error(Exception ex)
+    //    {
+    //        return new NotFoundObjectResult(ex.ToMessage());
+    //    }
+    //}
 }
