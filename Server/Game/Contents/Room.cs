@@ -82,7 +82,7 @@ namespace Game.Contents
             //    //Id = roomUser.Id,
             //}));
 
-            _context.Clients.Client(user.ConnectionId).SendAsync("EnterRoom", PayloadPack.Success(new SC_EnterRoom()
+            _context.Clients.Client(user.ConnectionId).SendCoreAsync("EnterRoom", PayloadPack.Success(new SC_EnterRoom()
             {
                 //Id = roomUser.Id,
             }));

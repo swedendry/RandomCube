@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-public class LobbyServer : MonoBehaviour
+public partial class LobbyServer : MonoBehaviour
 {
     public static LobbyServer sInstance;
 

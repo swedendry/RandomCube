@@ -1,11 +1,10 @@
 ﻿using BestHTTP.SignalRCore;
 using BestHTTP.SignalRCore.Messages;
 using Network;
-using Network.GameServer;
 using System;
 using UnityEngine;
 
-public class GameServer : MonoBehaviour
+public partial class GameServer : MonoBehaviour
 {
     public static GameServer sInstance;
 
@@ -53,27 +52,6 @@ public class GameServer : MonoBehaviour
         signalr.OnMessage += OnMessage;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Connect();
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Close();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            var id = SystemInfo.deviceUniqueIdentifier;
-            var name = SystemInfo.deviceName;
-
-            Login(id, name);
-        }
-    }
-
     private void OnConnected(HubConnection connection)
     {
         Debug.Log("OnConnected");
@@ -99,34 +77,9 @@ public class GameServer : MonoBehaviour
         Release();
     }
 
-    public void Login(string id, string name)
-    {
-        var cs = new CS_Login()
-        {
-            Id = id,
-            Name = name
-        };
-
-        Send("Login", cs);
-    }
-
     private Uri GetUri()
     {
         return new Uri(BaseUri);
-    }
-
-    private void OnInvocation(string target, object[] arguments)
-    {
-        switch (target)
-        {
-            case "Login":
-                {
-                    var sc = signalr.GetRealArguments<Payload<SC_Login>>(arguments);
-
-                    Debug.Log(string.Format("{0}:{1}:{2}:{3}", sc.code, sc.data.User.Id, sc.data.User.ConnectionId, sc.data.User.Name));
-                }
-                break;
-        }
     }
 
     private bool OnMessage(HubConnection connection, Message message)

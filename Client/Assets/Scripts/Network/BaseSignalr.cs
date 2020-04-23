@@ -48,7 +48,7 @@ namespace Network
                 connection.Send(target, args);
         }
 
-        public virtual T GetRealArguments<T>(object[] arguments)
+        public virtual T Get<T>(object[] arguments)
         {
             try
             {

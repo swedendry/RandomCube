@@ -50,18 +50,16 @@ namespace GameServer.Services
                     ConnectionId = connectionId,
                 };
 
-                _users[1] = user;
-
                 _users.Add(user);
 
-                await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Success(new SC_Login()
+                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_Login()
                 {
                     User = user,
                 }));
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Error(ex));
+                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -94,19 +92,19 @@ namespace GameServer.Services
 
                 if (result)
                 {
-                    await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Success(new SC_EnterMatch()
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_EnterMatch()
                     {
                         Id = id,
                     }));
                 }
                 else
                 {
-                    await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
                 }
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Error(ex));
+                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -123,19 +121,19 @@ namespace GameServer.Services
 
                 if (result)
                 {
-                    await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Success(new SC_ExitMatch()
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_ExitMatch()
                     {
                         Id = id,
                     }));
                 }
                 else
                 {
-                    await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
                 }
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Error(ex));
+                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -151,11 +149,11 @@ namespace GameServer.Services
                     result = _roomService.Enter(groupName, roomUser);
 
                 if (!result)
-                    await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Error(ex));
+                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -171,11 +169,11 @@ namespace GameServer.Services
                     result = _roomService.Exit(id);
 
                 if (!result)
-                    await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendAsync(method, PayloadPack.Error(ex));
+                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 

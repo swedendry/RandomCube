@@ -1718,8 +1718,11 @@
     <Compile Include="Assets\Scripts\Network\BaseHttp.cs" />
     <Compile Include="Assets\Scripts\Network\BaseSignalr.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GameServer.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\GameServerGUI.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Models\Body.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Models\User.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\Receiver.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\Sender.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServer.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServerUser.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\Models\Body.cs" />

@@ -30,30 +30,19 @@ namespace Service.Services
 
     public static class PayloadPack
     {
-        public static Payload<T> Success<T>(T data)
+        public static object[] Success<T>(T data)
         {
-            return new Payload<T>()
-            {
-                code = PayloadCode.Success,
-                data = data,
-            };
+            return new object[] { PayloadCode.Success, data };
         }
 
-        public static Payload Fail(PayloadCode code)
+        public static object[] Fail(PayloadCode code)
         {
-            return new Payload()
-            {
-                code = code,
-            };
+            return new object[] { code };
         }
 
-        public static Payload<string> Error(Exception ex)
+        public static object[] Error(Exception ex)
         {
-            return new Payload<string>()
-            {
-                code = PayloadCode.Error,
-                data = ex.ToMessage(),
-            };
+            return new object[] { PayloadCode.Error, ex.ToMessage() };
         }
     }
 
@@ -61,42 +50,24 @@ namespace Service.Services
     {
         public static OkObjectResult Success<T>(T data)
         {
-            return new OkObjectResult(PayloadPack.Success(data));
+            return new OkObjectResult(new Payload<T>()
+            {
+                code = PayloadCode.Success,
+                data = data,
+            });
         }
 
         public static OkObjectResult Fail(PayloadCode code)
         {
-            return new OkObjectResult(PayloadPack.Fail(code));
+            return new OkObjectResult(new Payload()
+            {
+                code = code,
+            });
         }
 
         public static NotFoundObjectResult Error(Exception ex)
         {
-            return new NotFoundObjectResult(PayloadPack.Error(ex));
+            return new NotFoundObjectResult(ex.ToMessage());
         }
     }
-
-    //public static class Payloader
-    //{
-    //    public static OkObjectResult Success<T>(T data)
-    //    {
-    //        return new OkObjectResult(new Payload<T>()
-    //        {
-    //            code = PayloadCode.Success,
-    //            data = data,
-    //        });
-    //    }
-
-    //    public static OkObjectResult Fail(PayloadCode code)
-    //    {
-    //        return new OkObjectResult(new Payload()
-    //        {
-    //            code = code,
-    //        });
-    //    }
-
-    //    public static NotFoundObjectResult Error(Exception ex)
-    //    {
-    //        return new NotFoundObjectResult(ex.ToMessage());
-    //    }
-    //}
 }
