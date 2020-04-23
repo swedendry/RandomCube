@@ -58,5 +58,24 @@ namespace AdminServer.Controllers
                 return Payloader.Error(ex);
             }
         }
+
+        [HttpPost("SkillData")]
+        public async Task<IActionResult> ParsingSkillData(IFormFile xml = null)
+        {
+            try
+            {
+                var datas = XMLNAME.CubeData.FindAll<SkillDataXml.Data>(xml, new SkillDataXml());
+
+                await _unitOfWork.SkillDatas.DeleteManyAsync();
+                await _unitOfWork.SkillDatas.AddAsync(_mapper.Map<IEnumerable<SkillData>>(datas));
+                await _unitOfWork.CommitAsync();
+
+                return Payloader.Success(datas.Count);
+            }
+            catch (Exception ex)
+            {
+                return Payloader.Error(ex);
+            }
+        }
     }
 }

@@ -1,12 +1,7 @@
 ﻿namespace Service.Services
 {
-    public enum CubeId : byte
+    public static class ServerDefine
     {
-        
-    }
-
-    public enum SkillId : byte
-    {
-
+        public static int MAX_ENTRY_SLOT = 5;
     }
 }

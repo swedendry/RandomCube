@@ -1,0 +1,43 @@
+﻿using Network;
+using UnityEngine;
+
+namespace UI.Login
+{
+    public class MainView : UIView
+    {
+        public override void Event(string param)
+        {
+            switch (param)
+            {
+                case "login":
+                    {
+                        Login();
+                    }
+                    break;
+            }
+        }
+
+        private void Login()
+        {
+            var id = SystemInfo.deviceUniqueIdentifier;
+            var name = SystemInfo.deviceName;
+
+            LobbyServer.sInstance.GetUser(id).Callback(
+            success: (data) =>
+            {
+                Router.CloseAndOpen("LobbyView");
+            },
+            fail: (code) =>
+            {
+                switch (code)
+                {
+                    case PayloadCode.DbNull:
+                        {
+                            Router.CloseAndOpen("RegisterView");
+                        }
+                        break;
+                }
+            });
+        }
+    }
+}

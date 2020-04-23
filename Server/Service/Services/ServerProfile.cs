@@ -12,6 +12,8 @@ namespace Service.Services
 
             CreateMap<CubeDataXml.Data, CubeData>();
             CreateMap<CubeData, CubeDataViewModel>();
+            CreateMap<SkillDataXml.Data, SkillData>();
+            CreateMap<SkillData, SkillDataViewModel>();
 
             CreateMap<User, UserViewModel>();
             CreateMap<Entry, EntryViewModel>();

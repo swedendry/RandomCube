@@ -14,6 +14,9 @@ namespace Service.Databases.Sql.Models
         [MaxLength(20)]
         public string Name { get; set; }
 
+        [Required]
+        public int Money { get; set; }
+
         public virtual Entry Entry { get; set; } = new Entry();
         public virtual IList<Cube> Cubes { get; set; } = new List<Cube>();
     }
@@ -22,6 +25,7 @@ namespace Service.Databases.Sql.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public int Money { get; set; }
 
         public EntryViewModel Entry { get; set; }
         public List<CubeViewModel> Cubes { get; set; }

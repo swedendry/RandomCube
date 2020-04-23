@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UI;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
+        XmlFactory.Load();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Router.CloseAndOpen("LoginView");
     }
 }

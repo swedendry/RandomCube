@@ -13,6 +13,7 @@ namespace Service.Databases.Sql
         public DbSet<Manager> Managers { get; set; }
 
         public DbSet<CubeData> CubeDatas { get; set; }
+        public DbSet<SkillData> SkillDatas { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Entry> Entries { get; set; }

@@ -24,9 +24,6 @@ namespace Service.Databases.Sql.Models
 
         [Required]
         public int Parts { get; set; }
-
-        [Required]
-        public int SkillId { get; set; }
     }
 
     public class CubeViewModel
@@ -34,7 +31,6 @@ namespace Service.Databases.Sql.Models
         public int CubeId { get; set; }
         public byte Lv { get; set; }
         public int Parts { get; set; }
-        public int SkillId { get; set; }
 
         public CubeDataViewModel CubeData { get; set; }
     }

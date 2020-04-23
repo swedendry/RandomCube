@@ -29,7 +29,7 @@ namespace LobbyServer
             services.AddControllers();
 
             services.AddDbContext<ServerContext>(options =>
-                    options.UseSqlServer(Configuration.GetSection("Sql:Cloud").Value));
+                    options.UseSqlServer(Configuration.GetSection(Define.Sql).Value));
 
             services.AddScoped<IServerUnitOfWork, ServerUnitOfWork>();
         }

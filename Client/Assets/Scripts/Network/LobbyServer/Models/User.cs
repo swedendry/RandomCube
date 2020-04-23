@@ -6,6 +6,7 @@ namespace Network.LobbyServer
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public int Money { get; set; }
 
         public EntryViewModel Entry { get; set; }
         public List<CubeViewModel> Cubes { get; set; }

@@ -32,7 +32,7 @@ namespace UI
 
         }
 
-        protected virtual void Event(string param)
+        public virtual void Event(string param)
         {
             OnEvent?.Invoke(param);
         }
@@ -70,7 +70,7 @@ namespace UI
             selectProps.Clear();
         }
 
-        protected virtual void Event(bool isSelected, Props<T> props)
+        public virtual void Event(bool isSelected, Props<T> props)
         {
             OnEventProps?.Invoke(isSelected, props);
         }

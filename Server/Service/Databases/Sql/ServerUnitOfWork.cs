@@ -8,6 +8,7 @@ namespace Service.Databases.Sql
         IRepository<Manager> Managers { get; }
 
         IRepository<CubeData> CubeDatas { get; }
+        IRepository<SkillData> SkillDatas { get; }
 
         IRepository<User> Users { get; }
         IRepository<Entry> Entries { get; }
@@ -25,6 +26,9 @@ namespace Service.Databases.Sql
 
         private IRepository<CubeData> cubeDatas;
         public IRepository<CubeData> CubeDatas => cubeDatas ??= new Repository<ServerUnitOfWork, CubeData>(this);
+
+        private IRepository<SkillData> skillDatas;
+        public IRepository<SkillData> SkillDatas => skillDatas ??= new Repository<ServerUnitOfWork, SkillData>(this);
 
         private IRepository<User> users;
         public IRepository<User> Users => users ??= new Repository<ServerUnitOfWork, User>(this);

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<WISECATXML>
+  <DATA SkillId="1" Name="AD" Percent="10" Duration="3" />
+  <DATA SkillId="2" Name="AS" Percent="10" Duration="3" />
+  <DATA SkillId="3" Name="Money" Percent="10" Duration="3" />
+  <DATA SkillId="4" Name="Slow" Percent="10" Duration="3" />
+  <DATA SkillId="5" Name="SP" Percent="10" Duration="3" />
+  <DATA SkillId="6" Name="Freezing" Percent="10" Duration="3" />
+  <DATA SkillId="7" Name="Poison" Percent="10" Duration="3" />
+</WISECATXML>

@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Service.Databases.Sql;
 using Service.Databases.Sql.Models;
+using Service.Extensions;
 using Service.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Service.Controllers
@@ -45,7 +48,11 @@ namespace Service.Controllers
         {
             try
             {
-                var entity = await _unitOfWork.Users.GetAsync(u => u.Id == id);
+                var entity = await _unitOfWork.Users.GetAsync(x => x.Id == id,
+                    eagerLoad: q => q.Include(x => x.Entry),
+                    explicitLoad: q => q.Include(x => x.Cubes).ThenInclude(x => x.CubeData),
+                    isTracking: true);
+
                 if (entity == null)
                     return Payloader.Fail(PayloadCode.DbNull);
 
@@ -62,7 +69,7 @@ namespace Service.Controllers
         {
             try
             {
-                var entity = await _unitOfWork.Users.GetAsync(u => u.Id == body.Id);
+                var entity = await _unitOfWork.Users.GetAsync(x => x.Id == body.Id);
                 if (entity != null)
                     return Payloader.Fail(PayloadCode.Duplication);
 
@@ -70,7 +77,10 @@ namespace Service.Controllers
                 {
                     Id = body.Id,
                     Name = body.Name,
+                    Money = 1000,
                 };
+
+                await UpdateCube(newEntity);
 
                 await _unitOfWork.Users.AddAsync(newEntity);
                 await _unitOfWork.CommitAsync();
@@ -88,7 +98,7 @@ namespace Service.Controllers
         {
             try
             {
-                var entity = await _unitOfWork.Users.GetAsync(u => u.Id == id, isTracking: true);
+                var entity = await _unitOfWork.Users.GetAsync(x => x.Id == id, isTracking: true);
                 if (entity == null)
                     return Payloader.Fail(PayloadCode.DbNull);
 
@@ -109,7 +119,7 @@ namespace Service.Controllers
         {
             try
             {
-                var entity = await _unitOfWork.Users.GetAsync(u => u.Id == id);
+                var entity = await _unitOfWork.Users.GetAsync(x => x.Id == id);
                 if (entity == null)
                     return Payloader.Fail(PayloadCode.DbNull);
 
@@ -122,6 +132,30 @@ namespace Service.Controllers
             {
                 return Payloader.Error(ex);
             }
+        }
+
+        private async Task UpdateCube(User user)
+        {
+            var allCubes = await _unitOfWork.CubeDatas.GetManyAsync(isTracking: true);
+            var cubes = allCubes.Random(ServerDefine.MAX_ENTRY_SLOT);
+
+            cubes.ForEach((x, i) =>
+            {
+                user.Cubes.Add(new Cube()
+                {
+                    UserId = user.Id,
+                    CubeId = x.CubeId,
+                    CubeData = x,
+                    Lv = 1,
+                    Parts = 0,
+                });
+            });
+
+            user.Entry = new Entry()
+            {
+                UserId = user.Id,
+                Slots = user.Cubes.Select(x => x.CubeId).ToArray(),
+            };
         }
     }
 }

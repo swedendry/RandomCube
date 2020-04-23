@@ -1,42 +1,44 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Pool
+namespace Pools
 {
-    public PoolObject poolObject;
-
-    protected readonly Queue<GameObject> entries = new Queue<GameObject>();
-
-    private int seq = 0;
-
-    public Pool(PoolObject poolObject)
+    public class Pool
     {
-        this.poolObject = poolObject;
-    }
+        public PoolObject poolObject;
 
-    private void Create()
-    {
-        var entity = Object.Instantiate(poolObject.dummy);
-        entity.name = entity.name + seq;
-        seq++;
-        entries.Enqueue(entity);
-    }
+        protected readonly Queue<GameObject> entries = new Queue<GameObject>();
 
-    public GameObject Get()
-    {
-        if (entries.Count <= 0)
-            Create();
+        private int seq = 0;
 
-        return entries.Dequeue();
-    }
+        public Pool(PoolObject poolObject)
+        {
+            this.poolObject = poolObject;
+        }
 
-    public void Return(GameObject entity)
-    {
-        entity.gameObject.SetActive(false);
-        entries.Enqueue(entity);
+        private void Create()
+        {
+            var entity = Object.Instantiate(poolObject.dummy);
+            entity.name = entity.name + seq;
+            seq++;
+            entries.Enqueue(entity);
+        }
+
+        public GameObject Get()
+        {
+            if (entries.Count <= 0)
+                Create();
+
+            return entries.Dequeue();
+        }
+
+        public void Return(GameObject entity)
+        {
+            entity.gameObject.SetActive(false);
+            entries.Enqueue(entity);
+        }
     }
 }
-
 //using System.Collections.Generic;
 
 //public class Pool<T> where T : Entity

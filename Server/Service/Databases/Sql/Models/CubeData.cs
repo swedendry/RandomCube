@@ -14,16 +14,20 @@ namespace Service.Databases.Sql.Models
         public string Name { get; set; }
 
         [Required]
-        public float Power { get; set; }
+        public float AD { get; set; }   //attack damage
 
         [Required]
-        public float Speed { get; set; }
+        public float AS { get; set; }   //attack speed
+
+        [Required]
+        public int SkillId { get; set; }
     }
 
     public class CubeDataViewModel
     {
         public string Name { get; set; }
-        public float Power { get; set; }
-        public float Speed { get; set; }
+        public float AD { get; set; } //attack damage
+        public float AS { get; set; } //attack speed
+        public int SkillId { get; set; }
     }
 }
