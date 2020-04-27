@@ -101,9 +101,6 @@ namespace GameServer.Contents
                 return false;
 
             var newUser = _mapper.Map<GameUser>(user);
-            newUser.State = UserState.Wait;
-            newUser.Life = 3;
-            newUser.SP = 100;
 
             _users.Add(newUser);
 
@@ -218,7 +215,10 @@ namespace GameServer.Contents
 
         public void CSID_CreateCube(string id)
         {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("CreateCube", PayloadPack.Success(new SC_CreateCube()
+            {
 
+            }));
         }
 
         public void CSID_MoveCube(string id)

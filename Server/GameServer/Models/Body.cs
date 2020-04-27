@@ -117,7 +117,7 @@ namespace GameServer.Models
     /// </summary>
     public class SC_Play
     {
-        
+
     }
 
     /// <summary>
@@ -126,5 +126,67 @@ namespace GameServer.Models
     public class SC_Wave
     {
 
+    }
+
+    /// <summary>
+    /// 큐브 생성 정보
+    /// </summary>
+    public class CS_CreateCube
+    {
+        public string Id { get; set; }
+        public GameCube NewCube { get; set; }
+    }
+
+    public class SC_CreateCube
+    {
+        public string Id { get; set; }
+        public GameCube NewCube { get; set; }
+    }
+
+    /// <summary>
+    /// 큐브 스왑 정보
+    /// </summary>
+    public class CS_CombineCube
+    {
+        public string Id { get; set; }
+        public GameCube NewCube { get; set; }
+        public List<GameCube> DeleteCubes { get; set; }
+    }
+
+    public class SC_CombineCube
+    {
+        public string Id { get; set; }
+        public GameCube NewCube { get; set; }
+        public List<GameCube> DeleteCubes { get; set; }
+    }
+
+    /// <summary>
+    /// 큐브 갱신 정보 : 이동
+    /// </summary>
+    public class CS_UpdateCube
+    {
+        public string Id { get; set; }
+        public GameCube Cube { get; set; }
+    }
+
+    public class SC_UpdateCube
+    {
+        public string Id { get; set; }
+        public GameCube Cube { get; set; }
+    }
+
+    /// <summary>
+    /// 몬스터 파괴 정보
+    /// </summary>
+    public class CS_DieMonster
+    {
+        public string Id { get; set; }
+        public GameCube Cube { get; set; }
+    }
+
+    public class SC_DieMonster
+    {
+        public string Id { get; set; }
+        public GameCube Cube { get; set; }
     }
 }
