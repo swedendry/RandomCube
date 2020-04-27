@@ -53,4 +53,14 @@ public partial class GameServer
 
         Send("ExitRoom", cs);
     }
+
+    public void CompleteLoading(string id)
+    {
+        var cs = new CS_CompleteLoading()
+        {
+            Id = id,
+        };
+
+        Send("CompleteLoading", cs);
+    }
 }

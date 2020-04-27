@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Network.GameServer;
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Cube : Entity
 {
@@ -16,15 +16,17 @@ public class Cube : Entity
     public float AP = 50f;
     public float AS = 1.5f;
     public int grade = 0;
+    private GameCube gameCube;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    public void Spawn(int grade)
+    public void Spawn(int grade, GameCube gameCube)
     {
         this.grade = grade;
+        this.gameCube = gameCube;
 
         grade_text.text = grade.ToString();
 

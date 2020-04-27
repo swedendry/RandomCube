@@ -49,11 +49,9 @@ namespace GameServer.Services
         private void CheckMatching()
         {
             var curtime = DateTime.UtcNow;
+            var users = _users.OrderBy(x => x.MatchTime).Take(ServerDefine.MAX_GAME_USER).ToList();
 
-            const int MAX_USER = 2;
-            var users = _users.OrderBy(x => x.MatchTime).Take(MAX_USER).ToList();
-
-            if (users.Count >= MAX_USER)
+            if (users.Count >= ServerDefine.MAX_GAME_USER)
             {   //매칭 성공
                 var groupName = Guid.NewGuid().ToString("d");
                 var connectionIds = users.Select(x => x.ConnectionId).ToArray();

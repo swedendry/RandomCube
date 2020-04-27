@@ -1,32 +1,28 @@
 ﻿using Extension;
+using Network.GameServer;
 using UnityEngine.UI;
 
 namespace UI.Game
 {
-    public class UserComponent : UIComponent
+    public class UserComponent : UIComponent<GameUser>
     {
-        public GameUser user;
+        public Team team;
         public Text sp_text;
         public Text life_text;
 
-        public override void Upsert()
-        {
-            base.Upsert();
-        }
-
         private void Update()
         {
-            sp_text.SetText(ServerInfo.MyUser.SP.ToString());
-            life_text.SetText(ServerInfo.MyUser.Life.ToString());
+            sp_text.SetText(props.data.SP.ToString());
+            life_text.SetText(props.data.Life.ToString());
         }
 
         public override void Event(string param)
         {
-            switch(param)
+            switch (param)
             {
                 case "Create":
                     {
-                        user.CreateCube();
+                        team?.CreateCube();
                     }
                     break;
             }

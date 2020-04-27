@@ -72,7 +72,11 @@ namespace GameServer.Services
             {
                 var user = GetUserByConnectionId(connectionId);
                 if (user != null)
+                {
+                    _matchService.Exit(user.Id);
+                    _roomService.Exit(user.Id);
                     _users.Remove(user);
+                }
             }
             catch (Exception)
             {
@@ -156,8 +160,18 @@ namespace GameServer.Services
                     result = _roomService.Enter(cs.GroupName, cs.User);
                 }
 
-                if (!result)
+                if (result)
+                {
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_EnterRoom()
+                    {
+                        User = cs.User,
+                        GroupName = cs.GroupName
+                    }));
+                }
+                else
+                {
                     await _context.Clients.Client(cs.User.ConnectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                }
             }
             catch (Exception ex)
             {
@@ -176,8 +190,17 @@ namespace GameServer.Services
                 if (user != null)
                     result = _roomService.Exit(id);
 
-                if (!result)
+                if (result)
+                {
+                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_ExitRoom()
+                    {
+                        Id = id,
+                    }));
+                }
+                else
+                {
                     await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                }
             }
             catch (Exception ex)
             {

@@ -1,22 +1,19 @@
-﻿using Network.LobbyServer;
+﻿using Network.GameServer;
+using Network.LobbyServer;
 using System.Collections.Generic;
-
-public class GameUserViewModel
-{
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public int SP { get; set; }
-    public int Life { get; set; }
-
-    public EntryViewModel Entry { get; set; }
-}
 
 public static class ServerInfo
 {
     public static UserViewModel User = new UserViewModel();
-
     public static List<GameUser> GameUsers = new List<GameUser>();
 
-    public static GameUserViewModel MyUser = new GameUserViewModel();
-    public static GameUserViewModel EnemyUser = new GameUserViewModel();
+    public static GameUser MyGameUser()
+    {
+        return GameUsers.Find(x => x.Id == User.Id);
+    }
+
+    public static GameUser EnemyGameUser()
+    {
+        return GameUsers.Find(x => x.Id != User.Id);
+    }
 }

@@ -75,10 +75,7 @@ namespace GameServer.Contents
                 Id = user.Id,
                 Name = user.Name,
                 ConnectionId = user.ConnectionId,
-                Entry = user.Entry,
                 Cubes = user.Cubes,
-                Life = 3,
-                SP = 100,
             });
 
             return true;

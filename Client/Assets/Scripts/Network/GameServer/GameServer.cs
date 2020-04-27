@@ -27,6 +27,8 @@ public partial class GameServer : MonoBehaviour
         }
         sInstance = this;
 
+        DontDestroyOnLoad(this);
+
         Init();
     }
 

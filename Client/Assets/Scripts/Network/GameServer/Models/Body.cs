@@ -1,4 +1,6 @@
-﻿namespace Network.GameServer
+﻿using System.Collections.Generic;
+
+namespace Network.GameServer
 {
     /// <summary>
     /// 로그인 정보
@@ -87,5 +89,42 @@
     public class SC_DeleteRoom
     {
         public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// 로딩 정보
+    /// </summary>
+    public class SC_Loading
+    {
+        public List<GameUser> Users { get; set; }
+    }
+
+    /// <summary>
+    /// 로딩 완료 정보
+    /// </summary>
+    public class CS_CompleteLoading
+    {
+        public string Id { get; set; }
+    }
+
+    public class SC_CompleteLoading
+    {
+        public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// 플레이 정보
+    /// </summary>
+    public class SC_Play
+    {
+
+    }
+
+    /// <summary>
+    /// 웨이브 정보
+    /// </summary>
+    public class SC_Wave
+    {
+
     }
 }

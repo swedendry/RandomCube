@@ -1,63 +1,59 @@
-﻿using BestHTTP.SignalRCore;
-using Network;
+﻿using Network;
 using Network.GameServer;
 using UI;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public Team blue;
+    public Team red;
+
     private void Start()
     {
-        GameServer.ActionConnected = Connected;
-        GameServer.ActionLogin = Login;
-        GameServer.ActionEnterMatch = EnterMatch;
-        GameServer.ActionExitMatch = ExitMatch;
-        GameServer.ActionSuccessMatch = SuccessMatch;
+        GameServer.ActionCompleteLoading = CompleteLoading;
+        GameServer.ActionPlay = Play;
+        GameServer.ActionWave = Wave;
+
+        Loading();
     }
 
-    private void Connected(HubConnection connection)
+    private void Loading()
     {
-        GameServer.sInstance.Login(ServerInfo.User.Id, ServerInfo.User.Name);
+        blue.Create(ServerInfo.MyGameUser(), Map.blue);
+        red.Create(ServerInfo.EnemyGameUser(), Map.red);
+
+        Router.CloseAndOpen("GameView");
+
+        GameServer.sInstance.CompleteLoading(ServerInfo.MyGameUser().Id);
     }
 
-    private void Login(Payloader<SC_Login> payloader)
+    private void CompleteLoading(Payloader<SC_CompleteLoading> payloader)
     {
         payloader.Callback(
                 success: (data) =>
                 {
-                    Router.CloseAndOpen("LobbyView");
+                    Debug.Log("CompleteLoading");
                 });
     }
 
-    private void EnterMatch(Payloader<SC_EnterMatch> payloader)
+    private void Play(Payloader<SC_Play> payloader)
     {
         payloader.Callback(
                 success: (data) =>
                 {
-                    Router.Open("MatchView");
+                    Debug.Log("Play");
                 });
     }
 
-    private void ExitMatch(Payloader<SC_ExitMatch> payloader)
+    private void Wave(Payloader<SC_Wave> payloader)
     {
         payloader.Callback(
                 success: (data) =>
                 {
-                    Router.Close("MatchView");
-                });
-    }
+                    Debug.Log("Wave");
 
-    private void SuccessMatch(Payloader<SC_SuccessMatch> payloader)
-    {
-        payloader.Callback(
-                success: (data) =>
-                {
-                    GameServer.sInstance.EnterRoom(data.GroupName, new RoomUser()
-                    {
-                        Id = ServerInfo.User.Id,
-                        Entry = ServerInfo.User.Entry,
-                        Cubes = ServerInfo.User.Cubes,
-                    });
+                    StartCoroutine(blue.CreateMonster());
+                    StartCoroutine(red.CreateMonster());
                 });
     }
 }

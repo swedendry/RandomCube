@@ -10,6 +10,10 @@ public partial class GameServer
     public static Action<Payloader<SC_SuccessMatch>> ActionSuccessMatch;
     public static Action<Payloader<SC_EnterRoom>> ActionEnterRoom;
     public static Action<Payloader<SC_ExitRoom>> ActionExitRoom;
+    public static Action<Payloader<SC_Loading>> ActionLoading;
+    public static Action<Payloader<SC_CompleteLoading>> ActionCompleteLoading;
+    public static Action<Payloader<SC_Play>> ActionPlay;
+    public static Action<Payloader<SC_Wave>> ActionWave;
 
     private void OnInvocation(string target, object[] arguments)
     {
@@ -54,6 +58,34 @@ public partial class GameServer
                 {
                     var payloader = new Payloader<SC_ExitRoom>();
                     ActionExitRoom?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "Loading":
+                {
+                    var payloader = new Payloader<SC_Loading>();
+                    ActionLoading?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "CompleteLoading":
+                {
+                    var payloader = new Payloader<SC_CompleteLoading>();
+                    ActionCompleteLoading?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "Play":
+                {
+                    var payloader = new Payloader<SC_Play>();
+                    ActionPlay?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "Wave":
+                {
+                    var payloader = new Payloader<SC_Wave>();
+                    ActionWave?.Invoke(payloader);
                     signalr.Call(payloader, arguments);
                 }
                 break;

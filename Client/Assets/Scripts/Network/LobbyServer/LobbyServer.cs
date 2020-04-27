@@ -22,6 +22,8 @@ public partial class LobbyServer : MonoBehaviour
             return;
         }
         sInstance = this;
+
+        DontDestroyOnLoad(this);
     }
 
     private void OnApplicationQuit()

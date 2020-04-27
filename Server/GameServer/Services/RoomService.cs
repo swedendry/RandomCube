@@ -12,6 +12,10 @@ namespace GameServer.Services
         bool Enter(string groupName, RoomUser user);
         bool Exit(string id);
         bool Delete(string groupName);
+
+        IRoom GetRoomByGroupName(string groupName);
+        IRoom GetRoomById(string id);
+        IRoom GetRoomByConnectionId(string connectionId);
     }
 
     public class RoomService : IRoomService
@@ -79,17 +83,17 @@ namespace GameServer.Services
             }
         }
 
-        private IRoom GetRoomByGroupName(string groupName)
+        public IRoom GetRoomByGroupName(string groupName)
         {
             return _rooms.Find(p => p.GroupName() == groupName);
         }
 
-        private IRoom GetRoomById(string id)
+        public IRoom GetRoomById(string id)
         {
             return _rooms.Find(p => p.GetUserById(id) != null);
         }
 
-        private IRoom GetRoomByConnectionId(string connectionId)
+        public IRoom GetRoomByConnectionId(string connectionId)
         {
             return _rooms.Find(p => p.GetUserByConnectionId(connectionId) != null);
         }

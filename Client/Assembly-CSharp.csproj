@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\Missile\Missile.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster\Monster.cs" />
+    <Compile Include="Assets\Scripts\Extension\RandomExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\TextExtension.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
@@ -108,8 +109,10 @@
     <Compile Include="Assets\Scripts\Pool\PoolFactory.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolObject.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolRegister.cs" />
+    <Compile Include="Assets\Scripts\UI\Game\Component\MyUserComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\Game\Component\SlotComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Component\UserComponent.cs" />
-    <Compile Include="Assets\Scripts\UI\Game\GameView.cs" />
+    <Compile Include="Assets\Scripts\UI\Game\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Component\UserComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Login\MainView.cs" />

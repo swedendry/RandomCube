@@ -2,6 +2,7 @@
 {
     public static class ServerDefine
     {
-        public static int MAX_ENTRY_SLOT = 5;
+        public const int MAX_GAME_USER = 2;
+        public const int MAX_ENTRY_SLOT = 5;
     }
 }

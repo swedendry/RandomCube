@@ -1,5 +1,4 @@
-﻿using Network.LobbyServer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Network.GameServer
@@ -18,13 +17,31 @@ namespace Network.GameServer
 
     public class RoomUser : User
     {
-        public EntryViewModel Entry { get; set; }
-        public List<CubeViewModel> Cubes { get; set; }
+        public List<GameCube> Cubes { get; set; }
+    }
+
+    public class GameCube
+    {
+        public byte SlotIndex { get; set; }
+        public int CubeId { get; set; }
+        public byte Lv { get; set; }
+        public byte GameLv { get; set; }
     }
 
     public class GameUser : RoomUser
     {
+        public UserState State { get; set; }
         public int Life { get; set; }
         public float SP { get; set; }
+    }
+
+    public enum UserState
+    {
+        Wait = 0,                   //대기중 
+        Disconnected,               //접속 끊김
+        CompleteLoading,	        //로딩 완료
+        Play,			            //플레이 중
+        EndWave,                    //웨이브 종료
+        End,                        //종료
     }
 }

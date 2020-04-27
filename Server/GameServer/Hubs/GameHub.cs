@@ -9,10 +9,12 @@ namespace GameServer.Hubs
     public class GameHub : Hub
     {
         private readonly IMainService _mainService;
+        private readonly IRoomService _roomService;
 
-        public GameHub(IMainService mainService)
+        public GameHub(IMainService mainService, IRoomService roomService)
         {
             _mainService = mainService;
+            _roomService = roomService;
         }
 
         public override Task OnConnectedAsync()
@@ -50,6 +52,12 @@ namespace GameServer.Hubs
         public void ExitRoom(CS_ExitRoom cs)
         {
             _mainService.ExitRoom(Context.ConnectionId, cs.Id);
+        }
+
+        public void CompleteLoading(CS_CompleteLoading cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_CompleteLoading(cs.Id);
         }
     }
 }
