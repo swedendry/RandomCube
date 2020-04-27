@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace GameServer.Models
 {
@@ -17,10 +18,10 @@ namespace GameServer.Models
 
     public class RoomUser : User
     {
-        public List<GameCube> Cubes { get; set; }
+        public List<GameSlot> Slots { get; set; }
     }
 
-    public class GameCube
+    public class GameSlot
     {
         public byte SlotIndex { get; set; }
         public int CubeId { get; set; }
@@ -28,11 +29,18 @@ namespace GameServer.Models
         public byte GameLv { get; set; } = 1;
     }
 
+    public class GameCube
+    {
+        public int CubeId { get; set; }
+        public Vector3 Position { get; set; }
+    }
+
     public class GameUser : RoomUser
     {
         public UserState State { get; set; }
         public int Life { get; set; } = 3;
         public float SP { get; set; } = 100;
+        public List<GameCube> Cubes { get; set; } = new List<GameCube>();
     }
 
     public enum UserState

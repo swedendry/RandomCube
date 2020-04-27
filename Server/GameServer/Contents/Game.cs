@@ -75,7 +75,7 @@ namespace GameServer.Contents
                 Id = user.Id,
                 Name = user.Name,
                 ConnectionId = user.ConnectionId,
-                Cubes = user.Cubes,
+                Slots = user.Slots,
             });
 
             return true;

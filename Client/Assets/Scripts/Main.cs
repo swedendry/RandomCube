@@ -63,11 +63,11 @@ public class Main : MonoBehaviour
                 {
                     Debug.Log("SuccessMatch");
 
-                    var cubes = ServerInfo.User.Entry.Slots.ToList().Select((x, i) =>
+                    var slots = ServerInfo.User.Entry.Slots.ToList().Select((x, i) =>
                     {
                         var cube = ServerInfo.User.Cubes.Find(c => c.CubeId == x);
 
-                        return new GameCube()
+                        return new GameSlot()
                         {
                             SlotIndex = (byte)i,
                             CubeId = cube.CubeId,
@@ -78,7 +78,7 @@ public class Main : MonoBehaviour
                     GameServer.sInstance.EnterRoom(data.GroupName, new RoomUser()
                     {
                         Id = ServerInfo.User.Id,
-                        Cubes = cubes,
+                        Slots = slots,
                     });
                 });
     }
