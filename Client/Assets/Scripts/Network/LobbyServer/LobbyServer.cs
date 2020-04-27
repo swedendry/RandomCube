@@ -6,7 +6,8 @@ public partial class LobbyServer : MonoBehaviour
 {
     public static LobbyServer sInstance;
 
-    public string BaseUri = "https://localhost:44324/";
+    public string BaseUri = "https://test-lobby.azurewebsites.net/";
+    //public string BaseUri = "https://localhost:44324/";
 
     private readonly PayloadHttp http = new PayloadHttp();
 

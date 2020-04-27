@@ -2,6 +2,7 @@
 using GameServer.Hubs;
 using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
+using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,6 @@ namespace GameServer.Services
 
     public class MatchService : IMatchService
     {
-        public Action<List<MatchUser>> OnMatch;
-
         private readonly IHubContext<GameHub> _context;
         private readonly IMapper _mapper;
 
@@ -30,6 +29,7 @@ namespace GameServer.Services
         {
             _context = context;
             _mapper = mapper;
+            _timer.Interval = 1000; _timer.Elapsed += OnTimedEvent;
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -55,7 +55,12 @@ namespace GameServer.Services
 
             if (users.Count >= MAX_USER)
             {   //매칭 성공
-                OnMatch?.Invoke(users);
+                var groupName = Guid.NewGuid().ToString("d");
+                var connectionIds = users.Select(x => x.ConnectionId).ToArray();
+                _context.Clients.Clients(connectionIds).SendCoreAsync("SuccessMatch", PayloadPack.Success(new SC_SuccessMatch()
+                {
+                    GroupName = groupName,
+                }));
 
                 users.ForEach(x => _users.Remove(x));
             }

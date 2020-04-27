@@ -44,12 +44,12 @@ namespace GameServer.Hubs
 
         public void EnterRoom(CS_EnterRoom cs)
         {
-            _mainService.EnterMatch(Context.ConnectionId, cs.Id);
+            _mainService.EnterRoom(Context.ConnectionId, cs);
         }
 
         public void ExitRoom(CS_ExitRoom cs)
         {
-            _mainService.ExitMatch(Context.ConnectionId, cs.Id);
+            _mainService.ExitRoom(Context.ConnectionId, cs.Id);
         }
     }
 }

@@ -6,9 +6,12 @@ using UnityEngine;
 
 public partial class GameServer : MonoBehaviour
 {
+    public static Action<HubConnection> ActionConnected;
+
     public static GameServer sInstance;
 
-    public string BaseUri = "https://localhost:44341/game";
+    public string BaseUri = "https://test-game.azurewebsites.net/game";
+    //public string BaseUri = "https://localhost:44341/game";
 
     private readonly PayloadSignalr signalr = new PayloadSignalr();
 
@@ -54,7 +57,7 @@ public partial class GameServer : MonoBehaviour
 
     private void OnConnected(HubConnection connection)
     {
-        Debug.Log("OnConnected");
+        ActionConnected?.Invoke(connection);
     }
 
     private void OnClosed(HubConnection connection)

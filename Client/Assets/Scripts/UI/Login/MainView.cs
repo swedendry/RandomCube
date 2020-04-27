@@ -25,7 +25,7 @@ namespace UI.Login
             LobbyServer.sInstance.GetUser(id).Callback(
             success: (data) =>
             {
-                Router.CloseAndOpen("LobbyView");
+                GameServer.sInstance.Connect();
             },
             fail: (code) =>
             {

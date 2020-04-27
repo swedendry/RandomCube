@@ -41,16 +41,26 @@
     }
 
     /// <summary>
+    /// 매칭 성공 정보
+    /// </summary>
+    public class SC_SuccessMatch
+    {
+        public string GroupName { get; set; }
+    }
+
+    /// <summary>
     /// 룸 진입 정보
     /// </summary>
     public class CS_EnterRoom
     {
-        public string Id { get; set; }
+        public RoomUser User { get; set; }
+        public string GroupName { get; set; }
     }
 
     public class SC_EnterRoom
     {
-        public string Id { get; set; }
+        public RoomUser User { get; set; }
+        public string GroupName { get; set; }
     }
 
     /// <summary>

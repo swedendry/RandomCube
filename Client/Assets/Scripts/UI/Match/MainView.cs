@@ -1,4 +1,4 @@
-﻿namespace UI.Lobby
+﻿namespace UI.Match
 {
     public class MainView : UIView
     {
@@ -6,9 +6,9 @@
         {
             switch (param)
             {
-                case "match":
+                case "cancel":
                     {
-                        GameServer.sInstance.EnterMatch(ServerInfo.User.Id);
+                        GameServer.sInstance.ExitMatch(ServerInfo.User.Id);
                     }
                     break;
             }

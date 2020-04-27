@@ -1,4 +1,5 @@
 ﻿using Network.LobbyServer;
+using System.Collections.Generic;
 
 public class GameUserViewModel
 {
@@ -13,6 +14,8 @@ public class GameUserViewModel
 public static class ServerInfo
 {
     public static UserViewModel User = new UserViewModel();
+
+    public static List<GameUser> GameUsers = new List<GameUser>();
 
     public static GameUserViewModel MyUser = new GameUserViewModel();
     public static GameUserViewModel EnemyUser = new GameUserViewModel();

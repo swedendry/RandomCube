@@ -34,7 +34,7 @@ namespace UI.Register
             LobbyServer.sInstance.CreateUser(body).Callback(
             success: (data) =>
             {
-                Router.CloseAndOpen("LobbyView");
+                GameServer.sInstance.Connect();
             });
         }
     }

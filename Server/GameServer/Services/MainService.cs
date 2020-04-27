@@ -14,6 +14,8 @@ namespace GameServer.Services
         Task Logout(string connectionId);
         Task EnterMatch(string connectionId, string id);
         Task ExitMatch(string connectionId, string id);
+        Task EnterRoom(string connectionId, CS_EnterRoom cs);
+        Task ExitRoom(string connectionId, string id);
     }
 
     public class MainService : IMainService
@@ -29,6 +31,7 @@ namespace GameServer.Services
             _context = context;
             _matchService = matchService;
             _roomService = roomService;
+
         }
 
         public async Task Login(string connectionId, string id, string name)
@@ -137,23 +140,28 @@ namespace GameServer.Services
             }
         }
 
-        public async Task EnterRoom(string connectionId, string groupName, RoomUser roomUser)
+        public async Task EnterRoom(string connectionId, CS_EnterRoom cs)
         {
             var method = "EnterRoom";
 
             try
             {
                 var result = false;
-                var user = GetUserById(roomUser.Id);
+                var user = GetUserById(cs.User.Id);
                 if (user != null)
-                    result = _roomService.Enter(groupName, roomUser);
+                {
+                    cs.User.ConnectionId = connectionId;
+                    cs.User.Name = user.Name;
+
+                    result = _roomService.Enter(cs.GroupName, cs.User);
+                }
 
                 if (!result)
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients.Client(cs.User.ConnectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
+                await _context.Clients.Client(cs.User.ConnectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 

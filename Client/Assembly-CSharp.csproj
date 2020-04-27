@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Entity\Missile\Missile.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Extension\TextExtension.cs" />
+    <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\GameUser.cs" />
     <Compile Include="Assets\Scripts\Game\Team.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\Scripts\UI\Lobby\Component\UserComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Login\MainView.cs" />
+    <Compile Include="Assets\Scripts\UI\Match\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Register\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Route.cs" />
     <Compile Include="Assets\Scripts\UI\Router.cs" />
