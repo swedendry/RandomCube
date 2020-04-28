@@ -33,7 +33,8 @@ namespace GameServer.Models
     {
         public int CubeId { get; set; }
         public byte CombineLv { get; set; } = 1;
-        public Vector3 Position { get; set; }
+        public float PositionX { get; set; }
+        public float PositionY { get; set; }
     }
 
     public class GameUser : RoomUser
