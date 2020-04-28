@@ -63,4 +63,15 @@ public partial class GameServer
 
         Send("CompleteLoading", cs);
     }
+
+    public void CreateCube(string id, GameCube cube)
+    {
+        var cs = new CS_CreateCube()
+        {
+            Id = id,
+            NewCube = cube,
+        };
+
+        Send("CreateCube", cs);
+    }
 }

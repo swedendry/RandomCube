@@ -9,6 +9,7 @@ public class MultiGame : Game
         GameServer.ActionCompleteLoading = CompleteLoading;
         GameServer.ActionPlay = Play;
         GameServer.ActionWave = Wave;
+        GameServer.ActionCreateCube = CreateCube;
 
         base.Start();
     }
@@ -47,6 +48,21 @@ public class MultiGame : Game
 
                     StartCoroutine(blue.CreateMonster());
                     StartCoroutine(red.CreateMonster());
+                });
+    }
+
+    private void CreateCube(Payloader<SC_CreateCube> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    Debug.Log("CreateCube");
+
+                    var isMe = (ServerInfo.User.Id == data.Id);
+                    if(!isMe)
+                    {
+                        red.CreateCube();
+                    }
                 });
     }
 }

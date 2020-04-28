@@ -54,7 +54,7 @@ public class Cube : Entity
 
         var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
         render.material.color = color;
-        range.material.color = new Color(color.r, color.g, color.b, 0.2f);
+        range.material.color = new Color(color.r, color.g, color.b, 0.1f);
 
         combineLv_text.text = combineLv.ToString();
 
@@ -65,18 +65,12 @@ public class Cube : Entity
 
     public void Selected()
     {
-        //anim.Play("Cube_Selected");
-
         range.gameObject.SetActive(true);
-        //anim.SetBool("Selected", true);
     }
 
     public void DeSelected()
     {
-        //anim.Stop("Cube_Selected");
-
         range.gameObject.SetActive(false);
-        //anim.SetBool("Selected", false);
     }
 
     public void Move(Vector3 position)
@@ -86,7 +80,7 @@ public class Cube : Entity
         base.Move(position, speed);
 
         anim.Play("Cube_Move");
-        //anim.SetBool("Move", true);
+
         StopShot();
     }
 

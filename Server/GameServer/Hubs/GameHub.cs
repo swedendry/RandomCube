@@ -59,5 +59,11 @@ namespace GameServer.Hubs
             var room = _roomService.GetRoomById(cs.Id);
             room?.CSID_CompleteLoading(cs.Id);
         }
+
+        public void CreateCube(CS_CreateCube cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_CreateCube(cs);
+        }
     }
 }

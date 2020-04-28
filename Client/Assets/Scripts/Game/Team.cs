@@ -14,6 +14,11 @@ public class Team : MonoBehaviour
     private Zone zone;
     private GameUser user;
 
+    private void Start()
+    {
+        
+    }
+
     public void Create(GameUser user, Zone zone)
     {
         this.user = user;
@@ -38,9 +43,23 @@ public class Team : MonoBehaviour
         CreateCube(combineLv, new Vector3(x, y, 0f));
     }
 
+    public void CreateCube(GameCube gameCube)
+    {
+        var gameSlot = user.Slots.Find(x => x.CubeId == gameCube.CubeId);
+        var cube = PoolFactory.Get<Cube>("Cube");
+        cube.transform.parent = transform;
+        cube.transform.localPosition = new Vector3(gameCube.PositionX, gameCube.PositionY, 0f);
+        cube.transform.localRotation = Quaternion.identity;
+        cube.gameObject.SetActive(true);
+        cube.OnShot = OnShot;
+        cube.OnCombine = OnCombine;
+        cube.Spawn(gameCube.CombineLv, gameSlot);
+        cubes.Add(cube);
+    }
+
     public void CreateCube(byte combineLv, Vector3 position)
     {
-        var gameCube = user.Slots.Random();
+        var gameSlot = user.Slots.Random();
 
         var cube = PoolFactory.Get<Cube>("Cube");
         cube.transform.parent = transform;
@@ -49,8 +68,18 @@ public class Team : MonoBehaviour
         cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cube.OnCombine = OnCombine;
-        cube.Spawn(combineLv, gameCube);
+        cube.Spawn(combineLv, gameSlot);
         cubes.Add(cube);
+
+        var gameCube = new GameCube()
+        {
+            CubeId = gameSlot.CubeId,
+            CombineLv = combineLv,
+            PositionX = cube.transform.position.x,
+            PositionY = cube.transform.position.y,
+        };
+
+        GameServer.sInstance.CreateCube(user.Id, gameCube);
     }
 
     public IEnumerator CreateMonster()

@@ -25,12 +25,13 @@ namespace GameServer.Contents
         bool Enter(RoomUser user);
         bool Exit(string id);
 
-        void CSID_CompleteLoading(string id);
-
         string GroupName();
         int UserCount();
         GameUser GetUserById(string id);
         GameUser GetUserByConnectionId(string connectionId);
+
+        void CSID_CompleteLoading(string id);
+        void CSID_CreateCube(CS_CreateCube cs);
     }
 
     public class Room : IRoom
@@ -213,11 +214,12 @@ namespace GameServer.Contents
             }));
         }
 
-        public void CSID_CreateCube(string id)
+        public void CSID_CreateCube(CS_CreateCube cs)
         {
             _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("CreateCube", PayloadPack.Success(new SC_CreateCube()
             {
-
+                Id = cs.Id,
+                NewCube = cs.NewCube,
             }));
         }
 
