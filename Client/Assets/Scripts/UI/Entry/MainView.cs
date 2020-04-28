@@ -1,4 +1,4 @@
-﻿namespace UI.Lobby
+﻿namespace UI.Entry
 {
     public class MainView : UIView
     {

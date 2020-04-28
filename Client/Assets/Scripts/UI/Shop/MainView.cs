@@ -1,7 +1,7 @@
-﻿namespace UI.Lobby
+﻿namespace UI.Shop
 {
     public class MainView : UIView
     {
-        
+
     }
 }
