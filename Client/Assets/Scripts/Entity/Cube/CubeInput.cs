@@ -12,7 +12,7 @@ public class CubeInput : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 10000f, layerMask))
             {
-                var cube = hit.collider.GetComponent<Cube>();
+                var cube = hit.collider.GetComponentInParent<Cube>();
                 if (cube)
                 {   //cube
                     if (selectedCube)
@@ -40,7 +40,7 @@ public class CubeInput : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit, 10000f, layerMask))
                 {
-                    var cube = hit.collider.GetComponent<Cube>();
+                    var cube = hit.collider.GetComponentInParent<Cube>();
                     if (cube)
                     {
                         selectedCube.Combine(cube);

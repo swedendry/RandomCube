@@ -40,7 +40,7 @@ public class Team : MonoBehaviour
 
     public void CreateCube(int grade, Vector3 position)
     {
-        var gameCube = user.Cubes.Random();
+        var gameCube = user.Slots.Random();
 
         var cube = PoolFactory.Get<Cube>("Cube");
         cube.transform.parent = transform;
@@ -84,9 +84,25 @@ public class Team : MonoBehaviour
         monsters.Add(monster);
     }
 
+    private Monster GetShotTarget(Cube owner)
+    {
+        var center = owner.transform.position;
+        var radius = (owner.grade * 1f);
+        var targets = new List<Monster>();
+        monsters.ForEach(x =>
+        {
+            var target = x.transform.position;
+            var distance = Vector3.Distance(center, target);
+            if (distance <= radius)
+                targets.Add(x);
+        });
+
+        return targets.FirstOrDefault();
+    }
+
     private void OnShot(Cube owner)
     {
-        var target = monsters.FirstOrDefault();
+        var target = GetShotTarget(owner);
         if (!target)
             return;
 

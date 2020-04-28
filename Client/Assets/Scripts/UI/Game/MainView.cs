@@ -4,14 +4,16 @@
     {
         private UserComponent userComponent;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
+
             userComponent = GetUIComponent<UserComponent>();
         }
 
         private void OnEnable()
         {
-            userComponent.Upsert();
+            userComponent.Upsert(ServerInfo.MyGameUser());
         }
     }
 }

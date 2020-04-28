@@ -19,7 +19,7 @@ namespace Pools
         private void Create()
         {
             var entity = Object.Instantiate(poolObject.dummy);
-            entity.name = entity.name + seq;
+            entity.name += seq;
             seq++;
             entries.Enqueue(entity);
         }

@@ -8,25 +8,78 @@ public class Cube : Entity
     public Action<Cube> OnShot;
     public Action<Cube, Cube> OnCombine;
 
+    public Renderer range;
+    private Animation anim;
+    private Renderer render;
+
     public TextMesh grade_text;
 
     public float speed = 5.0f;
-    private Animator anim;
     private IEnumerator coroutineShot;
+    [NonSerialized]
     public float AP = 50f;
-    public float AS = 1.5f;
-    public int grade = 0;
-    private GameCube gameCube;
+    [NonSerialized]
+    public float AS = 0.1f;
+    [NonSerialized]
+    public int grade = 1;
+    private GameSlot gameSlot;
 
-    private void Start()
+    private void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animation>();
+        render = GetComponentInChildren<Renderer>();
+
+        range.gameObject.SetActive(false);
     }
 
-    public void Spawn(int grade, GameCube gameCube)
+    public void Spawn(int grade, GameSlot gameSlot)
     {
         this.grade = grade;
-        this.gameCube = gameCube;
+        this.gameSlot = gameSlot;
+
+        var color = new Color(0f, 0f, 0f);
+        switch (gameSlot.CubeId)
+        {
+            case 1:
+                {
+                    color.r = 1f; color.g = 0f; color.b = 0f;
+                }
+                break;
+            case 2:
+                {
+                    color.r = 1f; color.g = 0.4f; color.b = 0f;
+                }
+                break;
+            case 3:
+                {
+                    color.r = 1f; color.g = 1f; color.b = 0f;
+                }
+                break;
+            case 4:
+                {
+                    color.r = 0f; color.g = 1f; color.b = 0f;
+                }
+                break;
+            case 5:
+                {
+                    color.r = 0f; color.g = 0f; color.b = 1f;
+                }
+                break;
+            case 6:
+                {
+                    color.r = 0f; color.g = 0.4f; color.b = 1f;
+                }
+                break;
+            case 7:
+                {
+                    color.r = 1f; color.g = 0f; color.b = 1f;
+                }
+                break;
+            default:
+                break;
+        }
+        render.material.color = color;
+        range.material.color = new Color(color.r, color.g, color.b, 0.2f);
 
         grade_text.text = grade.ToString();
 
@@ -37,12 +90,18 @@ public class Cube : Entity
 
     public void Selected()
     {
-        anim.SetBool("Selected", true);
+        //anim.Play("Cube_Selected");
+
+        range.gameObject.SetActive(true);
+        //anim.SetBool("Selected", true);
     }
 
     public void DeSelected()
     {
-        anim.SetBool("Selected", false);
+        //anim.Stop("Cube_Selected");
+
+        range.gameObject.SetActive(false);
+        //anim.SetBool("Selected", false);
     }
 
     public void Move(Vector3 position)
@@ -51,7 +110,8 @@ public class Cube : Entity
 
         base.Move(position, speed);
 
-        anim.SetBool("Move", true);
+        anim.Play("Cube_Move");
+        //anim.SetBool("Move", true);
         StopShot();
     }
 
@@ -64,13 +124,14 @@ public class Cube : Entity
 
         Move(cube.transform.position, speed, "CombineComplete", cube);
 
-        anim.SetBool("Move", true);
+        anim.Play("Cube_Move");
         StopShot();
     }
 
     protected override void MoveComplete(object cmpParams)
     {
-        anim.SetBool("Move", false);
+        anim.Stop("Cube_Move");
+        anim.transform.localRotation = Quaternion.identity;
 
         coroutineShot = CoroutineShot();
         StartCoroutine(coroutineShot);
@@ -78,7 +139,8 @@ public class Cube : Entity
 
     protected void CombineComplete(object cmpParams)
     {
-        anim.SetBool("Move", false);
+        anim.Stop("Cube_Move");
+        anim.transform.localRotation = Quaternion.identity;
 
         OnCombine?.Invoke(this, (Cube)cmpParams);
     }
@@ -103,10 +165,11 @@ public class Cube : Entity
 
     private IEnumerator CoroutineShot()
     {
+        Debug.Log("Shot : " + AS);
+
         Shot();
 
-        var delay = 1f / AS;
-        yield return new WaitForSeconds(1f / delay);
+        yield return new WaitForSeconds(AS);
 
         StartShot();
     }

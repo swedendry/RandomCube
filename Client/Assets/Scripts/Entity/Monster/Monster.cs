@@ -20,7 +20,7 @@ public class Monster : Entity
     public TextMesh hp_text;
 
     private List<Transform> paths;
-    private float speed = 1f;
+    private float speed = 0.5f;
     private float hp = 400f;
     private State state = State.Spawn;
     private readonly Dictionary<string, GameObject> skills = new Dictionary<string, GameObject>();

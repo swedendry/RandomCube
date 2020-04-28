@@ -10,6 +10,9 @@ public class Main : MonoBehaviour
 {
     private void Start()
     {
+        MapperFactory.Register();
+        XmlFactory.Load();
+
         GameServer.ActionConnected = Connected;
         GameServer.ActionLogin = Login;
         GameServer.ActionEnterMatch = EnterMatch;
@@ -18,8 +21,6 @@ public class Main : MonoBehaviour
         GameServer.ActionEnterRoom = EnterRoom;
         GameServer.ActionExitRoom = ExitRoom;
         GameServer.ActionLoading = Loading;
-
-        XmlFactory.Load();
 
         Router.CloseAndOpen("LoginView");
     }

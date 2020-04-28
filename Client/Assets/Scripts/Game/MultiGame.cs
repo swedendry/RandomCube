@@ -1,28 +1,21 @@
 ﻿using Network;
 using Network.GameServer;
-using UI;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class MultiGame : Game
 {
-    public Team blue;
-    public Team red;
-
-    private void Start()
+    protected override void Start()
     {
         GameServer.ActionCompleteLoading = CompleteLoading;
         GameServer.ActionPlay = Play;
         GameServer.ActionWave = Wave;
 
-        Loading();
+        base.Start();
     }
 
-    private void Loading()
+    protected override void Loading()
     {
-        blue.Create(ServerInfo.MyGameUser(), Map.blue);
-        red.Create(ServerInfo.EnemyGameUser(), Map.red);
-
-        Router.CloseAndOpen("GameView");
+        base.Loading();
 
         GameServer.sInstance.CompleteLoading(ServerInfo.MyGameUser().Id);
     }
