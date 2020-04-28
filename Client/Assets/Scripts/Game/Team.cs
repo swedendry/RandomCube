@@ -27,7 +27,7 @@ public class Team : MonoBehaviour
         CreateCube(1);
     }
 
-    public void CreateCube(int grade)
+    public void CreateCube(byte combineLv)
     {
         var box = zone.box.GetComponent<BoxCollider>();
         var min = box.bounds.min;
@@ -35,10 +35,10 @@ public class Team : MonoBehaviour
         var x = Random.Range(min.x, max.x);
         var y = Random.Range(min.y, max.y);
 
-        CreateCube(grade, new Vector3(x, y, 0f));
+        CreateCube(combineLv, new Vector3(x, y, 0f));
     }
 
-    public void CreateCube(int grade, Vector3 position)
+    public void CreateCube(byte combineLv, Vector3 position)
     {
         var gameCube = user.Slots.Random();
 
@@ -49,7 +49,7 @@ public class Team : MonoBehaviour
         cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cube.OnCombine = OnCombine;
-        cube.Spawn(grade, gameCube);
+        cube.Spawn(combineLv, gameCube);
         cubes.Add(cube);
     }
 
@@ -87,7 +87,7 @@ public class Team : MonoBehaviour
     private Monster GetShotTarget(Cube owner)
     {
         var center = owner.transform.position;
-        var radius = (owner.grade * 1f);
+        var radius = (owner.combineLv * 1f);
         var targets = new List<Monster>();
         monsters.ForEach(x =>
         {
@@ -117,7 +117,7 @@ public class Team : MonoBehaviour
 
     private void OnCombine(Cube owner, Cube target)
     {
-        var grade = owner.grade;
+        var combineLv = owner.combineLv;
         var position = target.transform.position;
 
         cubes.Remove(owner);
@@ -126,7 +126,7 @@ public class Team : MonoBehaviour
         cubes.Remove(target);
         PoolFactory.Return("Cube", target);
 
-        CreateCube(grade + 1, position);
+        CreateCube((byte)(combineLv + 1), position);
     }
 
     private void OnHit(Cube owner, Monster target, Missile collider)

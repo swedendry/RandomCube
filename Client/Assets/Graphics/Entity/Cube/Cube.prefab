@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 6189636322102260672}
   - component: {fileID: 6851880175385891098}
   m_Layer: 11
-  m_Name: Grade
+  m_Name: CombineLv
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,8 +344,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: {fileID: 2798876017029408911}
-  grade_text: {fileID: 6851880175385891098}
+  combineLv_text: {fileID: 6851880175385891098}
   speed: 5
-  AP: 50
-  AS: 1.5
-  grade: 0

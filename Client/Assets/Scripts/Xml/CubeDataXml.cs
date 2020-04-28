@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Linq;
+using System.Xml;
 using Xmls;
 
 public class CubeDataXml : Xml
@@ -10,6 +11,7 @@ public class CubeDataXml : Xml
         public float AD { get; set; } //attack damage
         public float AS { get; set; } //attack speed
         public int SkillId { get; set; }
+        public float[] Color { get; set; }
     }
 
     public override bool Set(XmlNode node)
@@ -20,6 +22,7 @@ public class CubeDataXml : Xml
         data.AD = GetValue<float>(node, "AD");
         data.AS = GetValue<float>(node, "AS");
         data.SkillId = GetValue<int>(node, "SkillId");
+        data.Color = GetSplitValue<float>(node, "Color", ',').ToArray();
 
         _datas.Add(data);
         return true;

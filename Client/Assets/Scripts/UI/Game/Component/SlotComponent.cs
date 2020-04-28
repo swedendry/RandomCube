@@ -13,7 +13,7 @@ namespace UI.Game
         {
             base.Upsert(data);
 
-            lv_text.SetText(data?.GameLv.ToString());
+            lv_text.SetText(data?.SlotLv.ToString());
         }
     }
 }

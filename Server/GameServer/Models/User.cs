@@ -24,14 +24,15 @@ namespace GameServer.Models
     public class GameSlot
     {
         public byte SlotIndex { get; set; }
+        public byte SlotLv { get; set; } = 1;
         public int CubeId { get; set; }
-        public byte Lv { get; set; }
-        public byte GameLv { get; set; } = 1;
+        public byte CubeLv { get; set; }
     }
 
     public class GameCube
     {
         public int CubeId { get; set; }
+        public byte CombineLv { get; set; } = 1;
         public Vector3 Position { get; set; }
     }
 

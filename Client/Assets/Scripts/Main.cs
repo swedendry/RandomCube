@@ -72,7 +72,7 @@ public class Main : MonoBehaviour
                         {
                             SlotIndex = (byte)i,
                             CubeId = cube.CubeId,
-                            Lv = cube.Lv,
+                            CubeLv = cube.Lv,
                         };
                     }).ToList();
 

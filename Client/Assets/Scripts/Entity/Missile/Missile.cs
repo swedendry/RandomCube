@@ -9,7 +9,14 @@ public class Missile : Entity
     private Monster target;
     private readonly float speed = 10f;
     private bool shoting = false;
-    
+
+    private Renderer render;
+
+    private void Awake()
+    {
+        render = GetComponentInChildren<Renderer>();
+    }
+
     private void Update()
     {
         if (!shoting || target == null)
@@ -31,6 +38,9 @@ public class Missile : Entity
 
         this.owner = owner;
         this.target = target;
+
+        var cubeData = owner.cubeData;
+        render.material.color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
     }
 
     private void Hit()

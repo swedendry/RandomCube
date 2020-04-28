@@ -24,23 +24,24 @@ namespace Network.GameServer
     public class GameSlot
     {
         public byte SlotIndex { get; set; }
+        public byte SlotLv { get; set; } = 1;
         public int CubeId { get; set; }
-        public byte Lv { get; set; }
-        public byte GameLv { get; set; } = 1;
+        public byte CubeLv { get; set; }
     }
 
     public class GameCube
     {
         public int CubeId { get; set; }
+        public byte CombineLv { get; set; } = 1;
         public Vector3 Position { get; set; }
     }
 
     public class GameUser : RoomUser
     {
-        public UserState State { get; set; }
+        public UserState State { get; set; } = UserState.Wait;
         public int Life { get; set; } = 3;
         public float SP { get; set; } = 100;
-        public List<GameCube> Cubes { get; set; }
+        public List<GameCube> Cubes { get; set; } = new List<GameCube>();
     }
 
     public enum UserState

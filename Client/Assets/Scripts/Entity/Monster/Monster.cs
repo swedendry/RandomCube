@@ -82,7 +82,7 @@ public class Monster : Entity
         if (state != State.Move)
             return;
 
-        hp -= cube.AP;
+        hp -= cube.AD();
         hp_text.text = ((int)hp).ToString();
 
         var skillKey = "Skill_Ice";

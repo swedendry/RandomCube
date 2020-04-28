@@ -1,4 +1,5 @@
 ﻿using Service.Services;
+using System.Linq;
 using System.Xml;
 
 namespace Service.Xmls
@@ -12,6 +13,7 @@ namespace Service.Xmls
             public float AD { get; set; } //attack damage
             public float AS { get; set; } //attack speed
             public int SkillId { get; set; }
+            public float[] Color { get; set; }
         }
 
         public override bool Set(XmlNode node)
@@ -22,6 +24,7 @@ namespace Service.Xmls
             data.AD = GetValue<float>(node, "AD");
             data.AS = GetValue<float>(node, "AS");
             data.SkillId = GetValue<int>(node, "SkillId");
+            data.Color = GetSplitValue<float>(node, "Color", ',').ToArray();
 
             _datas.Add(data);
             return true;
