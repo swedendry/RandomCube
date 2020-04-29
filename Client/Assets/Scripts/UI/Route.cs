@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UI
 {
@@ -7,16 +6,16 @@ namespace UI
     {
         public string path;
 
-        private void Awake()
-        {
-            var parents = GetComponentsInParent<Route>().ToList();
-            parents.Reverse();
-            path = string.Join("/", parents.Select(c => c.name));
+        //private void Awake()
+        //{
+        //    //var parents = GetComponentsInParent<Route>().ToList();
+        //    //parents.Reverse();
+        //    //path = string.Join("/", parents.Select(c => c.name));
 
-            Router.Register(this);
+        //    //Router.Register(this);
 
-            Close();
-        }
+        //    Close();
+        //}
 
         private void OnDestroy()
         {

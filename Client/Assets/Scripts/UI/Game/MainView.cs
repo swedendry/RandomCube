@@ -2,6 +2,9 @@
 {
     public class MainView : UIView
     {
+        public SlotView blueSlotView;
+        public SlotView redSlotView;
+
         private UserComponent userComponent;
 
         protected override void Awake()
@@ -13,7 +16,9 @@
 
         private void OnEnable()
         {
-            userComponent.Upsert(ServerInfo.MyGameUser());
+            blueSlotView?.Upsert(ServerInfo.MyGameUser());
+            redSlotView?.Upsert(ServerInfo.EnemyGameUser());
+            userComponent?.Upsert(ServerInfo.MyGameUser());
         }
     }
 }

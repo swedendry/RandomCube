@@ -2,9 +2,31 @@
 {
     public class MainView : UIView
     {
-        private void OnEnable()
+        //private void OnEnable()
+        //{
+        //    Router.Open("LobbyView/PlayView");
+        //}
+
+        public override void Event(string param)
         {
-            Router.Open("LobbyView/PlayView");
+            switch (param)
+            {
+                case "playview":
+                    {
+                        Router.CloseAndOpen("LobbyView/PlayView");
+                    }
+                    break;
+                case "entryview":
+                    {
+                        Router.CloseAndOpen("LobbyView/EntryView");
+                    }
+                    break;
+                case "shopview":
+                    {
+                        Router.CloseAndOpen("LobbyView/ShopView");
+                    }
+                    break;
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ public class Main : MonoBehaviour
         }
         else
         {
-            Router.CloseAndOpen("LobbyView");
+            Router.CloseAndOpen("LobbyView/PlayView");
         }
     }
 
@@ -44,7 +44,7 @@ public class Main : MonoBehaviour
                 {
                     ServerInfo.isLogin = true;
 
-                    Router.CloseAndOpen("LobbyView");
+                    Router.CloseAndOpen("LobbyView/PlayView");
                 });
     }
 
@@ -107,7 +107,7 @@ public class Main : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Router.CloseAndOpen("LobbyView");
+                    Router.CloseAndOpen("LobbyView/PlayView");
                 });
     }
 

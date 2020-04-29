@@ -18,6 +18,8 @@ public class SingleGame : Game
         ServerInfo.GameUsers.Clear();
         ServerInfo.GameUsers.Add(DummyGameUser(ServerInfo.User));
 
+        Router.CloseAndOpen("GameView");
+
         base.Start();
 
         StartCoroutine(blue.CreateMonster());

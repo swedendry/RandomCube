@@ -1,5 +1,6 @@
 ﻿using Extension;
 using Network.GameServer;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Game
@@ -8,12 +9,18 @@ namespace UI.Game
     {
         public Image cube_image;
         public Text lv_text;
+        public Text sp_text;
 
-        public override void Upsert(GameSlot data)
+        public override void Upsert(int index, GameSlot data)
         {
-            base.Upsert(data);
+            base.Upsert(index, data);
 
-            lv_text.SetText(data?.SlotLv.ToString());
+            var cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == data.CubeId);
+            var price = data.CubeLv * 100;
+
+            cube_image.color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2]);
+            lv_text?.SetText(data?.SlotLv.ToString());
+            sp_text?.SetText(price.ToString());
         }
     }
 }

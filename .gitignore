@@ -24,3 +24,4 @@
 /Server/GameServer/bin/Release/netcoreapp3.1
 /Server/LobbyServer/bin/Release/netcoreapp3.1
 /Server/Service/bin/Release/netcoreapp3.1
+/Server/GameServer/.config

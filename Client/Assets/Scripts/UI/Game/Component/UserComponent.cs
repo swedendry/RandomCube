@@ -12,8 +12,11 @@ namespace UI.Game
 
         private void Update()
         {
-            sp_text.SetText(props.data.SP.ToString());
-            life_text.SetText(props.data.Life.ToString());
+            if (props != null && props.data != null)
+            {
+                sp_text.SetText(props.data.SP.ToString());
+                life_text.SetText(props.data.Life.ToString());
+            }
         }
 
         public override void Event(string param)
