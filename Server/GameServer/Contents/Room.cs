@@ -2,7 +2,9 @@
 using GameServer.Hubs;
 using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
+using Service.Extensions;
 using Service.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -20,6 +22,8 @@ namespace GameServer.Contents
 
     public interface IRoom
     {
+        Action<string> OnGameEnd { get; set; }
+
         void Release();
 
         bool Enter(RoomUser user);
@@ -33,6 +37,9 @@ namespace GameServer.Contents
         void CSID_CompleteLoading(string id);
         void CSID_CreateCube(CS_CreateCube cs);
         void CSID_MoveCube(CS_MoveCube cs);
+        void CSID_CombineCube(CS_CombineCube cs);
+        void CSID_DieMonster(CS_DieMonster cs);
+        void CSID_EscapeMonster(CS_EscapeMonster cs);
     }
 
     public class Room : IRoom
@@ -44,6 +51,8 @@ namespace GameServer.Contents
         private readonly List<GameUser> _users = new List<GameUser>();
 
         private readonly Timer _timer = new Timer();
+
+        public Action<string> OnGameEnd { get; set; }
 
         public Room(IHubContext<GameHub> context, IMapper mapper, string groupName)
         {
@@ -64,6 +73,11 @@ namespace GameServer.Contents
 
         public void Release()
         {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("DeleteRoom", PayloadPack.Success(new SC_DeleteRoom()
+            {
+
+            }));
+
             _state = RoomState.End;
             _timer.Stop();
             _users.Clear();
@@ -72,6 +86,25 @@ namespace GameServer.Contents
         private void Reset()
         {
             _state = RoomState.Ready;
+        }
+
+        private void Result()
+        {
+            _state = RoomState.Result;
+
+            var users = _users.OrderBy(x => x.Life).ToList();
+
+            users.ForEach((x, i) =>
+            {
+                x.Rank += i;
+            });
+
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("Result", PayloadPack.Success(new SC_Result()
+            {
+                Users = users,
+            }));
+
+            OnGameEnd?.Invoke(_groupName);
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -233,6 +266,45 @@ namespace GameServer.Contents
                 PositionX = cs.PositionX,
                 PositionY = cs.PositionY,
             }));
+        }
+
+        public void CSID_CombineCube(CS_CombineCube cs)
+        {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("CombineCube", PayloadPack.Success(new SC_CombineCube()
+            {
+                Id = cs.Id,
+                NewCube = cs.NewCube,
+                DeleteCubes = cs.DeleteCubes,
+            }));
+        }
+
+        public void CSID_DieMonster(CS_DieMonster cs)
+        {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("DieMonster", PayloadPack.Success(new SC_DieMonster()
+            {
+                Id = cs.Id,
+                MonsterSeq = cs.MonsterSeq,
+            }));
+        }
+
+        public void CSID_EscapeMonster(CS_EscapeMonster cs)
+        {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("EscapeMonster", PayloadPack.Success(new SC_EscapeMonster()
+            {
+                Id = cs.Id,
+                MonsterSeq = cs.MonsterSeq,
+            }));
+
+            var user = GetUserById(cs.Id);
+            if (user != null)
+            {
+                user.Life -= 1;
+
+                if (user.Life <= 0)
+                {   //게임 종료
+                    Result();
+                }
+            }
         }
     }
 }

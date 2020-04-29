@@ -11,6 +11,12 @@ public static class PoolFactory
         pools.Add(new Pool(poolObject));
     }
 
+    public static void UnRegister()
+    {
+        pools.ForEach(x => x.Delete());
+        pools.Clear();
+    }
+
     public static GameObject Get(string key)
     {
         var pool = pools.Find(x => x.poolObject.key == key);
@@ -21,6 +27,12 @@ public static class PoolFactory
     {
         var pool = pools.Find(x => x.poolObject.key == key);
         pool?.Return(entity);
+    }
+
+    public static void Delete(string key, GameObject entity)
+    {
+        var pool = pools.Find(x => x.poolObject.key == key);
+        pool?.Delete(entity);
     }
 
     public static T Get<T>(string key) where T : Entity
@@ -37,29 +49,9 @@ public static class PoolFactory
     {
         Return(key, entity.gameObject);
     }
+
+    public static void Delete<T>(string key, T entity) where T : Entity
+    {
+        Delete(key, entity.gameObject);
+    }
 }
-
-
-//using System.Collections.Generic;
-
-//public static class PoolFactory
-//{
-//    private static readonly List<Pool<Entity>> pools = new List<Pool<Entity>>();
-
-//    public static void Register(PoolObject poolObject)
-//    {
-//        pools.Add(new Pool<Entity>(poolObject));
-//    }
-
-//    public static T Get<T>(string key) where T : Entity
-//    {
-//        var pool = pools.Find(x => x.poolObject.key == key);
-//        return (T)pool?.Get();
-//    }
-
-//    public static void Return<T>(string key, T entity) where T : Entity
-//    {
-//        var pool = pools.Find(x => x.poolObject.key == key);
-//        pool?.Return(entity);
-//    }
-//}

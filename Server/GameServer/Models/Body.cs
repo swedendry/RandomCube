@@ -81,14 +81,9 @@ namespace GameServer.Models
     /// <summary>
     /// 룸 삭제 정보
     /// </summary>
-    public class CS_DeleteRoom
-    {
-        public string Id { get; set; }
-    }
-
     public class SC_DeleteRoom
     {
-        public string Id { get; set; }
+
     }
 
     /// <summary>
@@ -129,6 +124,14 @@ namespace GameServer.Models
     }
 
     /// <summary>
+    /// 게임 결과 정보
+    /// </summary>
+    public class SC_Result
+    {
+        public List<GameUser> Users { get; set; }
+    }
+
+    /// <summary>
     /// 큐브 생성 정보
     /// </summary>
     public class CS_CreateCube
@@ -144,20 +147,20 @@ namespace GameServer.Models
     }
 
     /// <summary>
-    /// 큐브 스왑 정보
+    /// 큐브 합치기 정보
     /// </summary>
     public class CS_CombineCube
     {
         public string Id { get; set; }
         public GameCube NewCube { get; set; }
-        public List<GameCube> DeleteCubes { get; set; }
+        public List<int> DeleteCubes { get; set; }
     }
 
     public class SC_CombineCube
     {
         public string Id { get; set; }
         public GameCube NewCube { get; set; }
-        public List<GameCube> DeleteCubes { get; set; }
+        public List<int> DeleteCubes { get; set; }
     }
 
     /// <summary>
@@ -185,12 +188,27 @@ namespace GameServer.Models
     public class CS_DieMonster
     {
         public string Id { get; set; }
-        public GameCube Cube { get; set; }
+        public int MonsterSeq { get; set; }
     }
 
     public class SC_DieMonster
     {
         public string Id { get; set; }
-        public GameCube Cube { get; set; }
+        public int MonsterSeq { get; set; }
+    }
+
+    /// <summary>
+    /// 몬스터 탈출 정보
+    /// </summary>
+    public class CS_EscapeMonster
+    {
+        public string Id { get; set; }
+        public int MonsterSeq { get; set; }
+    }
+
+    public class SC_EscapeMonster
+    {
+        public string Id { get; set; }
+        public int MonsterSeq { get; set; }
     }
 }

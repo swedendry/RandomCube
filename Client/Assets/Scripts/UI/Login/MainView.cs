@@ -20,7 +20,6 @@ namespace UI.Login
         private void Login()
         {
             var id = SystemInfo.deviceUniqueIdentifier;
-            var name = SystemInfo.deviceName;
 
             LobbyServer.sInstance.GetUser(id).Callback(
             success: (data) =>

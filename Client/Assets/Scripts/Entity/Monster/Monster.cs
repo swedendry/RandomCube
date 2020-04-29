@@ -15,7 +15,7 @@ public class Monster : Entity
     }
 
     public Action<Monster, Missile> OnDie;
-    public Action<Monster> OnFinish;
+    public Action<Monster> OnEscape;
 
     public TextMesh hp_text;
 
@@ -25,8 +25,11 @@ public class Monster : Entity
     private State state = State.Spawn;
     private readonly Dictionary<string, GameObject> skills = new Dictionary<string, GameObject>();
 
-    public override void Spawn()
+    public int seq;
+
+    public void Spawn(int seq)
     {
+        this.seq = seq;
         iTween.Stop(gameObject);
         hp = 400f;
         speed = 1f;
@@ -58,15 +61,15 @@ public class Monster : Entity
     {
         var targetIndex = int.Parse(cmpParams.ToString());
         if (paths.Count <= targetIndex)
-        {   //Finish
-            Finish();
+        {   //Escape
+            Escape();
             return;
         }
 
         Move(targetIndex);
     }
 
-    private void Finish()
+    private void Escape()
     {
         if (state != State.Move)
             return;
@@ -74,7 +77,7 @@ public class Monster : Entity
         state = State.Finish;
         iTween.Stop(gameObject);
         DeleteSkills();
-        OnFinish?.Invoke(this);
+        OnEscape?.Invoke(this);
     }
 
     public void Hit(Cube cube, Missile collider)

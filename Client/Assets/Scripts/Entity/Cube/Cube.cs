@@ -7,6 +7,7 @@ public class Cube : Entity
 {
     public Action<Cube> OnShot;
     public Action<Cube, Vector3> OnMove;
+    public Action<Cube, Cube> OnCombineMove;
     public Action<Cube, Cube> OnCombine;
 
     public Renderer range;
@@ -57,7 +58,7 @@ public class Cube : Entity
         var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
         render.material.color = color;
         range.material.color = new Color(color.r, color.g, color.b, 0.1f);
-
+        range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
         combineLv_text.text = gameCube.CombineLv.ToString();
 
         StartShot();

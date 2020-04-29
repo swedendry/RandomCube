@@ -14,11 +14,31 @@ public class Team : MonoBehaviour
     private GameUser user;
     private Zone zone;
     private Bounds bounds;
-    private int seq;
+    private int cubeSeq;
+    private int monsterSeq;
 
-    private void Start()
+    public void Result()
     {
+        //cubes.ForEach(x =>
+        //{
+        //    PoolFactory.Delete("Cube", x);
+        //});
 
+        //monsters.ForEach(x =>
+        //{
+        //    PoolFactory.Delete("Monster", x);
+        //});
+
+        //missiles.ForEach(x =>
+        //{
+        //    PoolFactory.Delete("Missile", x);
+        //});
+
+        cubes.Clear();
+        monsters.Clear();
+        missiles.Clear();
+
+        //PoolFactory.UnRegister();
     }
 
     public void Create(GameUser user, Zone zone)
@@ -58,6 +78,8 @@ public class Team : MonoBehaviour
         cube.transform.localRotation = Quaternion.identity;
         cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
+        cube.OnMove = OnMove;
+        cube.OnCombineMove = OnCombineMove;
         cube.OnCombine = OnCombine;
         cube.Spawn(gameCube, gameSlot);
         cubes.Add(cube);
@@ -72,7 +94,7 @@ public class Team : MonoBehaviour
 
         var gameCube = new GameCube()
         {
-            CubeSeq = seq,
+            CubeSeq = cubeSeq,
             CubeId = gameSlot.CubeId,
             CombineLv = combineLv,
             PositionX = positionX,
@@ -86,19 +108,21 @@ public class Team : MonoBehaviour
         cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cube.OnMove = OnMove;
+        cube.OnCombineMove = OnCombineMove;
         cube.OnCombine = OnCombine;
         cube.Spawn(gameCube, gameSlot);
         cubes.Add(cube);
 
-        GameServer.sInstance.CreateCube(user.Id, gameCube);
+        if (user.Id == ServerInfo.User.Id)
+            GameServer.sInstance.CreateCube(user.Id, gameCube);
 
-        seq += 1;
+        cubeSeq += 1;
     }
 
     public void MoveCube(int seq, int positionX, int positionY)
     {
         var cube = cubes.Find(x => x.gameCube.CubeSeq == seq);
-        if(cube)
+        if (cube)
         {
             var center = bounds.center;
             var x = center.x - (positionX * 0.01f);
@@ -106,6 +130,28 @@ public class Team : MonoBehaviour
 
             cube.Move(new Vector3(x, y, 0f));
         }
+    }
+
+    public void CombineCube(GameCube gameCube, List<int> deleteCubes)
+    {
+        deleteCubes.ForEach(x =>
+        {
+            var cube = cubes.Find(c => c.gameCube.CubeSeq == x);
+            cubes.Remove(cube);
+            PoolFactory.Return("Cube", cube);
+        });
+
+        //CreateCube(gameCube);
+    }
+
+    public void DieMonster(int monsterSeq)
+    {
+        var monster = monsters.Find(x => x.seq == monsterSeq);
+    }
+
+    public void EscapeMonster(int monsterSeq)
+    {
+        var monster = monsters.Find(x => x.seq == monsterSeq);
     }
 
     public IEnumerator CreateMonster()
@@ -132,11 +178,13 @@ public class Team : MonoBehaviour
         monster.transform.position = new Vector3(startPosition.x, startPosition.y, 0f);
         monster.gameObject.SetActive(true);
         monster.OnDie = OnDie;
-        monster.OnFinish = OnFinish;
-        monster.Spawn();
+        monster.OnEscape = OnEscape;
+        monster.Spawn(monsterSeq);
         monster.Move(paths);
 
         monsters.Add(monster);
+
+        monsterSeq++;
     }
 
     private Monster GetShotTarget(Cube owner)
@@ -178,13 +226,30 @@ public class Team : MonoBehaviour
         var positionX = (int)((target.x - center.x) * 100f);
         var positionY = (int)((target.y - center.y) * 100f);
 
-        GameServer.sInstance.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
+        if (user.Id == ServerInfo.User.Id)
+            GameServer.sInstance.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
+    }
+
+    private void OnCombineMove(Cube owner, Cube target)
+    {
+        owner.Combine(target);
+
+        var center = bounds.center;
+        var positionX = (int)((target.transform.position.x - center.x) * 100f);
+        var positionY = (int)((target.transform.position.y - center.y) * 100f);
+
+        if (user.Id == ServerInfo.User.Id)
+            GameServer.sInstance.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
     }
 
     private void OnCombine(Cube owner, Cube target)
     {
         var combineLv = owner.gameCube.CombineLv;
         var position = target.transform.position;
+
+        var deleteSeq = new List<int>();
+        deleteSeq.Add(owner.gameCube.CubeSeq);
+        deleteSeq.Add(target.gameCube.CubeSeq);
 
         cubes.Remove(owner);
         PoolFactory.Return("Cube", owner);
@@ -193,6 +258,9 @@ public class Team : MonoBehaviour
         PoolFactory.Return("Cube", target);
 
         CreateCube((byte)(combineLv + 1), position);
+
+        if (user.Id == ServerInfo.User.Id)
+            GameServer.sInstance.CombineCube(user.Id, null, deleteSeq);
     }
 
     private void OnHit(Cube owner, Monster target, Missile collider)
@@ -209,18 +277,26 @@ public class Team : MonoBehaviour
         user.SP += 10;
 
         //target.transform.position = zone.paths.LastOrDefault().transform.position;
+        var seq = target.seq;
 
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
+
+        if (user.Id == ServerInfo.User.Id)
+            GameServer.sInstance.DieMonster(user.Id, seq);
     }
 
-    private void OnFinish(Monster target)
+    private void OnEscape(Monster target)
     {
         user.Life -= 1;
 
         //target.transform.position = zone.paths.LastOrDefault().transform.position;
+        var seq = target.seq;
 
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
+
+        if (user.Id == ServerInfo.User.Id)
+            GameServer.sInstance.EscapeMonster(user.Id, seq);
     }
 }

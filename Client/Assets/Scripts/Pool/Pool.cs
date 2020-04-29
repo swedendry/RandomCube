@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Extension;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pools
@@ -37,38 +38,21 @@ namespace Pools
             entity.gameObject.SetActive(false);
             entries.Enqueue(entity);
         }
+
+        public void Delete(GameObject entity)
+        {
+            Return(entity);
+            Object.Destroy(entity);
+        }
+
+        public void Delete()
+        {
+            entries.ForEach((x, i) =>
+            {
+                Object.Destroy(x);
+            });
+
+            entries.Clear();
+        }
     }
 }
-//using System.Collections.Generic;
-
-//public class Pool<T> where T : Entity
-//{
-//    public PoolObject poolObject;
-
-//    protected readonly Queue<T> entries = new Queue<T>();
-
-//    public Pool(PoolObject poolObject)
-//    {
-//        this.poolObject = poolObject;
-//    }
-
-//    private void Create()
-//    {
-//        var entity = UnityEngine.Object.Instantiate(poolObject.dummy) as T;
-//        entries.Enqueue(entity);
-//    }
-
-//    public T Get()
-//    {
-//        if (entries.Count <= 0)
-//            Create();
-
-//        return entries.Dequeue();
-//    }
-
-//    public void Return(T entity)
-//    {
-//        entity.gameObject.SetActive(false);
-//        entries.Enqueue(entity);
-//    }
-//}

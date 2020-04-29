@@ -10,19 +10,26 @@ public class Main : MonoBehaviour
 {
     private void Start()
     {
-        MapperFactory.Register();
-        XmlFactory.Load();
+        if (!ServerInfo.isLogin)
+        {   //첫 로그인
+            MapperFactory.Register();
+            XmlFactory.Load();
 
-        GameServer.ActionConnected = Connected;
-        GameServer.ActionLogin = Login;
-        GameServer.ActionEnterMatch = EnterMatch;
-        GameServer.ActionExitMatch = ExitMatch;
-        GameServer.ActionSuccessMatch = SuccessMatch;
-        GameServer.ActionEnterRoom = EnterRoom;
-        GameServer.ActionExitRoom = ExitRoom;
-        GameServer.ActionLoading = Loading;
+            GameServer.ActionConnected = Connected;
+            GameServer.ActionLogin = Login;
+            GameServer.ActionEnterMatch = EnterMatch;
+            GameServer.ActionExitMatch = ExitMatch;
+            GameServer.ActionSuccessMatch = SuccessMatch;
+            GameServer.ActionEnterRoom = EnterRoom;
+            GameServer.ActionExitRoom = ExitRoom;
+            GameServer.ActionLoading = Loading;
 
-        Router.CloseAndOpen("LoginView");
+            Router.CloseAndOpen("LoginView");
+        }
+        else
+        {
+            Router.CloseAndOpen("LobbyView");
+        }
     }
 
     private void Connected(HubConnection connection)
@@ -35,6 +42,8 @@ public class Main : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
+                    ServerInfo.isLogin = true;
+
                     Router.CloseAndOpen("LobbyView");
                 });
     }

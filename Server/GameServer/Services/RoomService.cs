@@ -40,6 +40,7 @@ namespace GameServer.Services
                 if (room == null)
                 {   //생성
                     room = new Room(_context, _mapper, groupName);
+                    room.OnGameEnd = (groupName) => Delete(groupName);
                 }
 
                 _rooms.Add(room);

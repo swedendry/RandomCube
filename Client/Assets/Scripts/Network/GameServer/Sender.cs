@@ -1,4 +1,5 @@
 ﻿using Network.GameServer;
+using System.Collections.Generic;
 
 public partial class GameServer
 {
@@ -86,5 +87,39 @@ public partial class GameServer
         };
 
         Send("MoveCube", cs);
+    }
+
+    public void CombineCube(string id, GameCube cube, List<int> deleteSeq)
+    {
+        var cs = new CS_CombineCube()
+        {
+            Id = id,
+            NewCube = cube,
+            DeleteCubes = deleteSeq,
+        };
+
+        Send("CombineCube", cs);
+    }
+
+    public void DieMonster(string id, int monsterSeq)
+    {
+        var cs = new CS_DieMonster()
+        {
+            Id = id,
+            MonsterSeq = monsterSeq,
+        };
+
+        Send("DieMonster", cs);
+    }
+
+    public void EscapeMonster(string id, int monsterSeq)
+    {
+        var cs = new CS_EscapeMonster()
+        {
+            Id = id,
+            MonsterSeq = monsterSeq,
+        };
+
+        Send("EscapeMonster", cs);
     }
 }

@@ -71,5 +71,23 @@ namespace GameServer.Hubs
             var room = _roomService.GetRoomById(cs.Id);
             room?.CSID_MoveCube(cs);
         }
+
+        public void CombineCube(CS_CombineCube cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_CombineCube(cs);
+        }
+
+        public void DieMonster(CS_DieMonster cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_DieMonster(cs);
+        }
+
+        public void EscapeMonster(CS_EscapeMonster cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_EscapeMonster(cs);
+        }
     }
 }

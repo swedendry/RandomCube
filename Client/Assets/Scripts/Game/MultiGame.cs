@@ -1,5 +1,6 @@
 ﻿using Network;
 using Network.GameServer;
+using UI;
 using UnityEngine;
 
 public class MultiGame : Game
@@ -9,8 +10,12 @@ public class MultiGame : Game
         GameServer.ActionCompleteLoading = CompleteLoading;
         GameServer.ActionPlay = Play;
         GameServer.ActionWave = Wave;
+        GameServer.ActionResult = Result;
         GameServer.ActionCreateCube = CreateCube;
         GameServer.ActionMoveCube = MoveCube;
+        GameServer.ActionCombineCube = CombineCube;
+        GameServer.ActionDieMonster = DieMonster;
+        GameServer.ActionEscapeMonster = EscapeMonster;
 
         base.Start();
     }
@@ -52,6 +57,20 @@ public class MultiGame : Game
                 });
     }
 
+    private void Result(Payloader<SC_Result> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    blue.Result();
+                    red.Result();
+
+                    ServerInfo.GameUsers = data.Users;
+
+                    Router.Open("ResultView");
+                });
+    }
+
     private void CreateCube(Payloader<SC_CreateCube> payloader)
     {
         payloader.Callback(
@@ -60,7 +79,7 @@ public class MultiGame : Game
                     Debug.Log("CreateCube");
 
                     var isMe = (ServerInfo.User.Id == data.Id);
-                    if(!isMe)
+                    if (!isMe)
                     {
                         red.CreateCube(data.NewCube);
                     }
@@ -78,6 +97,56 @@ public class MultiGame : Game
                     if (!isMe)
                     {
                         red.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
+                    }
+                });
+    }
+
+    private void CombineCube(Payloader<SC_CombineCube> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    Debug.Log("CombineCube");
+
+                    var isMe = (ServerInfo.User.Id == data.Id);
+                    if (!isMe)
+                    {
+                        red.CombineCube(data.NewCube, data.DeleteCubes);
+                    }
+                });
+    }
+
+    private void DieMonster(Payloader<SC_DieMonster> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    Debug.Log("DieMonster");
+
+                    var isMe = (ServerInfo.User.Id == data.Id);
+                    if (!isMe)
+                    {
+                        red.DieMonster(data.MonsterSeq);
+                    }
+                });
+    }
+
+    private void EscapeMonster(Payloader<SC_EscapeMonster> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    Debug.Log("EscapeMonster");
+
+                    var isMe = (ServerInfo.User.Id == data.Id);
+                    if (!isMe)
+                    {
+                        ServerInfo.EnemyGameUser().Life -= 1;
+                        red.EscapeMonster(data.MonsterSeq);
+                    }
+                    else
+                    {
+                        ServerInfo.MyGameUser().Life -= 1;
                     }
                 });
     }

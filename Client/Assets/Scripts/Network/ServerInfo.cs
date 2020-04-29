@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public static class ServerInfo
 {
+    public static bool isLogin = false;
     public static UserViewModel User = new UserViewModel();
     public static List<GameUser> GameUsers = new List<GameUser>();
 

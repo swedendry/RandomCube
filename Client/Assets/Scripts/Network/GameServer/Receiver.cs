@@ -10,12 +10,17 @@ public partial class GameServer
     public static Action<Payloader<SC_SuccessMatch>> ActionSuccessMatch;
     public static Action<Payloader<SC_EnterRoom>> ActionEnterRoom;
     public static Action<Payloader<SC_ExitRoom>> ActionExitRoom;
+    public static Action<Payloader<SC_DeleteRoom>> ActionDeleteRoom;
     public static Action<Payloader<SC_Loading>> ActionLoading;
     public static Action<Payloader<SC_CompleteLoading>> ActionCompleteLoading;
     public static Action<Payloader<SC_Play>> ActionPlay;
     public static Action<Payloader<SC_Wave>> ActionWave;
+    public static Action<Payloader<SC_Result>> ActionResult;
     public static Action<Payloader<SC_CreateCube>> ActionCreateCube;
     public static Action<Payloader<SC_MoveCube>> ActionMoveCube;
+    public static Action<Payloader<SC_CombineCube>> ActionCombineCube;
+    public static Action<Payloader<SC_DieMonster>> ActionDieMonster;
+    public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
 
     private void OnInvocation(string target, object[] arguments)
     {
@@ -63,6 +68,13 @@ public partial class GameServer
                     signalr.Call(payloader, arguments);
                 }
                 break;
+            case "DeleteRoom":
+                {
+                    var payloader = new Payloader<SC_DeleteRoom>();
+                    ActionDeleteRoom?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
             case "Loading":
                 {
                     var payloader = new Payloader<SC_Loading>();
@@ -91,6 +103,13 @@ public partial class GameServer
                     signalr.Call(payloader, arguments);
                 }
                 break;
+            case "Result":
+                {
+                    var payloader = new Payloader<SC_Result>();
+                    ActionResult?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
             case "CreateCube":
                 {
                     var payloader = new Payloader<SC_CreateCube>();
@@ -102,6 +121,27 @@ public partial class GameServer
                 {
                     var payloader = new Payloader<SC_MoveCube>();
                     ActionMoveCube?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "CombineCube":
+                {
+                    var payloader = new Payloader<SC_CombineCube>();
+                    ActionCombineCube?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "DieMonster":
+                {
+                    var payloader = new Payloader<SC_DieMonster>();
+                    ActionDieMonster?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "EscapeMonster":
+                {
+                    var payloader = new Payloader<SC_EscapeMonster>();
+                    ActionEscapeMonster?.Invoke(payloader);
                     signalr.Call(payloader, arguments);
                 }
                 break;

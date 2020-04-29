@@ -9,4 +9,9 @@ public class PoolRegister : MonoBehaviour
     {
         poolObjects.ForEach(x => PoolFactory.Register(x));
     }
+
+    private void OnDestroy()
+    {
+        PoolFactory.UnRegister();
+    }
 }
