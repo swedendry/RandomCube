@@ -23,6 +23,24 @@ public static class PoolFactory
         return pool?.Get();
     }
 
+    public static GameObject Get(string key, Transform parent)
+    {
+        var pool = pools.Find(x => x.poolObject.key == key);
+        return pool?.Get(parent);
+    }
+
+    public static GameObject Get(string key, Vector3 position, Quaternion rotation)
+    {
+        var pool = pools.Find(x => x.poolObject.key == key);
+        return pool?.Get(position, rotation);
+    }
+
+    public static GameObject Get(string key, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        var pool = pools.Find(x => x.poolObject.key == key);
+        return pool?.Get(position, rotation, parent);
+    }
+
     public static void Return(string key, GameObject entity)
     {
         var pool = pools.Find(x => x.poolObject.key == key);
@@ -38,6 +56,36 @@ public static class PoolFactory
     public static T Get<T>(string key) where T : Entity
     {
         var obj = Get(key);
+        var component = obj?.GetComponent<T>();
+        if (component == null)
+            component = obj?.AddComponent<T>();
+
+        return component;
+    }
+
+    public static T Get<T>(string key, Transform parent) where T : Entity
+    {
+        var obj = Get(key, parent);
+        var component = obj?.GetComponent<T>();
+        if (component == null)
+            component = obj?.AddComponent<T>();
+
+        return component;
+    }
+
+    public static T Get<T>(string key, Vector3 position, Quaternion rotation) where T : Entity
+    {
+        var obj = Get(key, position, rotation);
+        var component = obj?.GetComponent<T>();
+        if (component == null)
+            component = obj?.AddComponent<T>();
+
+        return component;
+    }
+
+    public static T Get<T>(string key, Vector3 position, Quaternion rotation, Transform parent) where T : Entity
+    {
+        var obj = Get(key, position, rotation, parent);
         var component = obj?.GetComponent<T>();
         if (component == null)
             component = obj?.AddComponent<T>();

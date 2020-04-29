@@ -48,15 +48,10 @@ public class Team : MonoBehaviour
         bounds = this.zone.box.GetComponent<BoxCollider>().bounds;
     }
 
-    public void CreateCube()
+    public void CreateCube(byte combineLv)
     {
         user.SP -= 10;
 
-        CreateCube(1);
-    }
-
-    public void CreateCube(byte combineLv)
-    {
         var min = bounds.min;
         var max = bounds.max;
         var x = Random.Range(min.x, max.x);
@@ -70,13 +65,19 @@ public class Team : MonoBehaviour
         var center = bounds.center;
         var positionX = center.x - (gameCube.PositionX * 0.01f);
         var positionY = center.y - (gameCube.PositionY * 0.01f);
+        var position = new Vector3(positionX, positionY, 0f);
 
         var gameSlot = user.Slots.Find(x => x.CubeId == gameCube.CubeId);
-        var cube = PoolFactory.Get<Cube>("Cube");
-        cube.transform.parent = transform;
-        cube.transform.localPosition = new Vector3(positionX, positionY, 0f);
-        cube.transform.localRotation = Quaternion.identity;
-        cube.gameObject.SetActive(true);
+        var cube = PoolFactory.Get<Cube>("Cube", position, Quaternion.identity, transform);
+
+        //var cube = PoolFactory.Get<Cube>("Cube", transform);
+        //cube.transform.localPosition = position;
+        //cube.transform.localRotation = Quaternion.identity;
+
+        //var cube = PoolFactory.Get<Cube>("Cube", position, Quaternion.identity, transform);
+        //cube.transform.localPosition = new Vector3(positionX, positionY, 0f);
+        //cube.transform.localRotation = Quaternion.identity;
+        //cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cube.OnMove = OnMove;
         cube.OnCombineMove = OnCombineMove;
@@ -91,6 +92,7 @@ public class Team : MonoBehaviour
         var center = bounds.center;
         var positionX = (int)((position.x - center.x) * 100f);
         var positionY = (int)((position.y - center.y) * 100f);
+        var pos = new Vector3(positionX * 0.01f, positionY * 0.01f, 0f);
 
         var gameCube = new GameCube()
         {
@@ -101,11 +103,15 @@ public class Team : MonoBehaviour
             PositionY = positionY,
         };
 
-        var cube = PoolFactory.Get<Cube>("Cube");
-        cube.transform.parent = transform;
-        cube.transform.localPosition = position;
-        cube.transform.localRotation = Quaternion.identity;
-        cube.gameObject.SetActive(true);
+        var cube = PoolFactory.Get<Cube>("Cube", position, Quaternion.identity, transform);
+
+        //var cube = PoolFactory.Get<Cube>("Cube", transform);
+        //cube.transform.localPosition = position;
+        //cube.transform.localRotation = Quaternion.identity;
+
+        //cube.transform.localPosition = new Vector3(positionX, positionY, 0f);
+        //cube.transform.localRotation = Quaternion.identity;
+        //cube.gameObject.SetActive(true);
         cube.OnShot = OnShot;
         cube.OnMove = OnMove;
         cube.OnCombineMove = OnCombineMove;
@@ -117,6 +123,22 @@ public class Team : MonoBehaviour
             GameServer.sInstance.CreateCube(user.Id, gameCube);
 
         cubeSeq += 1;
+
+        //var cube = PoolFactory.Get<Cube>("Cube", position, Quaternion.identity, transform);
+        ////cube.transform.localPosition = position;
+        ////cube.transform.localRotation = Quaternion.identity;
+        ////cube.gameObject.SetActive(true);
+        //cube.OnShot = OnShot;
+        //cube.OnMove = OnMove;
+        //cube.OnCombineMove = OnCombineMove;
+        //cube.OnCombine = OnCombine;
+        //cube.Spawn(gameCube, gameSlot);
+        //cubes.Add(cube);
+
+        //if (user.Id == ServerInfo.User.Id)
+        //    GameServer.sInstance.CreateCube(user.Id, gameCube);
+
+        //cubeSeq += 1;
     }
 
     public void MoveCube(int seq, int positionX, int positionY)
@@ -172,11 +194,11 @@ public class Team : MonoBehaviour
     private void CreateMonster(List<GameObject> paths)
     {
         var startPosition = paths.FirstOrDefault().transform.position;
-        var monster = PoolFactory.Get<Monster>("Monster");
-        monster.transform.parent = transform;
-        monster.transform.localPosition = Vector3.zero;
-        monster.transform.position = new Vector3(startPosition.x, startPosition.y, 0f);
-        monster.gameObject.SetActive(true);
+        var position = new Vector3(startPosition.x, startPosition.y, 0f);
+        var monster = PoolFactory.Get<Monster>("Monster", position, Quaternion.identity, transform);
+        //monster.transform.localPosition = Vector3.zero;
+        //monster.transform.position = new Vector3(startPosition.x, startPosition.y, 0f);
+        //monster.gameObject.SetActive(true);
         monster.OnDie = OnDie;
         monster.OnEscape = OnEscape;
         monster.Spawn(monsterSeq);
@@ -209,12 +231,11 @@ public class Team : MonoBehaviour
         if (!target)
             return;
 
-        var missile = PoolFactory.Get<Missile>("Missile");
-        missile.transform.parent = transform;
-        missile.transform.position = owner.transform.position;
-        missile.gameObject.SetActive(true);
+        var missile = PoolFactory.Get<Missile>("Missile", owner.transform.position, Quaternion.identity, transform);
+        //missile.transform.position = owner.transform.position;
+        //missile.gameObject.SetActive(true);
         missile.OnHit = OnHit;
-        missile.Shot(owner, target);
+        missile.Spawn(owner, target);
         missiles.Add(missile);
     }
 
@@ -296,7 +317,7 @@ public class Team : MonoBehaviour
         monsters.Remove(target);
         PoolFactory.Return("Monster", target);
 
-        if (user.Id == ServerInfo.User.Id)
-            GameServer.sInstance.EscapeMonster(user.Id, seq);
+        //if (user.Id == ServerInfo.User.Id)
+        //    GameServer.sInstance.EscapeMonster(user.Id, seq);
     }
 }

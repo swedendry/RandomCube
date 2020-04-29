@@ -48,6 +48,22 @@ public class Cube : Entity
         return cubeData.AS / slotLv;
     }
 
+    public void Create(Transform parent, GameCube gameCube, GameSlot gameSlot)
+    {
+        base.Create(parent);
+
+        this.gameCube = gameCube;
+        this.gameSlot = gameSlot;
+
+        cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == gameSlot.CubeId);
+
+        var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
+        render.material.color = color;
+        range.material.color = new Color(color.r, color.g, color.b, 0.1f);
+        range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
+        combineLv_text.text = gameCube.CombineLv.ToString();
+    }
+
     public void Spawn(GameCube gameCube, GameSlot gameSlot)
     {
         this.gameCube = gameCube;
@@ -61,10 +77,28 @@ public class Cube : Entity
         range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
         combineLv_text.text = gameCube.CombineLv.ToString();
 
-        StartShot();
-
         base.Spawn();
+
+        StartShot();
     }
+
+    //public void Spawn(GameCube gameCube, GameSlot gameSlot)
+    //{
+    //    this.gameCube = gameCube;
+    //    this.gameSlot = gameSlot;
+
+    //    cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == gameSlot.CubeId);
+
+    //    var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
+    //    render.material.color = color;
+    //    range.material.color = new Color(color.r, color.g, color.b, 0.1f);
+    //    range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
+    //    combineLv_text.text = gameCube.CombineLv.ToString();
+
+    //    StartShot();
+
+    //    base.Spawn();
+    //}
 
     public void Selected()
     {

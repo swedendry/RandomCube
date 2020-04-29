@@ -33,6 +33,33 @@ namespace Pools
             return entries.Dequeue();
         }
 
+        public GameObject Get(Transform parent)
+        {
+            var entry = Get();
+            entry.transform.parent = parent;
+
+            return entry;
+        }
+
+        public GameObject Get(Vector3 position, Quaternion rotation)
+        {
+            var entry = Get();
+            entry.transform.localPosition = position;
+            entry.transform.localRotation = rotation;
+
+            return entry;
+        }
+
+        public GameObject Get(Vector3 position, Quaternion rotation, Transform parent)
+        {
+            var entry = Get();
+            entry.transform.parent = parent;
+            entry.transform.localPosition = position;
+            entry.transform.localRotation = rotation;
+
+            return entry;
+        }
+
         public void Return(GameObject entity)
         {
             entity.gameObject.SetActive(false);

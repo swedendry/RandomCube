@@ -22,7 +22,7 @@ namespace UI.Game
             {
                 case "Create":
                     {
-                        team?.CreateCube();
+                        team?.CreateCube(1);
                     }
                     break;
             }

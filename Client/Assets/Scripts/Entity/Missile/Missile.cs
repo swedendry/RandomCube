@@ -32,7 +32,7 @@ public class Missile : Entity
         }
     }
 
-    public void Shot(Cube owner, Monster target)
+    public void Spawn(Cube owner, Monster target)
     {
         shoting = true;
 
@@ -41,6 +41,8 @@ public class Missile : Entity
 
         var cubeData = owner.cubeData;
         render.material.color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
+
+        base.Spawn();
     }
 
     private void Hit()
