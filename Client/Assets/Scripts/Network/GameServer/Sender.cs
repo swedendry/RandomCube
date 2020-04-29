@@ -74,4 +74,17 @@ public partial class GameServer
 
         Send("CreateCube", cs);
     }
+
+    public void MoveCube(string id, int cubeSeq, int positionX, int positionY)
+    {
+        var cs = new CS_MoveCube()
+        {
+            Id = id,
+            CubeSeq = cubeSeq,
+            PositionX = positionX,
+            PositionY = positionY
+        };
+
+        Send("MoveCube", cs);
+    }
 }

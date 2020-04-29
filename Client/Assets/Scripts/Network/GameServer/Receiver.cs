@@ -15,6 +15,7 @@ public partial class GameServer
     public static Action<Payloader<SC_Play>> ActionPlay;
     public static Action<Payloader<SC_Wave>> ActionWave;
     public static Action<Payloader<SC_CreateCube>> ActionCreateCube;
+    public static Action<Payloader<SC_MoveCube>> ActionMoveCube;
 
     private void OnInvocation(string target, object[] arguments)
     {
@@ -94,6 +95,13 @@ public partial class GameServer
                 {
                     var payloader = new Payloader<SC_CreateCube>();
                     ActionCreateCube?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "MoveCube":
+                {
+                    var payloader = new Payloader<SC_MoveCube>();
+                    ActionMoveCube?.Invoke(payloader);
                     signalr.Call(payloader, arguments);
                 }
                 break;

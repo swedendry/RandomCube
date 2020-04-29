@@ -50,7 +50,7 @@ namespace Service.Controllers
             {
                 var entity = await _unitOfWork.Users.GetAsync(x => x.Id == id,
                     eagerLoad: q => q.Include(x => x.Entry),
-                    explicitLoad: q => q.Include(x => x.Cubes).ThenInclude(x => x.CubeData),
+                    explicitLoad: q => q.Include(x => x.Cubes).ThenInclude(x => x.CubeData).Load(),
                     isTracking: true);
 
                 if (entity == null)

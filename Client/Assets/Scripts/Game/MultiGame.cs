@@ -10,6 +10,7 @@ public class MultiGame : Game
         GameServer.ActionPlay = Play;
         GameServer.ActionWave = Wave;
         GameServer.ActionCreateCube = CreateCube;
+        GameServer.ActionMoveCube = MoveCube;
 
         base.Start();
     }
@@ -61,7 +62,22 @@ public class MultiGame : Game
                     var isMe = (ServerInfo.User.Id == data.Id);
                     if(!isMe)
                     {
-                        red.CreateCube();
+                        red.CreateCube(data.NewCube);
+                    }
+                });
+    }
+
+    private void MoveCube(Payloader<SC_MoveCube> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    Debug.Log("MoveCube");
+
+                    var isMe = (ServerInfo.User.Id == data.Id);
+                    if (!isMe)
+                    {
+                        red.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
                     }
                 });
     }

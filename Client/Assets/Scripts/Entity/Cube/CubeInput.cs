@@ -27,7 +27,7 @@ public class CubeInput : MonoBehaviour
                 {   //box
                     if (selectedCube)
                     {
-                        selectedCube.Move(hit.point);
+                        selectedCube.OnMove?.Invoke(selectedCube, hit.point);//.Move(hit.point);
                     }
                 }
             }

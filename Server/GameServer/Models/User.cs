@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace GameServer.Models
 {
@@ -31,10 +30,11 @@ namespace GameServer.Models
 
     public class GameCube
     {
+        public int CubeSeq { get; set; }
         public int CubeId { get; set; }
         public byte CombineLv { get; set; } = 1;
-        public float PositionX { get; set; }
-        public float PositionY { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
     }
 
     public class GameUser : RoomUser

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Cube : Entity
 {
     public Action<Cube> OnShot;
+    public Action<Cube, Vector3> OnMove;
     public Action<Cube, Cube> OnCombine;
 
     public Renderer range;
@@ -14,12 +15,13 @@ public class Cube : Entity
 
     public TextMesh combineLv_text;
 
-    [NonSerialized]
-    public byte combineLv = 1;
+    //[NonSerialized]
+    //public byte combineLv = 1;
 
     public float speed = 5.0f;
     private IEnumerator coroutineShot;
 
+    public GameCube gameCube;
     private GameSlot gameSlot;
     public CubeDataXml.Data cubeData;
 
@@ -45,9 +47,9 @@ public class Cube : Entity
         return cubeData.AS / slotLv;
     }
 
-    public void Spawn(byte combineLv, GameSlot gameSlot)
+    public void Spawn(GameCube gameCube, GameSlot gameSlot)
     {
-        this.combineLv = combineLv;
+        this.gameCube = gameCube;
         this.gameSlot = gameSlot;
 
         cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == gameSlot.CubeId);
@@ -56,7 +58,7 @@ public class Cube : Entity
         render.material.color = color;
         range.material.color = new Color(color.r, color.g, color.b, 0.1f);
 
-        combineLv_text.text = combineLv.ToString();
+        combineLv_text.text = gameCube.CombineLv.ToString();
 
         StartShot();
 
@@ -86,7 +88,7 @@ public class Cube : Entity
 
     public void Combine(Cube cube)
     {
-        if (combineLv != cube.combineLv)
+        if (gameCube.CombineLv != cube.gameCube.CombineLv)
             return;
 
         var speed = 3f;

@@ -163,16 +163,20 @@ namespace Network.GameServer
     /// <summary>
     /// 큐브 갱신 정보 : 이동
     /// </summary>
-    public class CS_UpdateCube
+    public class CS_MoveCube
     {
         public string Id { get; set; }
-        public GameCube Cube { get; set; }
+        public int CubeSeq { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
     }
 
-    public class SC_UpdateCube
+    public class SC_MoveCube
     {
         public string Id { get; set; }
-        public GameCube Cube { get; set; }
+        public int CubeSeq { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
     }
 
     /// <summary>

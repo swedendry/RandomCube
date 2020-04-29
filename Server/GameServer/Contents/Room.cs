@@ -32,6 +32,7 @@ namespace GameServer.Contents
 
         void CSID_CompleteLoading(string id);
         void CSID_CreateCube(CS_CreateCube cs);
+        void CSID_MoveCube(CS_MoveCube cs);
     }
 
     public class Room : IRoom
@@ -223,9 +224,15 @@ namespace GameServer.Contents
             }));
         }
 
-        public void CSID_MoveCube(string id)
+        public void CSID_MoveCube(CS_MoveCube cs)
         {
-
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("MoveCube", PayloadPack.Success(new SC_MoveCube()
+            {
+                Id = cs.Id,
+                CubeSeq = cs.CubeSeq,
+                PositionX = cs.PositionX,
+                PositionY = cs.PositionY,
+            }));
         }
     }
 }
