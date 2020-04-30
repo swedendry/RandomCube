@@ -70,6 +70,15 @@
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\EffectShaderPropertyStr.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\RenderEffect.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\TransformExtension.cs" />
+    <Compile Include="Assets\Script\ColorManager.cs" />
+    <Compile Include="Assets\Script\DropdownContentsCount.cs" />
+    <Compile Include="Assets\Script\PaletteApply.cs" />
+    <Compile Include="Assets\Script\ScrollContanetsCount.cs" />
+    <Compile Include="Assets\Script\ScrollSnapRect.cs" />
+    <Compile Include="Assets\Script\SliderValueReciver.cs" />
+    <Compile Include="Assets\Script\SliderValueSender.cs" />
+    <Compile Include="Assets\Script\ToggleSender.cs" />
+    <Compile Include="Assets\Script\ToggleValue.cs" />
     <Compile Include="Assets\Scripts\AutoMapper\MapperFactory.cs" />
     <Compile Include="Assets\Scripts\Entity\Cube\Cube.cs" />
     <Compile Include="Assets\Scripts\Entity\Cube\CubeInput.cs" />
@@ -77,6 +86,7 @@
     <Compile Include="Assets\Scripts\Entity\Missile\Missile.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Extension\EnumerableExtension.cs" />
+    <Compile Include="Assets\Scripts\Extension\ListExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\RandomExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\TextExtension.cs" />
     <Compile Include="Assets\Scripts\Game\BaseTeam.cs" />
@@ -99,6 +109,7 @@
     <Compile Include="Assets\Scripts\Network\GameServer\Receiver.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Sender.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServer.cs" />
+    <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServerCube.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\LobbyServerUser.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\Models\Body.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyServer\Models\Cube.cs" />

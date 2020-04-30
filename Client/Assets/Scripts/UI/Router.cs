@@ -61,5 +61,10 @@ namespace UI
             var allPaths = paths.Distinct().ToList();
             allPaths.ForEach(x => routes.Find(c => c.path == x).Close());
         }
+
+        public static void Refresh()
+        {
+            routes.ForEach(x => x.Refresh());
+        }
     }
 }

@@ -2,10 +2,28 @@
 {
     public class MainView : UIView
     {
-        //private void OnEnable()
-        //{
-        //    Router.Open("LobbyView/PlayView");
-        //}
+        private UserComponent userComponent;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            LobbyServer.ActionUpdateCubeLv += (payloader) =>
+            {
+                payloader.Callback(
+                success: (data) =>
+                {
+                    userComponent?.Upsert();
+                });
+            };
+
+            userComponent = GetUIComponent<UserComponent>();
+        }
+
+        public override void Upsert()
+        {
+            userComponent?.Upsert();
+        }
 
         public override void Event(string param)
         {

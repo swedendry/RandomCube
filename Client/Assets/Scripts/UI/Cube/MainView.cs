@@ -11,14 +11,13 @@ namespace UI.Cube
             materialView.OnEventProps = MaterialEvent;
         }
 
-        public override void Upsert()
-        {
-
-        }
-
         private void MaterialEvent(bool isSelected, Props<CubeViewModel> props)
         {
-
+            LobbyServer.sInstance?.UpdateCubeLv(ServerInfo.User.Id, props.data.CubeId).Callback(
+            success: (data) =>
+            {
+                materialView.Upsert();
+            });
         }
     }
 }

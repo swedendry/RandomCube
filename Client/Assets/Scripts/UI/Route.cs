@@ -31,5 +31,11 @@ namespace UI
         {
             gameObject?.SetActive(true);
         }
+
+        public void Refresh()
+        {
+            if (gameObject.activeSelf)
+                gameObject?.GetComponent<UIView>()?.Upsert();
+        }
     }
 }
