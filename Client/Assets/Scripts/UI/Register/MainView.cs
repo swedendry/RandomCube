@@ -31,7 +31,7 @@ namespace UI.Register
                 Name = name,
             };
 
-            LobbyServer.sInstance.CreateUser(body).Callback(
+            LobbyServer.sInstance?.CreateUser(body).Callback(
             success: (data) =>
             {
                 GameServer.sInstance.Connect();

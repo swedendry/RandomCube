@@ -120,7 +120,7 @@ public class Team : MonoBehaviour
         cubes.Add(cube);
 
         if (user.Id == ServerInfo.User.Id)
-            GameServer.sInstance.CreateCube(user.Id, gameCube);
+            GameServer.sInstance?.CreateCube(user.Id, gameCube);
 
         cubeSeq += 1;
 
@@ -248,7 +248,7 @@ public class Team : MonoBehaviour
         var positionY = (int)((target.y - center.y) * 100f);
 
         if (user.Id == ServerInfo.User.Id)
-            GameServer.sInstance.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
+            GameServer.sInstance?.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
     }
 
     private void OnCombineMove(Cube owner, Cube target)
@@ -260,7 +260,7 @@ public class Team : MonoBehaviour
         var positionY = (int)((target.transform.position.y - center.y) * 100f);
 
         if (user.Id == ServerInfo.User.Id)
-            GameServer.sInstance.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
+            GameServer.sInstance?.MoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
     }
 
     private void OnCombine(Cube owner, Cube target)
@@ -281,7 +281,7 @@ public class Team : MonoBehaviour
         CreateCube((byte)(combineLv + 1), position);
 
         if (user.Id == ServerInfo.User.Id)
-            GameServer.sInstance.CombineCube(user.Id, null, deleteSeq);
+            GameServer.sInstance?.CombineCube(user.Id, null, deleteSeq);
     }
 
     private void OnHit(Cube owner, Monster target, Missile collider)
@@ -304,7 +304,7 @@ public class Team : MonoBehaviour
         PoolFactory.Return("Monster", target);
 
         if (user.Id == ServerInfo.User.Id)
-            GameServer.sInstance.DieMonster(user.Id, seq);
+            GameServer.sInstance?.DieMonster(user.Id, seq);
     }
 
     private void OnEscape(Monster target)

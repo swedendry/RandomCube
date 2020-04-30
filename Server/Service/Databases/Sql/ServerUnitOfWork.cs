@@ -1,5 +1,6 @@
 ﻿using Service.Databases.Sql.Core;
 using Service.Databases.Sql.Models;
+using Service.Databases.Sql.Repositories;
 
 namespace Service.Databases.Sql
 {
@@ -12,7 +13,7 @@ namespace Service.Databases.Sql
 
         IRepository<User> Users { get; }
         IRepository<Entry> Entries { get; }
-        IRepository<Cube> Cubes { get; }
+        ICubeRepository Cubes { get; }
     }
 
     public class ServerUnitOfWork : UnitOfWork, IServerUnitOfWork
@@ -36,7 +37,7 @@ namespace Service.Databases.Sql
         private IRepository<Entry> entries;
         public IRepository<Entry> Entries => entries ??= new Repository<ServerUnitOfWork, Entry>(this);
 
-        private IRepository<Cube> cubes;
-        public IRepository<Cube> Cubes => cubes ??= new Repository<ServerUnitOfWork, Cube>(this);
+        private ICubeRepository cubes;
+        public ICubeRepository Cubes => cubes ??= new CubeRepository(this);
     }
 }

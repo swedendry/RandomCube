@@ -34,7 +34,7 @@ public class Main : MonoBehaviour
 
     private void Connected(HubConnection connection)
     {
-        GameServer.sInstance.Login(ServerInfo.User.Id, ServerInfo.User.Name);
+        GameServer.sInstance?.Login(ServerInfo.User.Id, ServerInfo.User.Name);
     }
 
     private void Login(Payloader<SC_Login> payloader)
@@ -85,7 +85,7 @@ public class Main : MonoBehaviour
                         };
                     }).ToList();
 
-                    GameServer.sInstance.EnterRoom(data.GroupName, new RoomUser()
+                    GameServer.sInstance?.EnterRoom(data.GroupName, new RoomUser()
                     {
                         Id = ServerInfo.User.Id,
                         Slots = slots,

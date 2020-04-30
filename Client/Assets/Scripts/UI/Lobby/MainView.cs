@@ -21,9 +21,9 @@
                         Router.CloseAndOpen("LobbyView/EntryView");
                     }
                     break;
-                case "shopview":
+                case "cubeview":
                     {
-                        Router.CloseAndOpen("LobbyView/ShopView");
+                        Router.CloseAndOpen("LobbyView/CubeView");
                     }
                     break;
             }

@@ -6,12 +6,12 @@ public class GameServerGUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameServer.sInstance.Connect();
+            GameServer.sInstance?.Connect();
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            GameServer.sInstance.Close();
+            GameServer.sInstance?.Close();
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -37,7 +37,7 @@ public class GameServerGUI : MonoBehaviour
                     });
             };
 
-            GameServer.sInstance.Login(id, name);
+            GameServer.sInstance?.Login(id, name);
         }
 
         if (Input.GetKeyDown(KeyCode.R))

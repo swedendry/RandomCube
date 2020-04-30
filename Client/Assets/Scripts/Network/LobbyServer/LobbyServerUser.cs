@@ -24,4 +24,15 @@ public partial class LobbyServer
                 ServerInfo.User = data;
             });
     }
+
+    public Payloader<int[]> UpdateEntry(string id, int[] slots)
+    {
+        var url = string.Format("api/users/{0}/entries", id);
+
+        return http.Put<int[]>(GetUri(url), slots).Callback(
+            success: (data) =>
+            {
+                ServerInfo.User.Entry.Slots = slots;
+            });
+    }
 }

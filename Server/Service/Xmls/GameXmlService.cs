@@ -6,39 +6,32 @@ using System.Xml;
 
 namespace Service.Xmls
 {
-    public static class XMLNAME
-    {   //XML 파일 네임
-        public const string CubeData = "CubeData";
-    }
-
-    public class GameXmlService : XmlService
+    public enum XmlKey
     {
-        public static void Initialize()
-        {
-            Load(new CubeDataXml(), XMLNAME.CubeData);
-        }
+        CubeData,
+        SkillData,
     }
 
     public static class XmlExtension
     {
-        public static List<T> FindAll<T>(this string key, IFormFile file, Xml xml)
+        public static List<T> FindAll<T>(this XmlKey key, IFormFile file, Xml xml)
         {
             return file == null ? key.FindAll<T>() : file.FindAll<T>(xml);
         }
 
-        public static List<T> FindAll<T>(this string key)
+        public static List<T> FindAll<T>(this XmlKey key)
         {
-            return XmlService.Find(key).FindAll<T>();
+            return XmlService.Find(key.ToString()).FindAll<T>();
         }
 
-        public static List<T> FindAll<T>(this string key, Predicate<T> match)
+        public static List<T> FindAll<T>(this XmlKey key, Predicate<T> match)
         {
-            return XmlService.Find(key).FindAll(match);
+            return XmlService.Find(key.ToString()).FindAll(match);
         }
 
-        public static T Find<T>(this string key, Predicate<T> match)
+        public static T Find<T>(this XmlKey key, Predicate<T> match)
         {
-            return XmlService.Find(key).Find(match);
+            return XmlService.Find(key.ToString()).Find(match);
         }
 
         public static List<T> FindAll<T>(this IFormFile file, Xml xml)
@@ -51,6 +44,14 @@ namespace Service.Xmls
 
                 return xml.FindAll<T>();
             }
+        }
+    }
+
+    public class GameXmlService : XmlService
+    {
+        public static void Initialize()
+        {
+            Load(new CubeDataXml(), XmlKey.CubeData.ToString());
         }
     }
 }

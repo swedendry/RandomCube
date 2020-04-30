@@ -21,7 +21,7 @@ namespace UI.Login
         {
             var id = SystemInfo.deviceUniqueIdentifier;
 
-            LobbyServer.sInstance.GetUser(id).Callback(
+            LobbyServer.sInstance?.GetUser(id).Callback(
             success: (data) =>
             {
                 GameServer.sInstance.Connect();

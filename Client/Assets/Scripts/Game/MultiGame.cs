@@ -24,7 +24,7 @@ public class MultiGame : Game
     {
         base.Loading();
 
-        GameServer.sInstance.CompleteLoading(ServerInfo.MyGameUser().Id);
+        GameServer.sInstance?.CompleteLoading(ServerInfo.MyGameUser().Id);
     }
 
     private void CompleteLoading(Payloader<SC_CompleteLoading> payloader)

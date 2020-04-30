@@ -1,7 +1,6 @@
 ﻿using Network.LobbyServer;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace UI.Entry
 {
@@ -20,7 +19,7 @@ namespace UI.Entry
 
         private void OnDisable()
         {
-            Debug.Log("Entry Disable");
+            LobbyServer.sInstance?.UpdateEntry(ServerInfo.User.Id, dummySlots.ToArray());
         }
 
         public override void Upsert()

@@ -21,6 +21,20 @@ namespace Service.Extensions
             return source.OrderBy(x => Guid.NewGuid());
         }
 
+        public static IEnumerable<T> RandomNoShuffle<T>(this IEnumerable<T> source, int count)
+        {
+            var materials = source.ToList();
+            var pick = new List<T>();
+            var random = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                var index = random.Next(0, source.Count() - 1);
+                pick.Add(materials[index]);
+            }
+
+            return pick;
+        }
+
         public static int[] RandomRate<T>(this T[] rate, int count)
         {
             var doubleRate = rate.Select(x => Convert.ToDouble(x)).ToArray();

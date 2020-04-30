@@ -16,8 +16,6 @@ public partial class GameServer : MonoBehaviour
 
     public static GameServer sInstance;
 
-    //public string BaseUri = "https://test-game.azurewebsites.net/game";
-    //public string BaseUri = "https://localhost:44341/game";
     public Section section;
 
     private readonly PayloadSignalr signalr = new PayloadSignalr();

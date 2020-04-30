@@ -45,7 +45,7 @@ namespace AdminServer.Controllers
         {
             try
             {
-                var datas = XMLNAME.CubeData.FindAll<CubeDataXml.Data>(xml, new CubeDataXml());
+                var datas = XmlKey.CubeData.FindAll<CubeDataXml.Data>(xml, new CubeDataXml());
 
                 await _unitOfWork.CubeDatas.DeleteManyAsync();
                 await _unitOfWork.CubeDatas.AddAsync(_mapper.Map<IEnumerable<CubeData>>(datas));
@@ -64,7 +64,7 @@ namespace AdminServer.Controllers
         {
             try
             {
-                var datas = XMLNAME.CubeData.FindAll<SkillDataXml.Data>(xml, new SkillDataXml());
+                var datas = XmlKey.CubeData.FindAll<SkillDataXml.Data>(xml, new SkillDataXml());
 
                 await _unitOfWork.SkillDatas.DeleteManyAsync();
                 await _unitOfWork.SkillDatas.AddAsync(_mapper.Map<IEnumerable<SkillData>>(datas));
