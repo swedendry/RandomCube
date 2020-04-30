@@ -48,7 +48,7 @@ namespace UI.Cube
                     };
                 }
                 return cube;
-            }).OrderByDescending(x => x.Lv).ThenBy(x => x.CubeId);
+            }).OrderBy(x => x.CubeId);
 
             allCubes.ForEach((x, i) =>
             {

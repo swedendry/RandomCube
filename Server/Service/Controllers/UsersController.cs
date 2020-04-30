@@ -102,7 +102,8 @@ namespace Service.Controllers
                 if (entity == null)
                     return Payloader.Fail(PayloadCode.DbNull);
 
-                entity.Name = body.Name;
+                //entity.Name = body.Name;
+                entity.Money = body.Money;
 
                 await _unitOfWork.CommitAsync();
 

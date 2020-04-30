@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extension;
+using System;
 using UnityEngine;
 
 namespace UI
@@ -15,7 +16,7 @@ namespace UI
 
         public virtual void Empty()
         {
-            gameObject?.SetActive(false);
+            gameObject?.SetVisible(false);
         }
 
         public virtual void Upsert()
@@ -42,7 +43,7 @@ namespace UI
         {
             isSelected = false;
 
-            gameObject?.SetActive(false);
+            gameObject?.SetVisible(false);
         }
 
         public virtual void Upsert(T data)
@@ -63,7 +64,7 @@ namespace UI
             if (data == null)
                 return;
 
-            gameObject?.SetActive(true);
+            gameObject?.SetVisible(true);
         }
 
         public virtual void Event()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extension;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,7 +133,7 @@ public class Monster : Entity
         var skill = PoolFactory.Get(key);
         skill.transform.parent = transform;
         skill.transform.localPosition = Vector3.zero;
-        skill?.gameObject?.SetActive(true);
+        skill?.gameObject?.SetVisible(true);
         skills.Add(key, skill);
 
         yield return new WaitForSeconds(0.5f);

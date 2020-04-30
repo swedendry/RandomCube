@@ -37,6 +37,9 @@ namespace UI.Cube
             cube_image.color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2]);
             lv_text?.SetText(data?.Lv.ToString());
             price_text?.SetText(price.ToString());
+
+            var isLock = ServerInfo.User.Money < price;
+            Lock(isLock);
         }
 
         public override void Event()
@@ -49,12 +52,12 @@ namespace UI.Cube
 
         public void Selected(bool isSelected)
         {
-            selected_obj?.SetActive(isSelected);
+            selected_obj? .SetVisible(isSelected);
         }
 
         public void Lock(bool isLock)
         {
-            lock_obj?.SetActive(isLock);
+            lock_obj?.SetVisible(isLock);
         }
     }
 }

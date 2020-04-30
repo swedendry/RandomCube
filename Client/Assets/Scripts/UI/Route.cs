@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Extension;
+using UnityEngine;
 
 namespace UI
 {
@@ -24,12 +25,12 @@ namespace UI
 
         public void Close()
         {
-            gameObject?.SetActive(false);
+            gameObject?.SetVisible(false);
         }
 
         public void Open()
         {
-            gameObject?.SetActive(true);
+            gameObject?.SetVisible(true);
         }
 
         public void Refresh()

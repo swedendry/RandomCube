@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Extension;
+using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Spawn()
     {
-        gameObject?.SetActive(true);
+        gameObject?.SetVisible(true);
     }
 
     protected virtual void Move(Vector3 position, float speed, object completeparams = null)

@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Entity\Missile\Missile.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Extension\EnumerableExtension.cs" />
+    <Compile Include="Assets\Scripts\Extension\GameObjectExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\ListExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\RandomExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\TextExtension.cs" />

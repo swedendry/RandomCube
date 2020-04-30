@@ -1,4 +1,5 @@
-﻿using Network.GameServer;
+﻿using Extension;
+using Network.GameServer;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class Cube : Entity
         anim = GetComponentInChildren<Animation>();
         render = GetComponentInChildren<Renderer>();
 
-        range?.gameObject?.SetActive(false);
+        range?.gameObject?.SetVisible(false);
     }
 
     public float AD()
@@ -102,12 +103,12 @@ public class Cube : Entity
 
     public void Selected()
     {
-        range?.gameObject?.SetActive(true);
+        range?.gameObject?.SetVisible(true);
     }
 
     public void DeSelected()
     {
-        range?.gameObject?.SetActive(false);
+        range?.gameObject?.SetVisible(false);
     }
 
     public void Move(Vector3 position)

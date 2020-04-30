@@ -46,12 +46,12 @@ namespace UI.Entry
 
         public void Selected(bool isSelected)
         {
-            selected_obj?.SetActive(isSelected);
+            selected_obj?.SetVisible(isSelected);
         }
 
         public void Lock(bool isLock)
         {
-            lock_obj?.SetActive(isLock);
+            lock_obj?.SetVisible(isLock);
         }
     }
 }
