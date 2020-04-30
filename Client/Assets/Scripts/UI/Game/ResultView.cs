@@ -15,7 +15,7 @@ namespace UI.Game
             resultComponent = GetUIComponent<ResultComponent>();
         }
 
-        private void OnEnable()
+        public override void Upsert()
         {
             resultComponent?.Upsert();
 

@@ -62,7 +62,7 @@ namespace Pools
 
         public void Return(GameObject entity)
         {
-            entity.gameObject.SetActive(false);
+            entity.gameObject?.SetActive(false);
             entries.Enqueue(entity);
         }
 

@@ -31,7 +31,7 @@ public class Cube : Entity
         anim = GetComponentInChildren<Animation>();
         render = GetComponentInChildren<Renderer>();
 
-        range.gameObject.SetActive(false);
+        range?.gameObject?.SetActive(false);
     }
 
     public float AD()
@@ -102,12 +102,12 @@ public class Cube : Entity
 
     public void Selected()
     {
-        range.gameObject.SetActive(true);
+        range?.gameObject?.SetActive(true);
     }
 
     public void DeSelected()
     {
-        range.gameObject.SetActive(false);
+        range?.gameObject?.SetActive(false);
     }
 
     public void Move(Vector3 position)

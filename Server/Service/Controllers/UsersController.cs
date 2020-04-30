@@ -137,7 +137,7 @@ namespace Service.Controllers
         private async Task UpdateCube(User user)
         {
             var allCubes = await _unitOfWork.CubeDatas.GetManyAsync(isTracking: true);
-            var cubes = allCubes.Random(ServerDefine.MAX_ENTRY_SLOT);
+            var cubes = allCubes.Random(5);//ServerDefine.MAX_ENTRY_SLOT);
 
             cubes.ForEach((x, i) =>
             {
@@ -154,7 +154,7 @@ namespace Service.Controllers
             user.Entry = new Entry()
             {
                 UserId = user.Id,
-                Slots = user.Cubes.Select(x => x.CubeId).ToArray(),
+                Slots = user.Cubes.Take(ServerDefine.MAX_ENTRY_SLOT).Select(x => x.CubeId).ToArray(),
             };
         }
     }

@@ -14,7 +14,7 @@
             userComponent = GetUIComponent<UserComponent>();
         }
 
-        private void OnEnable()
+        public override void Upsert()
         {
             blueSlotView?.Upsert(ServerInfo.MyGameUser());
             redSlotView?.Upsert(ServerInfo.EnemyGameUser());

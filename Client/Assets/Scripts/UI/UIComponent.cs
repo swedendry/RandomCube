@@ -15,7 +15,7 @@ namespace UI
 
         public virtual void Empty()
         {
-            gameObject.SetActive(false);
+            gameObject?.SetActive(false);
         }
 
         public virtual void Upsert()
@@ -36,6 +36,15 @@ namespace UI
         [HideInInspector]
         public Props<T> props;
 
+        protected bool isSelected;
+
+        public override void Empty()
+        {
+            isSelected = false;
+
+            gameObject?.SetActive(false);
+        }
+
         public virtual void Upsert(T data)
         {
             Upsert(0, data);
@@ -43,6 +52,8 @@ namespace UI
 
         public virtual void Upsert(int index, T data)
         {
+            Empty();
+
             props = new Props<T>()
             {
                 index = index,
@@ -50,17 +61,14 @@ namespace UI
             };
 
             if (data == null)
-            {
-                Empty();
                 return;
-            }
 
-            gameObject.SetActive(true);
+            gameObject?.SetActive(true);
         }
 
         public virtual void Event()
         {
-            var isSelected = true;
+            isSelected = !isSelected;
 
             OnEventProps?.Invoke(isSelected, props);
         }

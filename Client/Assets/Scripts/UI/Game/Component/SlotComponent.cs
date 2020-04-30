@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 namespace UI.Game
 {
+    [RequireComponent(typeof(Image))]
     public class SlotComponent : UIComponent<GameSlot>
     {
-        public Image cube_image;
+        private Image cube_image;
         public Text lv_text;
         public Text sp_text;
+
+        private void Awake()
+        {
+            cube_image = GetComponent<Image>();
+        }
 
         public override void Upsert(int index, GameSlot data)
         {

@@ -24,12 +24,12 @@ namespace UI
 
         public void Close()
         {
-            gameObject.SetActive(false);
+            gameObject?.SetActive(false);
         }
 
         public void Open()
         {
-            gameObject.SetActive(true);
+            gameObject?.SetActive(true);
         }
     }
 }

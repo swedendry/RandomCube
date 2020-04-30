@@ -6,12 +6,19 @@ using UnityEngine;
 
 public partial class GameServer : MonoBehaviour
 {
+    public enum Section
+    {
+        Cloud,
+        Local,
+    }
+
     public static Action<HubConnection> ActionConnected;
 
     public static GameServer sInstance;
 
-    public string BaseUri = "https://test-game.azurewebsites.net/game";
+    //public string BaseUri = "https://test-game.azurewebsites.net/game";
     //public string BaseUri = "https://localhost:44341/game";
+    public Section section;
 
     private readonly PayloadSignalr signalr = new PayloadSignalr();
 
@@ -82,9 +89,18 @@ public partial class GameServer : MonoBehaviour
         Release();
     }
 
+    private string GetBaseUri()
+    {
+        switch (section)
+        {
+            case Section.Local: return "https://localhost:44341/game";
+            default: return "https://test-game.azurewebsites.net/game";
+        }
+    }
+
     private Uri GetUri()
     {
-        return new Uri(BaseUri);
+        return new Uri(GetBaseUri());
     }
 
     private bool OnMessage(HubConnection connection, Message message)

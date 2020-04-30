@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UI.Game
 {
-    public class SlotView : UIView<GameSlot>
+    public class SlotView : UIView<SlotComponent, GameSlot>
     {
         private List<SlotComponent> slotComponents;
 

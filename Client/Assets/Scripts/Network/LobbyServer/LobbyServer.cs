@@ -4,10 +4,18 @@ using UnityEngine;
 
 public partial class LobbyServer : MonoBehaviour
 {
+    public enum Section
+    {
+        Cloud,
+        Local,
+    }
+
     public static LobbyServer sInstance;
 
-    public string BaseUri = "https://test-lobby.azurewebsites.net/";
+    //public string BaseUri = "https://test-lobby.azurewebsites.net/";
     //public string BaseUri = "https://localhost:44324/";
+
+    public Section section;
 
     private readonly PayloadHttp http = new PayloadHttp();
 
@@ -31,8 +39,17 @@ public partial class LobbyServer : MonoBehaviour
         sInstance = null;
     }
 
+    private string GetBaseUri()
+    {
+        switch (section)
+        {
+            case Section.Local: return "https://localhost:44324/";
+            default: return "https://test-lobby.azurewebsites.net/";
+        }
+    }
+
     private Uri GetUri(string relativeUri)
     {
-        return new Uri(BaseUri + relativeUri);
+        return new Uri(GetBaseUri() + relativeUri);
     }
 }

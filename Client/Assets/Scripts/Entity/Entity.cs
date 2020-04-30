@@ -13,7 +13,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Spawn()
     {
-        gameObject.SetActive(true);
+        gameObject?.SetActive(true);
     }
 
     protected virtual void Move(Vector3 position, float speed, object completeparams = null)

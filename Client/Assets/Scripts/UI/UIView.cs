@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +16,18 @@ namespace UI
         {
             components = GetComponentsInChildren<UIComponent>(true).ToList();
             components.ForEach(x => { x.OnEvent = Event; });
+        }
+
+        protected virtual void OnEnable()
+        {
+            StartCoroutine(Enable());
+        }
+
+        protected virtual IEnumerator Enable()
+        {
+            yield return null;
+
+            Upsert();
         }
 
         protected virtual void Create()
@@ -48,7 +61,7 @@ namespace UI
         }
     }
 
-    public class UIView<T> : UIView
+    public class UIView<U, T> : UIView where U : UIComponent<T>
     {
         public Action<bool, Props<T>> OnEventProps;
 
@@ -59,7 +72,7 @@ namespace UI
         {
             base.Awake();
 
-            var components = GetUIComponents<UIComponent<T>>();
+            var components = GetUIComponents<U>();
             components.ForEach(x => { x.OnEventProps = Event; });
         }
 

@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\UI\Router.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\UIComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\UIContainer.cs" />
     <Compile Include="Assets\Scripts\UI\UIView.cs" />
     <Compile Include="Assets\Scripts\Xml\CubeDataXml.cs" />
     <Compile Include="Assets\Scripts\Xml\SkillDataXml.cs" />
