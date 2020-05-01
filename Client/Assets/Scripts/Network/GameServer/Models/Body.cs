@@ -147,23 +147,6 @@ namespace Network.GameServer
     }
 
     /// <summary>
-    /// 큐브 합치기 정보
-    /// </summary>
-    public class CS_CombineCube
-    {
-        public string Id { get; set; }
-        public GameCube NewCube { get; set; }
-        public List<int> DeleteCubes { get; set; }
-    }
-
-    public class SC_CombineCube
-    {
-        public string Id { get; set; }
-        public GameCube NewCube { get; set; }
-        public List<int> DeleteCubes { get; set; }
-    }
-
-    /// <summary>
     /// 큐브 이동 정보
     /// </summary>
     public class CS_MoveCube
@@ -180,6 +163,38 @@ namespace Network.GameServer
         public int CubeSeq { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+    }
+
+    /// <summary>
+    /// 큐브 합치기 정보
+    /// </summary>
+    public class CS_CombineCube
+    {
+        public string Id { get; set; }
+        public int OwnerSeq { get; set; }
+        public int TargetSeq { get; set; }
+    }
+
+    public class SC_CombineCube
+    {
+        public string Id { get; set; }
+        public int OwnerSeq { get; set; }
+        public int TargetSeq { get; set; }
+    }
+
+    /// <summary>
+    /// 큐브 삭제 정보
+    /// </summary>
+    public class CS_DeleteCube
+    {
+        public string Id { get; set; }
+        public List<int> DeleteCubes { get; set; }
+    }
+
+    public class SC_DeleteCube
+    {
+        public string Id { get; set; }
+        public List<int> DeleteCubes { get; set; }
     }
 
     /// <summary>

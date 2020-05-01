@@ -65,7 +65,7 @@ public partial class GameServer
         Send("CompleteLoading", cs);
     }
 
-    public void CreateCube(string id, GameCube cube)
+    public virtual void CreateCube(string id, GameCube cube)
     {
         var cs = new CS_CreateCube()
         {
@@ -73,10 +73,10 @@ public partial class GameServer
             NewCube = cube,
         };
 
-        Send("CreateCube", cs);
+        SendImmediate("CreateCube", cs, cs.Map<SC_CreateCube>());
     }
 
-    public void MoveCube(string id, int cubeSeq, int positionX, int positionY)
+    public virtual void MoveCube(string id, int cubeSeq, int positionX, int positionY)
     {
         var cs = new CS_MoveCube()
         {
@@ -86,19 +86,30 @@ public partial class GameServer
             PositionY = positionY
         };
 
-        Send("MoveCube", cs);
+        SendImmediate("MoveCube", cs, cs.Map<SC_MoveCube>());
     }
 
-    public void CombineCube(string id, GameCube cube, List<int> deleteSeq)
+    public virtual void CombineCube(string id, int ownerSeq, int targetSeq)
     {
         var cs = new CS_CombineCube()
         {
             Id = id,
-            NewCube = cube,
+            OwnerSeq = ownerSeq,
+            TargetSeq = targetSeq,
+        };
+
+        SendImmediate("CombineCube", cs, cs.Map<SC_CombineCube>());
+    }
+
+    public void DeleteCube(string id, List<int> deleteSeq)
+    {
+        var cs = new CS_DeleteCube()
+        {
+            Id = id,
             DeleteCubes = deleteSeq,
         };
 
-        Send("CombineCube", cs);
+        SendImmediate("DeleteCube", cs, cs.Map<SC_DeleteCube>());
     }
 
     public void DieMonster(string id, int monsterSeq)
@@ -109,7 +120,7 @@ public partial class GameServer
             MonsterSeq = monsterSeq,
         };
 
-        Send("DieMonster", cs);
+        SendImmediate("DieMonster", cs, cs.Map<SC_DieMonster>());
     }
 
     public void EscapeMonster(string id, int monsterSeq)
@@ -120,6 +131,6 @@ public partial class GameServer
             MonsterSeq = monsterSeq,
         };
 
-        Send("EscapeMonster", cs);
+        SendImmediate("EscapeMonster", cs, cs.Map<SC_EscapeMonster>());
     }
 }

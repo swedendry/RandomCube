@@ -38,6 +38,7 @@ namespace GameServer.Contents
         void CSID_CreateCube(CS_CreateCube cs);
         void CSID_MoveCube(CS_MoveCube cs);
         void CSID_CombineCube(CS_CombineCube cs);
+        void CSID_DeleteCube(CS_DeleteCube cs);
         void CSID_DieMonster(CS_DieMonster cs);
         void CSID_EscapeMonster(CS_EscapeMonster cs);
     }
@@ -273,7 +274,16 @@ namespace GameServer.Contents
             _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("CombineCube", PayloadPack.Success(new SC_CombineCube()
             {
                 Id = cs.Id,
-                NewCube = cs.NewCube,
+                OwnerSeq = cs.OwnerSeq,
+                TargetSeq = cs.TargetSeq,
+            }));
+        }
+
+        public void CSID_DeleteCube(CS_DeleteCube cs)
+        {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("DeleteCube", PayloadPack.Success(new SC_DeleteCube()
+            {
+                Id = cs.Id,
                 DeleteCubes = cs.DeleteCubes,
             }));
         }

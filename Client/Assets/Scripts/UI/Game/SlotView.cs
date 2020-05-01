@@ -17,6 +17,9 @@ namespace UI.Game
 
         public void Upsert(GameUser user)
         {
+            if (user == null)
+                gameObject.SetVisible(false);
+
             user?.Slots.ForEach((x, i) =>
             {
                 slotComponents[i].Upsert(i, x);

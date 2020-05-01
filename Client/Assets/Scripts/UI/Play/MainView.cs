@@ -1,4 +1,6 @@
-﻿namespace UI.Play
+﻿using UnityEngine.SceneManagement;
+
+namespace UI.Play
 {
     public class MainView : UIView
     {
@@ -6,7 +8,12 @@
         {
             switch (param)
             {
-                case "match":
+                case "singleplay":
+                    {
+                        SceneManager.LoadScene("SingleGame", LoadSceneMode.Single);
+                    }
+                    break;
+                case "multiplay":
                     {
                         GameServer.sInstance.EnterMatch(ServerInfo.User.Id);
                     }

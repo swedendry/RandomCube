@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7653631518050634591}
   - component: {fileID: 865245382352768636}
   - component: {fileID: 1801954216650870044}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4730,7 +4730,7 @@ GameObject:
   - component: {fileID: 4493034526811097890}
   - component: {fileID: 2998826282600819769}
   - component: {fileID: 8685661538440364558}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 02_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9506,8 +9506,8 @@ GameObject:
   - component: {fileID: 3687918174356287977}
   - component: {fileID: 3330657613244239435}
   - component: {fileID: 2504566768631629436}
-  m_Layer: 0
-  m_Name: Skill
+  m_Layer: 21
+  m_Name: Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14264,7 +14264,7 @@ GameObject:
   - component: {fileID: 1689925062600417232}
   - component: {fileID: 2530229364698233380}
   - component: {fileID: 1940107311260517504}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19076,7 +19076,7 @@ GameObject:
   - component: {fileID: 7087316938085800891}
   - component: {fileID: 2223932440586132956}
   - component: {fileID: 3338267721941210620}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 01_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23888,7 +23888,7 @@ GameObject:
   - component: {fileID: 6898677539052957152}
   - component: {fileID: 7195899839474701897}
   - component: {fileID: 8940148671403729686}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

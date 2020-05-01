@@ -19,5 +19,10 @@ namespace UI
                 Router.Register(x);
             });
         }
+
+        private void OnDestroy()
+        {
+            Router.UnRegister();
+        }
     }
 }

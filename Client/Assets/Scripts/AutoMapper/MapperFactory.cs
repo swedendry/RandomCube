@@ -31,6 +31,13 @@ public static class MapperFactory
             CreateMap<CubeDataXml.Data, CubeDataViewModel>(cfg);
 
             CreateMap<RoomUser, GameUser>(cfg);
+
+            CreateMap<CS_CreateCube, SC_CreateCube>(cfg);
+            CreateMap<CS_MoveCube, SC_MoveCube>(cfg);
+            CreateMap<CS_CombineCube, SC_CombineCube>(cfg);
+            CreateMap<CS_DeleteCube, SC_DeleteCube>(cfg);
+            CreateMap<CS_DieMonster, SC_DieMonster>(cfg);
+            CreateMap<CS_EscapeMonster, SC_EscapeMonster>(cfg);
         });
 
         Mapper = config.CreateMapper();

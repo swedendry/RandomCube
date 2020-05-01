@@ -22,7 +22,7 @@ public class Monster : Entity
 
     private List<Transform> paths;
     private float speed = 0.5f;
-    private float hp = 400f;
+    private float hp = 100f;
     private State state = State.Spawn;
     private readonly Dictionary<string, GameObject> skills = new Dictionary<string, GameObject>();
 
@@ -32,7 +32,7 @@ public class Monster : Entity
     {
         this.seq = seq;
         iTween.Stop(gameObject);
-        hp = 400f;
+        hp = 100f;
         speed = 1f;
         hp_text.text = ((int)hp).ToString();
         state = State.Spawn;
@@ -49,7 +49,7 @@ public class Monster : Entity
         Move(1);
     }
 
-    public void Move(int targetIndex)
+    private void Move(int targetIndex)
     {
         var position = paths[targetIndex].position;
         position.z = 0f;
@@ -130,13 +130,13 @@ public class Monster : Entity
 
     private IEnumerator Particle(string key)
     {
-        var skill = PoolFactory.Get(key);
-        skill.transform.parent = transform;
-        skill.transform.localPosition = Vector3.zero;
+        var skill = PoolFactory.Get(key, transform);
+        var particle = skill.GetComponent<ParticleSystem>();
+        skill.transform.localPosition = new Vector3(0f, 0f, 0f);
         skill?.gameObject?.SetVisible(true);
         skills.Add(key, skill);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
 
         DeleteSkill(key);
     }

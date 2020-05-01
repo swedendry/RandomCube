@@ -27,6 +27,14 @@ namespace Network
         public T data { get; set; }
     }
 
+    public static class PayloadPack
+    {
+        public static object[] Success<T>(T data)
+        {
+            return new object[] { PayloadCode.Success, data };
+        }
+    }
+
     public class Payloader
     {
         private Action<PayloadCode> fail;

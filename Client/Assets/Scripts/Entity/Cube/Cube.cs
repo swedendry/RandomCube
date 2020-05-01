@@ -17,9 +17,6 @@ public class Cube : Entity
 
     public TextMesh combineLv_text;
 
-    //[NonSerialized]
-    //public byte combineLv = 1;
-
     public float speed = 5.0f;
     private IEnumerator coroutineShot;
 
@@ -49,22 +46,6 @@ public class Cube : Entity
         return cubeData.AS / slotLv;
     }
 
-    public void Create(Transform parent, GameCube gameCube, GameSlot gameSlot)
-    {
-        base.Create(parent);
-
-        this.gameCube = gameCube;
-        this.gameSlot = gameSlot;
-
-        cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == gameSlot.CubeId);
-
-        var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
-        render.material.color = color;
-        range.material.color = new Color(color.r, color.g, color.b, 0.1f);
-        range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
-        combineLv_text.text = gameCube.CombineLv.ToString();
-    }
-
     public void Spawn(GameCube gameCube, GameSlot gameSlot)
     {
         this.gameCube = gameCube;
@@ -82,24 +63,6 @@ public class Cube : Entity
 
         StartShot();
     }
-
-    //public void Spawn(GameCube gameCube, GameSlot gameSlot)
-    //{
-    //    this.gameCube = gameCube;
-    //    this.gameSlot = gameSlot;
-
-    //    cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == gameSlot.CubeId);
-
-    //    var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
-    //    render.material.color = color;
-    //    range.material.color = new Color(color.r, color.g, color.b, 0.1f);
-    //    range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
-    //    combineLv_text.text = gameCube.CombineLv.ToString();
-
-    //    StartShot();
-
-    //    base.Spawn();
-    //}
 
     public void Selected()
     {
@@ -184,46 +147,3 @@ public class Cube : Entity
 
     }
 }
-
-
-//var color = new Color(0f, 0f, 0f);
-//        switch (gameSlot.CubeId)
-//        {
-//            case 1:
-//                {
-//                    color.r = 1f; color.g = 0f; color.b = 0f;
-//                }
-//                break;
-//            case 2:
-//                {
-//                    color.r = 1f; color.g = 0.4f; color.b = 0f;
-//                }
-//                break;
-//            case 3:
-//                {
-//                    color.r = 1f; color.g = 1f; color.b = 0f;
-//                }
-//                break;
-//            case 4:
-//                {
-//                    color.r = 0f; color.g = 1f; color.b = 0f;
-//                }
-//                break;
-//            case 5:
-//                {
-//                    color.r = 0f; color.g = 0f; color.b = 1f;
-//                }
-//                break;
-//            case 6:
-//                {
-//                    color.r = 0f; color.g = 0.4f; color.b = 1f;
-//                }
-//                break;
-//            case 7:
-//                {
-//                    color.r = 1f; color.g = 0f; color.b = 1f;
-//                }
-//                break;
-//            default:
-//                break;
-//        }

@@ -25,8 +25,8 @@ namespace UI.Game
             var price = data.CubeLv * 100;
 
             cube_image.color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2]);
-            lv_text?.SetText(data?.SlotLv.ToString());
-            sp_text?.SetText(price.ToString());
+            lv_text.SetText(data?.SlotLv.ToString());
+            sp_text.SetText(price.ToString());
         }
     }
 }

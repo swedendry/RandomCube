@@ -19,10 +19,11 @@ public partial class GameServer
     public static Action<Payloader<SC_CreateCube>> ActionCreateCube;
     public static Action<Payloader<SC_MoveCube>> ActionMoveCube;
     public static Action<Payloader<SC_CombineCube>> ActionCombineCube;
+    public static Action<Payloader<SC_DeleteCube>> ActionDeleteCube;
     public static Action<Payloader<SC_DieMonster>> ActionDieMonster;
     public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
 
-    private void OnInvocation(string target, object[] arguments)
+    protected void OnInvocation(string target, object[] arguments)
     {
         switch (target)
         {
@@ -128,6 +129,13 @@ public partial class GameServer
                 {
                     var payloader = new Payloader<SC_CombineCube>();
                     ActionCombineCube?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "DeleteCube":
+                {
+                    var payloader = new Payloader<SC_DeleteCube>();
+                    ActionDeleteCube?.Invoke(payloader);
                     signalr.Call(payloader, arguments);
                 }
                 break;

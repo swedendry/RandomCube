@@ -15,21 +15,19 @@ public class CubeInput : MonoBehaviour
                 var cube = hit.collider.GetComponentInParent<Cube>();
                 if (cube)
                 {   //cube
-                    if (selectedCube)
-                    {
-                        selectedCube.DeSelected();
-                    }
-
+                    selectedCube?.DeSelected();
                     selectedCube = cube;
-                    selectedCube.Selected();
+                    selectedCube?.Selected();
                 }
                 else
                 {   //box
-                    if (selectedCube)
-                    {
-                        selectedCube.OnMove?.Invoke(selectedCube, hit.point);
-                    }
+                    selectedCube?.OnMove?.Invoke(selectedCube, hit.point);
                 }
+            }
+            else
+            {
+                selectedCube?.DeSelected();
+                selectedCube = null;
             }
         }
         else if (Input.GetMouseButtonDown(1))
@@ -43,7 +41,7 @@ public class CubeInput : MonoBehaviour
                     var cube = hit.collider.GetComponentInParent<Cube>();
                     if (cube)
                     {
-                        selectedCube.OnCombineMove?.Invoke(selectedCube, cube);
+                        selectedCube?.OnCombineMove?.Invoke(selectedCube, cube);
                     }
                 }
             }

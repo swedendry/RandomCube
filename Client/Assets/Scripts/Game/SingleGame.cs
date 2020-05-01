@@ -2,27 +2,23 @@
 using Network.GameServer;
 using Network.LobbyServer;
 using System.Linq;
-using UI;
 using UnityEngine;
 
 public class SingleGame : Game
 {
     protected override void Start()
     {
-        Router.Close();
-
         MapperFactory.Register();
         XmlFactory.Load();
 
-        ServerInfo.User = DummyUser();
+        if (string.IsNullOrEmpty(ServerInfo.User.Id))
+            ServerInfo.User = DummyUser();
         ServerInfo.GameUsers.Clear();
         ServerInfo.GameUsers.Add(DummyGameUser(ServerInfo.User));
 
-        Router.CloseAndOpen("GameView");
-
         base.Start();
 
-        StartCoroutine(blue.CreateMonster());
+        StartCoroutine(WaveMonster());
     }
 
     private UserViewModel DummyUser()

@@ -18,10 +18,10 @@ namespace UI
         //    Close();
         //}
 
-        private void OnDestroy()
-        {
-            Router.UnRegister(this);
-        }
+        //private void OnDestroy()
+        //{
+        //    Router.UnRegister(this);
+        //}
 
         public void Close()
         {

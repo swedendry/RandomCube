@@ -119,4 +119,10 @@ public partial class GameServer : MonoBehaviour
     {
         signalr.Send(method, args);
     }
+
+    private void SendImmediate(string method, params object[] args)
+    {
+        Send(method, args[0]);
+        OnInvocation(method, PayloadPack.Success(args[1]));
+    }
 }

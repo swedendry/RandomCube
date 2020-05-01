@@ -33,6 +33,11 @@ namespace UI
             routes.Add(route);
         }
 
+        public static void UnRegister()
+        {
+            routes.Clear();
+        }
+
         public static void UnRegister(Route route)
         {
             routes.Remove(route);

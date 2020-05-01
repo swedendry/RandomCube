@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6198937359282745101}
   - component: {fileID: 6198937359297999809}
   - component: {fileID: 6198937359296523899}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 01_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 6198937359282756567}
   - component: {fileID: 6198937359297956061}
   - component: {fileID: 6198937359296592021}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Poison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9581,7 +9581,7 @@ GameObject:
   - component: {fileID: 6198937359282786821}
   - component: {fileID: 6198937359298031311}
   - component: {fileID: 6198937359298051573}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14393,7 +14393,7 @@ GameObject:
   - component: {fileID: 6198937359282747669}
   - component: {fileID: 6198937359298006709}
   - component: {fileID: 6198937359296554391}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19112,7 +19112,7 @@ GameObject:
   - component: {fileID: 6198937359282864043}
   - component: {fileID: 6198937359297954763}
   - component: {fileID: 6198937359298042173}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23758,7 +23758,7 @@ GameObject:
   - component: {fileID: 6198937359282741609}
   - component: {fileID: 6198937359297998453}
   - component: {fileID: 6198937359296500531}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: 02_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}

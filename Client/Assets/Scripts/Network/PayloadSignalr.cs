@@ -21,7 +21,7 @@ namespace Network
                         break;
                     case PayloadCode.Success:
                         {
-                            var data = (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]);
+                            var data = connection != null ? (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]) : (T)arguments[1];
                             payloader.OnSuccess(data);
                             payloader.OnComplete(data);
                         }

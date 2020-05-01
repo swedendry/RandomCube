@@ -118,7 +118,7 @@ public class Main : MonoBehaviour
                 {
                     ServerInfo.GameUsers = data.Users;
 
-                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                    SceneManager.LoadScene("MultiGame", LoadSceneMode.Single);
                 });
     }
 }
