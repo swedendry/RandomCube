@@ -9,6 +9,7 @@ public static class ServerDefine
     public const int CUBE_NEED_SP = 10;
     public const int MONSTER_DIE_SP = 10;
     public const int SLOT_LV_PRICE = 100;
+    public const int MONSTER_HP = 10;
 
     public static int CubeLv2Price(byte lv)
     {
@@ -23,8 +24,37 @@ public static class ServerDefine
         return lv * SLOT_LV_PRICE;
     }
 
-    public static int Seq2NeedSP(int seq)
+    public static int CubeSeq2NeedSP(int seq)
     {
         return seq * CUBE_NEED_SP;
+    }
+
+    public static int MonsterSeq2HP(int seq)
+    {
+        return MONSTER_HP + (MONSTER_HP * (seq / 15));
+    }
+
+    public static float CubeLv2AD(float value, byte lv)
+    {
+        const float AD_MAX = 200f;
+        return Math.Min(AD_MAX, value + (value * ((lv - 1) * 0.1f)));
+    }
+
+    public static float CubeLv2AS(float value, byte lv)
+    {
+        const float AS_MIN = 0.1f;
+        return Math.Max(AS_MIN, value - (value * ((lv - 1) * 0.01f)));
+    }
+
+    public static float SlotLv2AD(float value, byte lv, byte slotLv)
+    {
+        const float AD_MAX = 200f;
+        return Math.Min(AD_MAX, CubeLv2AD(value, lv) + ((slotLv - 1) * 0.2f));
+    }
+
+    public static float SlotLv2AS(float value, byte lv, byte slotLv)
+    {
+        const float AS_MIN = 0.1f;
+        return Math.Max(AS_MIN, CubeLv2AS(value, lv) - ((slotLv - 1) * 0.02f));
     }
 }

@@ -48,13 +48,16 @@ public class Team : MonoBehaviour
         var position = Server2Local(new Vector3(gameCube.PositionX, gameCube.PositionY, 0f));
         var gameSlot = user.Slots.Find(x => x.CubeId == gameCube.CubeId);
         var cube = PoolFactory.Get<Cube>("Cube", position, Quaternion.identity, transform);
+        cube.OnMove = OnMove;
+        cube.OnCombineMove = OnCombineMove;
+        cube.OnCombine = OnCombine;
         cube.OnShot = OnShot;
-        cube.Spawn(gameCube, gameSlot);
+        cube.Spawn(user.Id, gameCube, gameSlot);
         cubes.Add(cube);
 
         user.Cubes.Add(gameCube);
         if (gameCube.CombineLv == 1)
-            user.SP -= ServerDefine.Seq2NeedSP(user.CubeSeq);
+            user.SP -= ServerDefine.CubeSeq2NeedSP(user.CubeSeq);
 
         user.CubeSeq++;
 
@@ -82,6 +85,7 @@ public class Team : MonoBehaviour
         {
             var cube = cubes.Find(c => c.gameCube.CubeSeq == x);
             user.Cubes.Remove(cube.gameCube);
+            cube.Release();
             cubes.Remove(cube);
             PoolFactory.Return("Cube", cube);
         });
@@ -93,10 +97,14 @@ public class Team : MonoBehaviour
         var startPosition = zone.paths.FirstOrDefault().transform.position;
         var position = new Vector3(startPosition.x, startPosition.y, 0f);
         var monster = PoolFactory.Get<Monster>("Monster", position, Quaternion.identity, transform);
+        monster.OnDie = OnDie;
+        monster.OnEscape = OnEscape;
         monster.Spawn(user.MonsterSeq);
         monster.Move(paths);
 
         monsters.Add(monster);
+
+        Debug.LogWarning(string.Format("CreateMonster {0}:{1}", user.Id, user.MonsterSeq));
 
         user.MonsterSeq++;
 
@@ -106,6 +114,8 @@ public class Team : MonoBehaviour
     public virtual void DieMonster(int monsterSeq)
     {
         var monster = monsters.Find(x => x.seq == monsterSeq);
+        monster.Release();
+        Debug.LogWarning(string.Format("DieMonster {0}:{1}", user.Id, monsterSeq));
         monsters.Remove(monster);
         PoolFactory.Return("Monster", monster);
 
@@ -115,6 +125,8 @@ public class Team : MonoBehaviour
     public virtual void EscapeMonster(int monsterSeq)
     {
         var monster = monsters.Find(x => x.seq == monsterSeq);
+        monster.Release();
+        Debug.LogWarning(string.Format("EscapeMonster {0}:{1}", user.Id, monsterSeq));
         monsters.Remove(monster);
         PoolFactory.Return("Monster", monster);
 
@@ -143,6 +155,52 @@ public class Team : MonoBehaviour
 
     }
 
+    protected virtual void OnMove(Cube owner, Vector3 target)
+    {
+
+    }
+
+    protected virtual void OnCombineMove(Cube owner, Cube target)
+    {
+
+    }
+
+    protected virtual void OnCombine(Cube owner, Cube target)
+    {
+
+    }
+
+    protected virtual void OnDie(Monster target, Missile collider)
+    {
+
+    }
+
+    protected virtual void OnEscape(Monster target)
+    {
+
+    }
+
+    protected virtual void OnShot(Cube owner)
+    {
+        var target = GetShotTarget(owner);
+        if (!target)
+            return;
+
+        var missile = PoolFactory.Get<Missile>("Missile", owner.transform.position, Quaternion.identity, transform);
+        missile.OnHit = OnHit;
+        missile.Spawn(owner, target);
+        missiles.Add(missile);
+    }
+
+    protected virtual void OnHit(Cube owner, Monster target, Missile collider)
+    {
+        owner.Hit(collider);
+        target.Hit(owner, collider);
+
+        missiles.Remove(collider);
+        PoolFactory.Return("Missile", collider);
+    }
+
     protected Monster GetShotTarget(Cube owner)
     {
         var center = owner.transform.position;
@@ -157,27 +215,6 @@ public class Team : MonoBehaviour
         });
 
         return targets.FirstOrDefault();
-    }
-
-    protected void OnShot(Cube owner)
-    {
-        var target = GetShotTarget(owner);
-        if (!target)
-            return;
-
-        var missile = PoolFactory.Get<Missile>("Missile", owner.transform.position, Quaternion.identity, transform);
-        missile.OnHit = OnHit;
-        missile.Spawn(owner, target);
-        missiles.Add(missile);
-    }
-
-    protected void OnHit(Cube owner, Monster target, Missile collider)
-    {
-        owner.Hit(collider);
-        target.Hit(owner, collider);
-
-        missiles.Remove(collider);
-        PoolFactory.Return("Missile", collider);
     }
 
     protected virtual Vector3 Local2Server(Vector3 local)

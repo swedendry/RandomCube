@@ -153,6 +153,9 @@ namespace GameServer.Contents
 
             _users.Remove(user);
 
+            //한명이라도 나가면 게임 종료
+            Result();
+
             return true;
         }
 
@@ -314,7 +317,7 @@ namespace GameServer.Contents
 
                 if (user.Life <= 0)
                 {   //게임 종료
-                    Result();
+                    //Result();
                 }
             }
         }

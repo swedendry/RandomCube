@@ -40,40 +40,25 @@ public class MyTeam : Team
         GameServer.sInstance?.UpdateSlot(user.Id, slotIndex, (byte)lv);
     }
 
-    public override Cube CreateCube(GameCube gameCube)
-    {
-        var cube = base.CreateCube(gameCube);
-        cube.OnMove = OnMove;
-        cube.OnCombineMove = OnCombineMove;
-        cube.OnCombine = OnCombine;
-
-        return cube;
-    }
-
-    public override Monster CreateMonster()
-    {
-        var monster = base.CreateMonster();
-        monster.OnDie = OnDie;
-        monster.OnEscape = OnEscape;
-
-        return monster;
-    }
-
-    protected void OnMove(Cube owner, Vector3 target)
+    protected override void OnMove(Cube owner, Vector3 target)
     {
         var serverPos = Local2Server(target);
 
         GameServer.sInstance?.MoveCube(user.Id, owner.gameCube.CubeSeq, (int)serverPos.x, (int)serverPos.y);
     }
 
-    protected void OnCombineMove(Cube owner, Cube target)
+    protected override void OnCombineMove(Cube owner, Cube target)
     {
-        //owner.Combine(target);
+        if (owner.gameCube.CubeId != target.gameCube.CubeId)
+            return;
+
+        if (owner.gameCube.CombineLv != target.gameCube.CombineLv)
+            return;
 
         GameServer.sInstance?.CombineCube(user.Id, owner.gameCube.CubeSeq, target.gameCube.CubeSeq);
     }
 
-    protected void OnCombine(Cube owner, Cube target)
+    protected override void OnCombine(Cube owner, Cube target)
     {
         var combineLv = owner.gameCube.CombineLv;
         var position = target.transform.position;
@@ -82,35 +67,44 @@ public class MyTeam : Team
         deleteSeq.Add(owner.gameCube.CubeSeq);
         deleteSeq.Add(target.gameCube.CubeSeq);
 
-        //cubes.Remove(owner);
-        //PoolFactory.Return("Cube", owner);
-
-        //cubes.Remove(target);
-        //PoolFactory.Return("Cube", target);
-
         GameServer.sInstance?.DeleteCube(user.Id, deleteSeq);
 
         OnCreateCube((byte)(combineLv + 1), position);
     }
 
-    protected void OnDie(Monster target, Missile collider)
+    protected override void OnDie(Monster target, Missile collider)
     {
         var seq = target.seq;
-
-        //monsters.Remove(target);
-        //PoolFactory.Return("Monster", target);
 
         GameServer.sInstance?.DieMonster(user.Id, seq);
     }
 
-    protected void OnEscape(Monster target)
+    protected override void OnEscape(Monster target)
     {
         var seq = target.seq;
 
-        //monsters.Remove(target);
-        //PoolFactory.Return("Monster", target);
-
         GameServer.sInstance?.EscapeMonster(user.Id, seq);
+    }
+
+    protected override void OnShot(Cube owner)
+    {
+        var target = GetShotTarget(owner);
+        if (!target)
+            return;
+
+        var missile = PoolFactory.Get<Missile>("Missile", owner.transform.position, Quaternion.identity, transform);
+        missile.OnHit = OnHit;
+        missile.Spawn(owner, target);
+        missiles.Add(missile);
+    }
+
+    protected override void OnHit(Cube owner, Monster target, Missile collider)
+    {
+        owner.Hit(collider);
+        target.Hit(owner, collider);
+
+        missiles.Remove(collider);
+        PoolFactory.Return("Missile", collider);
     }
 
     protected override Vector3 Server2Local(Vector3 server)

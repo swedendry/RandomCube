@@ -20,6 +20,7 @@ public class Cube : Entity
     public float speed = 5.0f;
     private IEnumerator coroutineShot;
 
+    public string ownerId;
     public GameCube gameCube;
     private GameSlot gameSlot;
     public CubeDataXml.Data cubeData;
@@ -34,20 +35,17 @@ public class Cube : Entity
 
     public float AD()
     {
-        var slotLv = gameSlot.SlotLv;
-
-        return cubeData.AD * slotLv;
+        return ServerDefine.SlotLv2AD(cubeData.AD, gameSlot.CubeLv, gameSlot.SlotLv);
     }
 
     public float AS()
     {
-        var slotLv = gameSlot.SlotLv;
-
-        return cubeData.AS / slotLv;
+        return ServerDefine.SlotLv2AS(cubeData.AS, gameSlot.CubeLv, gameSlot.SlotLv);
     }
 
-    public void Spawn(GameCube gameCube, GameSlot gameSlot)
+    public void Spawn(string userId, GameCube gameCube, GameSlot gameSlot)
     {
+        ownerId = userId;
         this.gameCube = gameCube;
         this.gameSlot = gameSlot;
 
@@ -87,9 +85,6 @@ public class Cube : Entity
 
     public void Combine(Cube cube)
     {
-        if (gameCube.CombineLv != cube.gameCube.CombineLv)
-            return;
-
         var speed = 3f;
 
         Move(cube.transform.position, speed, "CombineComplete", cube);

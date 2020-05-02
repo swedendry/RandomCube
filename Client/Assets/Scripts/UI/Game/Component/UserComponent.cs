@@ -20,7 +20,7 @@ namespace UI.Game
             if (data == null)
                 return;
 
-            var needsp = ServerDefine.Seq2NeedSP(data.CubeSeq);
+            var needsp = ServerDefine.CubeSeq2NeedSP(data.CubeSeq);
             name_text.SetText(data.Name);
             sp_text.SetText(data.SP.ToString());
             needsp_text.SetText(needsp.ToString());

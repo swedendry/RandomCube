@@ -8,6 +8,11 @@ public class Entity : MonoBehaviour
         gameObject?.SetVisible(true);
     }
 
+    public virtual void Release()
+    {
+
+    }
+
     protected virtual void Move(Vector3 position, float speed, object completeparams = null)
     {
         Move(position, speed, "MoveComplete", completeparams);

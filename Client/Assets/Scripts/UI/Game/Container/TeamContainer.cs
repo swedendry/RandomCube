@@ -31,7 +31,7 @@ namespace UI.Game
                 case "Create":
                     {
                         var data = userComponent.props.data;
-                        var needsp = ServerDefine.Seq2NeedSP(data.CubeSeq);
+                        var needsp = ServerDefine.CubeSeq2NeedSP(data.CubeSeq);
                         if (data.SP < needsp)
                             return;
 

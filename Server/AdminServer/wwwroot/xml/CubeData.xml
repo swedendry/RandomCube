@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <WISECATXML>
-  <DATA CubeId="1" Name="Red" AD="10" AS="0.2" SkillId="1" Color="1,0,0" />
-  <DATA CubeId="2" Name="Orange" AD="5" AS="0.1" SkillId="2" Color="1,0.4,0" />
-  <DATA CubeId="3" Name="Yellow" AD="0" AS="0.4" SkillId="3" Color="1,1,0" />
-  <DATA CubeId="4" Name="Green" AD="1" AS="0.3" SkillId="4" Color="0,1,0" />
-  <DATA CubeId="5" Name="Blue" AD="1" AS="0.2" SkillId="5" Color="0,0,1" />
-  <DATA CubeId="6" Name="Indigo" AD="2" AS="0.2" SkillId="6" Color="0,0.4,1" />
-  <DATA CubeId="7" Name="Purple" AD="1" AS="0.3" SkillId="7" Color="1,0,1" />
+  <DATA CubeId="1" Name="Red" AD="10" AS="3" SkillId="1" Color="1,0,0" />
+  <DATA CubeId="2" Name="Orange" AD="5" AS="1.5" SkillId="2" Color="1,0.4,0" />
+  <DATA CubeId="3" Name="Yellow" AD="2" AS="0.8" SkillId="3" Color="1,1,0" />
+  <DATA CubeId="4" Name="Green" AD="3" AS="1" SkillId="4" Color="0,1,0" />
+  <DATA CubeId="5" Name="Blue" AD="1" AS="0.5" SkillId="5" Color="0,0,1" />
+  <DATA CubeId="6" Name="Indigo" AD="8" AS="2.4" SkillId="6" Color="0,0.4,1" />
+  <DATA CubeId="7" Name="Purple" AD="6" AS="2" SkillId="7" Color="1,0,1" />
 </WISECATXML>

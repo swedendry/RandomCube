@@ -32,12 +32,18 @@ public class Monster : Entity
     {
         this.seq = seq;
         iTween.Stop(gameObject);
-        hp = 100f;
+        hp = ServerDefine.MonsterSeq2HP(seq);
         speed = 1f;
         hp_text.text = ((int)hp).ToString();
         state = State.Spawn;
 
         base.Spawn();
+    }
+
+    public override void Release()
+    {
+        iTween.Stop(gameObject);
+        DeleteSkills();
     }
 
     public void Move(List<GameObject> paths)
@@ -75,9 +81,9 @@ public class Monster : Entity
         if (state != State.Move)
             return;
 
+        Debug.LogWarning(string.Format("Escape {0}:{1}", transform.parent.name, seq));
+
         state = State.Finish;
-        iTween.Stop(gameObject);
-        DeleteSkills();
         OnEscape?.Invoke(this);
     }
 
@@ -87,21 +93,23 @@ public class Monster : Entity
             return;
 
         hp -= cube.AD();
-        hp_text.text = ((int)hp).ToString();
 
-        var skillKey = "Skill_Ice";
-        if (skills.ContainsKey(skillKey))
-        {   //같은 스킬 활성화중
-            DeleteSkill(skillKey);
-        }
+        var virtualHP = Math.Max(1, hp);
+        hp_text.text = ((int)virtualHP).ToString();
 
-        StartCoroutine(Particle("Skill_Ice"));
+        //var skillKey = "Skill_Ice";
+        //if (skills.ContainsKey(skillKey))
+        //{   //같은 스킬 활성화중
+        //    DeleteSkill(skillKey);
+        //}
+
+        //StartCoroutine(Particle("Skill_Ice"));
 
         if (hp <= 0)
         {
+            Debug.LogWarning(string.Format("Die {0}:{1}", transform.parent.name, seq));
+
             state = State.Die;
-            iTween.Stop(gameObject);
-            DeleteSkills();
             OnDie?.Invoke(this, collider);
         }
     }
