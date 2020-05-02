@@ -95,5 +95,11 @@ namespace GameServer.Hubs
             var room = _roomService.GetRoomById(cs.Id);
             room?.CSID_EscapeMonster(cs);
         }
+
+        public void UpdateSlot(CS_UpdateSlot cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_UpdateSlot(cs);
+        }
     }
 }

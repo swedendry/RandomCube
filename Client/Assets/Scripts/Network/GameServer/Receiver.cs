@@ -22,6 +22,7 @@ public partial class GameServer
     public static Action<Payloader<SC_DeleteCube>> ActionDeleteCube;
     public static Action<Payloader<SC_DieMonster>> ActionDieMonster;
     public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
+    public static Action<Payloader<SC_UpdateSlot>> ActionUpdateSlot;
 
     protected void OnInvocation(string target, object[] arguments)
     {
@@ -150,6 +151,13 @@ public partial class GameServer
                 {
                     var payloader = new Payloader<SC_EscapeMonster>();
                     ActionEscapeMonster?.Invoke(payloader);
+                    signalr.Call(payloader, arguments);
+                }
+                break;
+            case "UpdateSlot":
+                {
+                    var payloader = new Payloader<SC_UpdateSlot>();
+                    ActionUpdateSlot?.Invoke(payloader);
                     signalr.Call(payloader, arguments);
                 }
                 break;

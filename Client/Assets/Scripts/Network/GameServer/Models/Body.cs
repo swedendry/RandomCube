@@ -226,4 +226,21 @@ namespace Network.GameServer
         public string Id { get; set; }
         public int MonsterSeq { get; set; }
     }
+
+    /// <summary>
+    /// 슬롯 레벨 정보
+    /// </summary>
+    public class CS_UpdateSlot
+    {
+        public string Id { get; set; }
+        public byte SlotIndex { get; set; }
+        public byte SlotLv { get; set; }
+    }
+
+    public class SC_UpdateSlot
+    {
+        public string Id { get; set; }
+        public byte SlotIndex { get; set; }
+        public byte SlotLv { get; set; }
+    }
 }

@@ -1,48 +1,38 @@
-﻿using System;
-using System.Collections;
+﻿using Extension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace UI
 {
-    public class UIView : MonoBehaviour
+    public class UIContainer : MonoBehaviour
     {
         public Action<string> OnEvent;
 
         private List<UIComponent> components = new List<UIComponent>();
+        private List<UIContainer> containers = new List<UIContainer>();
 
         protected virtual void Awake()
         {
-            components = GetComponentsInChildren<UIComponent>(true).ToList();
+            components = GetComponentsInChildren<UIComponent>(true).Where(x => x.transform.parent.GetComponentInParent<UIContainer>() == this).ToList();
             components.ForEach(x => { x.OnEvent = Event; });
+
+            containers = GetComponentsInChildren<UIContainer>(true).Where(x => x.transform.parent.GetComponentInParent<UIContainer>() == this).ToList();
+            containers.ForEach(x => { x.OnEvent = Event; });
         }
 
-        protected virtual void OnEnable()
-        {
-            StartCoroutine(Enable());
-        }
-
-        protected virtual IEnumerator Enable()
-        {
-            yield return null;
-
-            Upsert();
-        }
-
-        protected virtual void Create()
-        {
-
-        }
-
-        protected virtual void Empty()
+        public virtual void Empty()
         {
             components.ForEach(x => x.Empty());
+            containers.ForEach(x => x.Empty());
+
+            gameObject?.SetVisible(false);
         }
 
         public virtual void Upsert()
         {
-
+            gameObject?.SetVisible(true);
         }
 
         public virtual void Event(string param)
@@ -59,9 +49,19 @@ namespace UI
         {
             return components.FindAll(x => x.GetType() == typeof(T)).Cast<T>().ToList();
         }
+
+        protected virtual T GetUIContainer<T>() where T : UIContainer
+        {
+            return containers.Find(x => x.GetType() == typeof(T)) as T;
+        }
+
+        protected virtual List<T> GetUIContainers<T>() where T : UIContainer
+        {
+            return containers.FindAll(x => x.GetType() == typeof(T)).Cast<T>().ToList();
+        }
     }
 
-    public class UIView<U, T> : UIView where U : UIComponent<T>
+    public class UIContainer<U, T> : UIContainer where U : UIComponent<T>
     {
         public Action<bool, Props<T>> OnEventProps;
 
@@ -76,7 +76,7 @@ namespace UI
             components.ForEach(x => { x.OnEventProps = Event; });
         }
 
-        protected override void Empty()
+        public override void Empty()
         {
             base.Empty();
 

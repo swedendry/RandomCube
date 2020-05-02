@@ -12,16 +12,18 @@ public class SingleGame : Game
         XmlFactory.Load();
 
         if (string.IsNullOrEmpty(ServerInfo.User.Id))
-            ServerInfo.User = DummyUser();
+            ServerInfo.User = DummyUser(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceName);
+
         ServerInfo.GameUsers.Clear();
         ServerInfo.GameUsers.Add(DummyGameUser(ServerInfo.User));
+        ServerInfo.GameUsers.Add(DummyGameUser(DummyUser("ai", "ai")));
 
         base.Start();
 
         StartCoroutine(WaveMonster());
     }
 
-    private UserViewModel DummyUser()
+    private UserViewModel DummyUser(string id, string name)
     {
         var allCubes = XmlKey.CubeData.FindAll<CubeDataXml.Data>();
         var cubes = allCubes.Random(ServerDefine.MAX_ENTRY_SLOT).Select((x, i) => new CubeViewModel()
@@ -39,8 +41,8 @@ public class SingleGame : Game
 
         return new UserViewModel()
         {
-            Id = SystemInfo.deviceUniqueIdentifier,
-            Name = SystemInfo.deviceName,
+            Id = id,
+            Name = name,
             Money = 1000,
             Cubes = cubes,
             Entry = entry
@@ -61,15 +63,11 @@ public class SingleGame : Game
             };
         }).ToList();
 
-        return DummyGameUser(new RoomUser()
+        return new GameUser()
         {
             Id = user.Id,
+            Name = user.Name,
             Slots = slots,
-        });
-    }
-
-    private GameUser DummyGameUser(RoomUser user)
-    {
-        return user.Map<GameUser>();
+        };
     }
 }

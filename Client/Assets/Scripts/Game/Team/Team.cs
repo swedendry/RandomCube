@@ -28,8 +28,6 @@ public class Team : MonoBehaviour
     protected GameUser user;
     protected Zone zone;
     protected Bounds bounds;
-    protected int cubeSeq;
-    protected int monsterSeq;
 
     public void Register(GameUser user, Zone zone)
     {
@@ -45,16 +43,6 @@ public class Team : MonoBehaviour
         missiles.Clear();
     }
 
-    public virtual void CreateCube(byte combineLv)
-    {
-
-    }
-
-    public virtual void CreateCube(byte combineLv, Vector3 position)
-    {
-
-    }
-
     public virtual Cube CreateCube(GameCube gameCube)
     {
         var position = Server2Local(new Vector3(gameCube.PositionX, gameCube.PositionY, 0f));
@@ -64,9 +52,10 @@ public class Team : MonoBehaviour
         cube.Spawn(gameCube, gameSlot);
         cubes.Add(cube);
 
-        cubeSeq++;
+        if (gameCube.CombineLv == 1)
+            user.SP -= ServerDefine.Seq2NeedSP(user.CubeSeq);
 
-        user.SP -= 10;
+        user.CubeSeq++;
 
         return cube;
     }
@@ -102,12 +91,12 @@ public class Team : MonoBehaviour
         var startPosition = zone.paths.FirstOrDefault().transform.position;
         var position = new Vector3(startPosition.x, startPosition.y, 0f);
         var monster = PoolFactory.Get<Monster>("Monster", position, Quaternion.identity, transform);
-        monster.Spawn(monsterSeq);
+        monster.Spawn(user.MonsterSeq);
         monster.Move(paths);
 
         monsters.Add(monster);
 
-        monsterSeq++;
+        user.MonsterSeq++;
 
         return monster;
     }
@@ -118,7 +107,7 @@ public class Team : MonoBehaviour
         monsters.Remove(monster);
         PoolFactory.Return("Monster", monster);
 
-        user.SP += 10;
+        user.SP += ServerDefine.MONSTER_DIE_SP;
     }
 
     public virtual void EscapeMonster(int monsterSeq)
@@ -126,6 +115,30 @@ public class Team : MonoBehaviour
         var monster = monsters.Find(x => x.seq == monsterSeq);
         monsters.Remove(monster);
         PoolFactory.Return("Monster", monster);
+
+        user.Life -= 1;
+    }
+
+    public virtual void UpdateSlot(byte index, byte lv)
+    {
+        var slot = user.Slots.Find(x => x.SlotIndex == index);
+        user.SP -= ServerDefine.SlotLv2Price(slot.SlotLv);
+        slot.SlotLv = lv;
+    }
+
+    public virtual void OnCreateCube(byte combineLv)
+    {
+
+    }
+
+    public virtual void OnCreateCube(byte combineLv, Vector3 position)
+    {
+
+    }
+
+    public virtual void OnUpdateSlot(byte slotIndex)
+    {
+
     }
 
     protected Monster GetShotTarget(Cube owner)

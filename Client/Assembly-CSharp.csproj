@@ -121,6 +121,13 @@
     <Compile Include="Assets\Scripts\Pool\ResourceFactory.cs" />
     <Compile Include="Assets\Scripts\Pool\ResourceObject.cs" />
     <Compile Include="Assets\Scripts\Pool\ResourceRegister.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\Component\SlotComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\Route.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\RouteRegister.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\Router.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\UIComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\UIContainer.cs" />
+    <Compile Include="Assets\Scripts\UI\Core\UIView.cs" />
     <Compile Include="Assets\Scripts\UI\Cube\Component\SlotComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Cube\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Cube\MaterialView.cs" />
@@ -132,6 +139,8 @@
     <Compile Include="Assets\Scripts\UI\Game\Component\ResultComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Component\SlotComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Component\UserComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\Game\Container\SlotContainer.cs" />
+    <Compile Include="Assets\Scripts\UI\Game\Container\TeamContainer.cs" />
     <Compile Include="Assets\Scripts\UI\Game\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Game\ResultView.cs" />
     <Compile Include="Assets\Scripts\UI\Game\SlotView.cs" />
@@ -142,13 +151,7 @@
     <Compile Include="Assets\Scripts\UI\Match\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Play\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Register\MainView.cs" />
-    <Compile Include="Assets\Scripts\UI\Route.cs" />
-    <Compile Include="Assets\Scripts\UI\RouteRegister.cs" />
-    <Compile Include="Assets\Scripts\UI\Router.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\MainView.cs" />
-    <Compile Include="Assets\Scripts\UI\UIComponent.cs" />
-    <Compile Include="Assets\Scripts\UI\UIContainer.cs" />
-    <Compile Include="Assets\Scripts\UI\UIView.cs" />
     <Compile Include="Assets\Scripts\Xml\CubeDataXml.cs" />
     <Compile Include="Assets\Scripts\Xml\SkillDataXml.cs" />
     <Compile Include="Assets\Scripts\Xml\Xml.cs" />

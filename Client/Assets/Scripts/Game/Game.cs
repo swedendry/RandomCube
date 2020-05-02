@@ -21,6 +21,7 @@ public class Game : MonoBehaviour
         GameServer.ActionDeleteCube = DeleteCube;
         GameServer.ActionDieMonster = DieMonster;
         GameServer.ActionEscapeMonster = EscapeMonster;
+        GameServer.ActionUpdateSlot = UpdateSlot;
 
         Loading();
     }
@@ -75,7 +76,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("CreateCube");
 
-                    if (ServerInfo.User.Id == data.Id)
+                    if (ServerInfo.MyGameUser().Id == data.Id)
                     {
                         blue.CreateCube(data.NewCube);
                     }
@@ -83,6 +84,8 @@ public class Game : MonoBehaviour
                     {
                         red.CreateCube(data.NewCube);
                     }
+
+                    Router.Refresh();
                 });
     }
 
@@ -93,7 +96,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("MoveCube");
 
-                    if (ServerInfo.User.Id == data.Id)
+                    if (ServerInfo.MyGameUser().Id == data.Id)
                     {
                         blue.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
                     }
@@ -111,7 +114,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("MoveCube");
 
-                    if (ServerInfo.User.Id == data.Id)
+                    if (ServerInfo.MyGameUser().Id == data.Id)
                     {
                         blue.CombineCube(data.OwnerSeq, data.TargetSeq);
                     }
@@ -129,7 +132,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("DeleteCube");
 
-                    if (ServerInfo.User.Id == data.Id)
+                    if (ServerInfo.MyGameUser().Id == data.Id)
                     {
                         blue.DeleteCube(data.DeleteCubes);
                     }
@@ -147,7 +150,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("DieMonster");
 
-                    if (ServerInfo.User.Id == data.Id)
+                    if (ServerInfo.MyGameUser().Id == data.Id)
                     {
                         blue.DieMonster(data.MonsterSeq);
                     }
@@ -155,6 +158,8 @@ public class Game : MonoBehaviour
                     {
                         red.DieMonster(data.MonsterSeq);
                     }
+
+                    Router.Refresh();
                 });
     }
 
@@ -165,7 +170,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("EscapeMonster");
 
-                    if (ServerInfo.User.Id == data.Id)
+                    if (ServerInfo.MyGameUser().Id == data.Id)
                     {
                         blue.EscapeMonster(data.MonsterSeq);
                     }
@@ -174,16 +179,27 @@ public class Game : MonoBehaviour
                         red.EscapeMonster(data.MonsterSeq);
                     }
 
-                    //var isMe = (ServerInfo.User.Id == data.Id);
-                    //if (!isMe)
-                    //{
-                    //    ServerInfo.EnemyGameUser().Life -= 1;
-                    //    red.EscapeMonster(data.MonsterSeq);
-                    //}
-                    //else
-                    //{
-                    //    ServerInfo.MyGameUser().Life -= 1;
-                    //}
+                    Router.Refresh();
+                });
+    }
+
+    private void UpdateSlot(Payloader<SC_UpdateSlot> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    Debug.Log("UpdateSlot");
+
+                    if (ServerInfo.MyGameUser().Id == data.Id)
+                    {
+                        blue.UpdateSlot(data.SlotIndex, data.SlotLv);
+                    }
+                    else
+                    {
+                        red.UpdateSlot(data.SlotIndex, data.SlotLv);
+                    }
+
+                    Router.Refresh();
                 });
     }
 

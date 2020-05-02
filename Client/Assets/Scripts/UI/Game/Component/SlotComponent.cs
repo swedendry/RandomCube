@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace UI.Game
 {
     [RequireComponent(typeof(Image))]
-    public class SlotComponent : UIComponent<GameSlot>
+    public class SlotComponent : SlotComponent<GameSlot>
     {
         private Image cube_image;
         public Text lv_text;
@@ -22,10 +22,10 @@ namespace UI.Game
             base.Upsert(index, data);
 
             var cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == data.CubeId);
-            var price = data.CubeLv * 100;
+            var price = ServerDefine.SlotLv2Price(data.SlotLv);
 
             cube_image.color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2]);
-            lv_text.SetText(data?.SlotLv.ToString());
+            lv_text.SetText(data.SlotLv.ToString());
             sp_text.SetText(price.ToString());
         }
     }

@@ -133,4 +133,16 @@ public partial class GameServer
 
         SendImmediate("EscapeMonster", cs, cs.Map<SC_EscapeMonster>());
     }
+
+    public void UpdateSlot(string id, byte slotIndex, byte slotLv)
+    {
+        var cs = new CS_UpdateSlot()
+        {
+            Id = id,
+            SlotIndex = slotIndex,
+            SlotLv = slotLv,
+        };
+
+        SendImmediate("UpdateSlot", cs, cs.Map<SC_UpdateSlot>());
+    }
 }

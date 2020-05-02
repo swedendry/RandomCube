@@ -36,7 +36,7 @@ namespace Service.Controllers
                 if (cube != null)
                     lv = cube.Lv;
 
-                var price = ServerDefine.Lv2Price((byte)lv);
+                var price = ServerDefine.CubeLv2Price((byte)lv);
 
                 if (user.Money < price)
                     return Payloader.Fail(PayloadCode.Not);

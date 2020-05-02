@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class MyTeam : Team
 {
-    public override void CreateCube(byte combineLv)
+    public override void OnCreateCube(byte combineLv)
     {
         var min = bounds.min;
         var max = bounds.max;
         var x = Random.Range(min.x, max.x);
         var y = Random.Range(min.y, max.y);
 
-        CreateCube(combineLv, new Vector3(x, y, 0f));
+        OnCreateCube(combineLv, new Vector3(x, y, 0f));
     }
 
-    public override void CreateCube(byte combineLv, Vector3 position)
+    public override void OnCreateCube(byte combineLv, Vector3 position)
     {
         var gameSlot = user.Slots.Random();
         var serverPos = Local2Server(position);
 
         var gameCube = new GameCube()
         {
-            CubeSeq = cubeSeq,
+            CubeSeq = user.CubeSeq,
             CubeId = gameSlot.CubeId,
             CombineLv = combineLv,
             PositionX = (int)serverPos.x,
@@ -30,6 +30,14 @@ public class MyTeam : Team
         };
 
         GameServer.sInstance?.CreateCube(user.Id, gameCube);
+    }
+
+    public override void OnUpdateSlot(byte slotIndex)
+    {
+        var slot = user.Slots.Find(x => x.SlotIndex == slotIndex);
+        var lv = slot.SlotLv + 1;
+
+        GameServer.sInstance?.UpdateSlot(user.Id, slotIndex, (byte)lv);
     }
 
     public override Cube CreateCube(GameCube gameCube)
@@ -90,7 +98,7 @@ public class MyTeam : Team
 
         GameServer.sInstance?.DeleteCube(user.Id, deleteSeq);
 
-        CreateCube((byte)(combineLv + 1), position);
+        OnCreateCube((byte)(combineLv + 1), position);
     }
 
     protected void OnDie(Monster target, Missile collider)
@@ -105,13 +113,12 @@ public class MyTeam : Team
 
     protected void OnEscape(Monster target)
     {
-        user.Life -= 1;
         var seq = target.seq;
 
         //monsters.Remove(target);
         //PoolFactory.Return("Monster", target);
 
-        GameServer.sInstance.EscapeMonster(user.Id, seq);
+        GameServer.sInstance?.EscapeMonster(user.Id, seq);
     }
 
     protected override Vector3 Server2Local(Vector3 server)

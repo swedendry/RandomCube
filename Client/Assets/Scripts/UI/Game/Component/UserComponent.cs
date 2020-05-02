@@ -7,35 +7,27 @@ namespace UI.Game
 {
     public class UserComponent : UIComponent<GameUser>
     {
-        public Team team;
         public Text name_text;
         public Text sp_text;
         public Text needsp_text;
+        public Image needsp_lock_image;
         public List<Image> life_image;
 
-        public override void Event(string param)
+        public override void Upsert(GameUser data)
         {
-            switch (param)
-            {
-                case "Create":
-                    {
-                        team?.CreateCube(1);
-                    }
-                    break;
-            }
-            base.Event(param);
-        }
+            base.Upsert(data);
 
-        public override void Upsert(GameUser user)
-        {
-            base.Upsert(user);
+            if (data == null)
+                return;
 
-            name_text.SetText(user.Name);
-            sp_text.SetText(user.SP.ToString());
-            needsp_text.SetText(ServerDefine.Seq2NeedSP(user.CubeSeq).ToString());
+            var needsp = ServerDefine.Seq2NeedSP(data.CubeSeq);
+            name_text.SetText(data.Name);
+            sp_text.SetText(data.SP.ToString());
+            needsp_text.SetText(needsp.ToString());
+            needsp_lock_image?.gameObject.SetVisible(data.SP < needsp);
             life_image.ForEach((x, i) =>
             {
-                x.gameObject.SetVisible((i >= user.Life));
+                x.gameObject.SetVisible((i < data.Life));
             });
         }
     }

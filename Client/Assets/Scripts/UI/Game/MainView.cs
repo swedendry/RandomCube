@@ -2,23 +2,21 @@
 {
     public class MainView : UIView
     {
-        public SlotView blueSlotView;
-        public SlotView redSlotView;
-
-        private UserComponent userComponent;
+        private TeamContainer blueContainer;
+        private TeamContainer redContainer;
 
         protected override void Awake()
         {
             base.Awake();
 
-            userComponent = GetUIComponent<UserComponent>();
+            blueContainer = GetUIContainer<TeamContainer>(0);
+            redContainer = GetUIContainer<TeamContainer>(1);
         }
 
         public override void Upsert()
         {
-            blueSlotView?.Upsert(ServerInfo.MyGameUser());
-            redSlotView?.Upsert(ServerInfo.EnemyGameUser());
-            userComponent?.Upsert(ServerInfo.MyGameUser());
+            blueContainer?.Upsert(ServerInfo.MyGameUser());
+            redContainer?.Upsert(ServerInfo.EnemyGameUser());
         }
     }
 }

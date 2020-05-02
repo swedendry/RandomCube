@@ -41,6 +41,7 @@ namespace GameServer.Contents
         void CSID_DeleteCube(CS_DeleteCube cs);
         void CSID_DieMonster(CS_DieMonster cs);
         void CSID_EscapeMonster(CS_EscapeMonster cs);
+        void CSID_UpdateSlot(CS_UpdateSlot cs);
     }
 
     public class Room : IRoom
@@ -315,6 +316,16 @@ namespace GameServer.Contents
                     Result();
                 }
             }
+        }
+
+        public void CSID_UpdateSlot(CS_UpdateSlot cs)
+        {
+            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("UpdateSlot", PayloadPack.Success(new SC_UpdateSlot()
+            {
+                Id = cs.Id,
+                SlotIndex = cs.SlotIndex,
+                SlotLv = cs.SlotLv,
+            }));
         }
     }
 }

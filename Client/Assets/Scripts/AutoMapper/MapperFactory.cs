@@ -38,6 +38,7 @@ public static class MapperFactory
             CreateMap<CS_DeleteCube, SC_DeleteCube>(cfg);
             CreateMap<CS_DieMonster, SC_DieMonster>(cfg);
             CreateMap<CS_EscapeMonster, SC_EscapeMonster>(cfg);
+            CreateMap<CS_UpdateSlot, SC_UpdateSlot>(cfg);
         });
 
         Mapper = config.CreateMapper();
