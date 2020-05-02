@@ -116,15 +116,14 @@ public partial class GameServer : MonoBehaviour
         return true;
     }
 
-    private void Send(string method, params object[] args)
+    public void Send(string method, params object[] args)
     {
         if (!isLockSend)
             signalr.Send(method, args);
     }
 
-    private void SendImmediate(string method, params object[] args)
+    public void SendLocal(string method, object args)
     {
-        Send(method, args[0]);
-        OnInvocation(method, true, PayloadPack.Success(args[1]));
+        OnInvocation(method, true, PayloadPack.Success(args));
     }
 }

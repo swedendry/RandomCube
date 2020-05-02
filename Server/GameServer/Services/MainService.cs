@@ -1,4 +1,5 @@
-﻿using GameServer.Hubs;
+﻿using GameServer.Extensions;
+using GameServer.Hubs;
 using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
 using Service.Services;
@@ -55,14 +56,14 @@ namespace GameServer.Services
 
                 _users.Add(user);
 
-                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_Login()
+                await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_Login()
                 {
                     User = user,
                 }));
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
+                await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -99,19 +100,19 @@ namespace GameServer.Services
 
                 if (result)
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_EnterMatch()
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_EnterMatch()
                     {
                         Id = id,
                     }));
                 }
                 else
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
                 }
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
+                await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -128,19 +129,19 @@ namespace GameServer.Services
 
                 if (result)
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_ExitMatch()
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_ExitMatch()
                     {
                         Id = id,
                     }));
                 }
                 else
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
                 }
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
+                await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -162,7 +163,7 @@ namespace GameServer.Services
 
                 if (result)
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_EnterRoom()
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_EnterRoom()
                     {
                         User = cs.User,
                         GroupName = cs.GroupName
@@ -170,12 +171,12 @@ namespace GameServer.Services
                 }
                 else
                 {
-                    await _context.Clients.Client(cs.User.ConnectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
                 }
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(cs.User.ConnectionId).SendCoreAsync(method, PayloadPack.Error(ex));
+                await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
 
@@ -192,34 +193,21 @@ namespace GameServer.Services
 
                 if (result)
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_ExitRoom()
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Success(new SC_ExitRoom()
                     {
                         Id = id,
                     }));
                 }
                 else
                 {
-                    await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
+                    await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Fail(PayloadCode.Failure));
                 }
             }
             catch (Exception ex)
             {
-                await _context.Clients.Client(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
+                await _context.Clients(connectionId).SendCoreAsync(method, PayloadPack.Error(ex));
             }
         }
-
-        //public async Task DeleteRoom(string groupName)
-        //{
-        //    lock (_lock)
-        //    {
-        //        var room = GetRoomByGroupName(groupName);
-        //        if (room != null)
-        //        {
-        //            room.Release();
-        //            _rooms.Remove(room);
-        //        }
-        //    }
-        //}
 
         private User GetUserById(string id)
         {

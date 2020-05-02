@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameServer.Extensions;
 using GameServer.Hubs;
 using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
@@ -75,7 +76,7 @@ namespace GameServer.Contents
 
         public void Release()
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("DeleteRoom", PayloadPack.Success(new SC_DeleteRoom()
+            _context.Clients(_users).SendCoreAsync("DeleteRoom", PayloadPack.Success(new SC_DeleteRoom()
             {
 
             }));
@@ -101,7 +102,7 @@ namespace GameServer.Contents
                 x.Rank += i;
             });
 
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("Result", PayloadPack.Success(new SC_Result()
+            _context.Clients(_users).SendCoreAsync("Result", PayloadPack.Success(new SC_Result()
             {
                 Users = users,
             }));
@@ -207,7 +208,7 @@ namespace GameServer.Contents
         {
             _state = RoomState.Loading;
 
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("Loading", PayloadPack.Success(new SC_Loading()
+            _context.Clients(_users).SendCoreAsync("Loading", PayloadPack.Success(new SC_Loading()
             {
                 Users = _users,
             }));
@@ -232,7 +233,7 @@ namespace GameServer.Contents
 
             SetUserState(UserState.Play);
 
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("Play", PayloadPack.Success(new SC_Play()
+            _context.Clients(_users).SendCoreAsync("Play", PayloadPack.Success(new SC_Play()
             {
 
             }));
@@ -244,7 +245,7 @@ namespace GameServer.Contents
 
         private void SCID_Wave()
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("Wave", PayloadPack.Success(new SC_Wave()
+            _context.Clients(_users).SendCoreAsync("Wave", PayloadPack.Success(new SC_Wave()
             {
 
             }));
@@ -252,7 +253,7 @@ namespace GameServer.Contents
 
         public void CSID_CreateCube(CS_CreateCube cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("CreateCube", PayloadPack.Success(new SC_CreateCube()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("CreateCube", PayloadPack.Success(new SC_CreateCube()
             {
                 Id = cs.Id,
                 NewCube = cs.NewCube,
@@ -261,7 +262,7 @@ namespace GameServer.Contents
 
         public void CSID_MoveCube(CS_MoveCube cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("MoveCube", PayloadPack.Success(new SC_MoveCube()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("MoveCube", PayloadPack.Success(new SC_MoveCube()
             {
                 Id = cs.Id,
                 CubeSeq = cs.CubeSeq,
@@ -272,7 +273,7 @@ namespace GameServer.Contents
 
         public void CSID_CombineCube(CS_CombineCube cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("CombineCube", PayloadPack.Success(new SC_CombineCube()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("CombineCube", PayloadPack.Success(new SC_CombineCube()
             {
                 Id = cs.Id,
                 OwnerSeq = cs.OwnerSeq,
@@ -282,7 +283,7 @@ namespace GameServer.Contents
 
         public void CSID_DeleteCube(CS_DeleteCube cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("DeleteCube", PayloadPack.Success(new SC_DeleteCube()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("DeleteCube", PayloadPack.Success(new SC_DeleteCube()
             {
                 Id = cs.Id,
                 DeleteCubes = cs.DeleteCubes,
@@ -291,7 +292,7 @@ namespace GameServer.Contents
 
         public void CSID_DieMonster(CS_DieMonster cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("DieMonster", PayloadPack.Success(new SC_DieMonster()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("DieMonster", PayloadPack.Success(new SC_DieMonster()
             {
                 Id = cs.Id,
                 MonsterSeq = cs.MonsterSeq,
@@ -300,7 +301,7 @@ namespace GameServer.Contents
 
         public void CSID_EscapeMonster(CS_EscapeMonster cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("EscapeMonster", PayloadPack.Success(new SC_EscapeMonster()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("EscapeMonster", PayloadPack.Success(new SC_EscapeMonster()
             {
                 Id = cs.Id,
                 MonsterSeq = cs.MonsterSeq,
@@ -320,7 +321,7 @@ namespace GameServer.Contents
 
         public void CSID_UpdateSlot(CS_UpdateSlot cs)
         {
-            _context.Clients.Clients(_users.Select(x => x.ConnectionId).ToArray()).SendCoreAsync("UpdateSlot", PayloadPack.Success(new SC_UpdateSlot()
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("UpdateSlot", PayloadPack.Success(new SC_UpdateSlot()
             {
                 Id = cs.Id,
                 SlotIndex = cs.SlotIndex,

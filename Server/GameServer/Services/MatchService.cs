@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameServer.Extensions;
 using GameServer.Hubs;
 using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
@@ -55,7 +56,7 @@ namespace GameServer.Services
             {   //매칭 성공
                 var groupName = Guid.NewGuid().ToString("d");
                 var connectionIds = users.Select(x => x.ConnectionId).ToArray();
-                _context.Clients.Clients(connectionIds).SendCoreAsync("SuccessMatch", PayloadPack.Success(new SC_SuccessMatch()
+                _context.Clients(connectionIds).SendCoreAsync("SuccessMatch", PayloadPack.Success(new SC_SuccessMatch()
                 {
                     GroupName = groupName,
                 }));

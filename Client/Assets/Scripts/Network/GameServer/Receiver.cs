@@ -24,7 +24,7 @@ public partial class GameServer
     public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
     public static Action<Payloader<SC_UpdateSlot>> ActionUpdateSlot;
 
-    public void OnInvocation(string target, bool isLocal, object[] arguments)
+    private void OnInvocation(string target, bool isLocal, object[] arguments)
     {
         switch (target)
         {

@@ -73,7 +73,8 @@ public partial class GameServer
             NewCube = cube,
         };
 
-        SendImmediate("CreateCube", cs, cs.Map<SC_CreateCube>());
+        Send("CreateCube", cs);
+        SendLocal("CreateCube", cs.Map<SC_CreateCube>());
     }
 
     public virtual void MoveCube(string id, int cubeSeq, int positionX, int positionY)
@@ -86,7 +87,8 @@ public partial class GameServer
             PositionY = positionY
         };
 
-        SendImmediate("MoveCube", cs, cs.Map<SC_MoveCube>());
+        Send("MoveCube", cs);
+        SendLocal("MoveCube", cs.Map<SC_MoveCube>());
     }
 
     public virtual void CombineCube(string id, int ownerSeq, int targetSeq)
@@ -98,7 +100,8 @@ public partial class GameServer
             TargetSeq = targetSeq,
         };
 
-        SendImmediate("CombineCube", cs, cs.Map<SC_CombineCube>());
+        Send("CombineCube", cs);
+        SendLocal("CombineCube", cs.Map<SC_CombineCube>());
     }
 
     public void DeleteCube(string id, List<int> deleteSeq)
@@ -109,7 +112,8 @@ public partial class GameServer
             DeleteCubes = deleteSeq,
         };
 
-        SendImmediate("DeleteCube", cs, cs.Map<SC_DeleteCube>());
+        Send("DeleteCube", cs);
+        SendLocal("DeleteCube", cs.Map<SC_DeleteCube>());
     }
 
     public void DieMonster(string id, int monsterSeq)
@@ -120,7 +124,8 @@ public partial class GameServer
             MonsterSeq = monsterSeq,
         };
 
-        SendImmediate("DieMonster", cs, cs.Map<SC_DieMonster>());
+        Send("DieMonster", cs);
+        SendLocal("DieMonster", cs.Map<SC_DieMonster>());
     }
 
     public void EscapeMonster(string id, int monsterSeq)
@@ -131,7 +136,8 @@ public partial class GameServer
             MonsterSeq = monsterSeq,
         };
 
-        SendImmediate("EscapeMonster", cs, cs.Map<SC_EscapeMonster>());
+        Send("EscapeMonster", cs);
+        SendLocal("EscapeMonster", cs.Map<SC_EscapeMonster>());
     }
 
     public void UpdateSlot(string id, byte slotIndex, byte slotLv)
@@ -143,6 +149,7 @@ public partial class GameServer
             SlotLv = slotLv,
         };
 
-        SendImmediate("UpdateSlot", cs, cs.Map<SC_UpdateSlot>());
+        Send("UpdateSlot", cs);
+        SendLocal("UpdateSlot", cs.Map<SC_UpdateSlot>());
     }
 }

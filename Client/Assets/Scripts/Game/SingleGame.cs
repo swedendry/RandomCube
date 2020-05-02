@@ -1,5 +1,4 @@
 ﻿using Extension;
-using Network;
 using Network.GameServer;
 using Network.LobbyServer;
 using System.Linq;
@@ -35,10 +34,10 @@ public class SingleGame : Game
             x.Rank += i;
         });
 
-        GameServer.sInstance?.OnInvocation("Result", true, PayloadPack.Success(new SC_Result
+        GameServer.sInstance?.SendLocal("Result", new SC_Result
         {
             Users = users
-        }));
+        });
     }
 
     private void DummySetting()
