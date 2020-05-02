@@ -17,6 +17,7 @@ public partial class GameServer : MonoBehaviour
     public static GameServer sInstance;
 
     public Section section;
+    public bool isLockSend;
 
     private readonly PayloadSignalr signalr = new PayloadSignalr();
 
@@ -107,7 +108,7 @@ public partial class GameServer : MonoBehaviour
         {
             case MessageTypes.Invocation:
                 {
-                    OnInvocation(message.target, message.arguments);
+                    OnInvocation(message.target, false, message.arguments);
                 }
                 break;
         }
@@ -117,12 +118,13 @@ public partial class GameServer : MonoBehaviour
 
     private void Send(string method, params object[] args)
     {
-        signalr.Send(method, args);
+        if (!isLockSend)
+            signalr.Send(method, args);
     }
 
     private void SendImmediate(string method, params object[] args)
     {
         Send(method, args[0]);
-        OnInvocation(method, PayloadPack.Success(args[1]));
+        OnInvocation(method, true, PayloadPack.Success(args[1]));
     }
 }

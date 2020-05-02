@@ -35,7 +35,7 @@ public class SingleGame : Game
             x.Rank += i;
         });
 
-        GameServer.sInstance?.OnInvocation("Result", PayloadPack.Success(new SC_Result
+        GameServer.sInstance?.OnInvocation("Result", true, PayloadPack.Success(new SC_Result
         {
             Users = users
         }));

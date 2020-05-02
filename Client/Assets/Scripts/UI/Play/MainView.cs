@@ -10,11 +10,15 @@ namespace UI.Play
             {
                 case "singleplay":
                     {
+                        GameServer.sInstance.isLockSend = true;
+
                         SceneManager.LoadScene("SingleGame", LoadSceneMode.Single);
                     }
                     break;
                 case "multiplay":
                     {
+                        GameServer.sInstance.isLockSend = false;
+
                         GameServer.sInstance.EnterMatch(ServerInfo.User.Id);
                     }
                     break;

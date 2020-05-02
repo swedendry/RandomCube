@@ -5,7 +5,7 @@ namespace Network
 {
     public class PayloadSignalr : BaseSignalr
     {
-        public void Call<T>(Payloader<T> payloader, object[] arguments) where T : class
+        public void Call<T>(Payloader<T> payloader, bool isLocal, object[] arguments) where T : class
         {
             try
             {
@@ -21,7 +21,7 @@ namespace Network
                         break;
                     case PayloadCode.Success:
                         {
-                            var data = connection != null ? (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]) : (T)arguments[1];
+                            var data = isLocal ? (T)arguments[1] : (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]);
                             payloader.OnSuccess(data);
                             payloader.OnComplete(data);
                         }
