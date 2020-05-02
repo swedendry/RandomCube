@@ -1,13 +1,13 @@
 ﻿using Network;
 using Network.GameServer;
 using System.Collections;
+using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public Team blue;
-    public Team red;
+    public List<Team> teams = new List<Team>();
 
     protected virtual void Start()
     {
@@ -24,6 +24,16 @@ public class Game : MonoBehaviour
         GameServer.ActionUpdateSlot = UpdateSlot;
 
         Loading();
+    }
+
+    private List<Team> GetTeams()
+    {
+        return teams.FindAll(x => x.user != null);
+    }
+
+    private Team GetTeam(string userId)
+    {
+        return GetTeams().Find(x => x.user.Id == userId);
     }
 
     private void CompleteLoading(Payloader<SC_CompleteLoading> payloader)
@@ -60,8 +70,7 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    blue?.UnRegister();
-                    red?.UnRegister();
+                    GetTeams().ForEach(x => x.UnRegister());
 
                     ServerInfo.GameUsers = data.Users;
 
@@ -76,14 +85,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("CreateCube");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.CreateCube(data.NewCube);
-                    }
-                    else
-                    {
-                        red.CreateCube(data.NewCube);
-                    }
+                    GetTeam(data.Id)?.CreateCube(data.NewCube);
 
                     Router.Refresh();
                 });
@@ -96,14 +98,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("MoveCube");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
-                    }
-                    else
-                    {
-                        red.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
-                    }
+                    GetTeam(data.Id)?.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
                 });
     }
 
@@ -114,14 +109,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("MoveCube");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.CombineCube(data.OwnerSeq, data.TargetSeq);
-                    }
-                    else
-                    {
-                        red.CombineCube(data.OwnerSeq, data.TargetSeq);
-                    }
+                    GetTeam(data.Id)?.CombineCube(data.OwnerSeq, data.TargetSeq);
                 });
     }
 
@@ -132,14 +120,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("DeleteCube");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.DeleteCube(data.DeleteCubes);
-                    }
-                    else
-                    {
-                        red.DeleteCube(data.DeleteCubes);
-                    }
+                    GetTeam(data.Id)?.DeleteCube(data.DeleteCubes);
                 });
     }
 
@@ -150,14 +131,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("DieMonster");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.DieMonster(data.MonsterSeq);
-                    }
-                    else
-                    {
-                        red.DieMonster(data.MonsterSeq);
-                    }
+                    GetTeam(data.Id)?.DieMonster(data.MonsterSeq);
 
                     Router.Refresh();
                 });
@@ -170,16 +144,11 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("EscapeMonster");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.EscapeMonster(data.MonsterSeq);
-                    }
-                    else
-                    {
-                        red.EscapeMonster(data.MonsterSeq);
-                    }
+                    GetTeam(data.Id)?.EscapeMonster(data.MonsterSeq);
 
                     Router.Refresh();
+
+                    CheckResult();
                 });
     }
 
@@ -190,14 +159,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("UpdateSlot");
 
-                    if (ServerInfo.MyGameUser().Id == data.Id)
-                    {
-                        blue.UpdateSlot(data.SlotIndex, data.SlotLv);
-                    }
-                    else
-                    {
-                        red.UpdateSlot(data.SlotIndex, data.SlotLv);
-                    }
+                    GetTeam(data.Id)?.UpdateSlot(data.SlotIndex, data.SlotLv);
 
                     Router.Refresh();
                 });
@@ -205,25 +167,32 @@ public class Game : MonoBehaviour
 
     protected virtual void Loading()
     {
-        blue?.Register(ServerInfo.MyGameUser(), Map.blue);
-        red?.Register(ServerInfo.EnemyGameUser(), Map.red);
+        teams[0].Register(ServerInfo.MyGameUser(), Map.blue);
+        teams[1].Register(ServerInfo.EnemyGameUser(), Map.red);
 
         Router.CloseAndOpen("GameView");
+    }
+
+    protected virtual void CheckResult()
+    {
+
     }
 
     protected IEnumerator WaveMonster()
     {
         yield return new WaitForSeconds(5f);
 
-        blue?.CreateMonster();
-        red?.CreateMonster();
+        CreateMonster();
         yield return new WaitForSeconds(1f);
-        blue?.CreateMonster();
-        red?.CreateMonster();
+        CreateMonster();
         yield return new WaitForSeconds(1f);
-        blue?.CreateMonster();
-        red?.CreateMonster();
+        CreateMonster();
 
         StartCoroutine(WaveMonster());
+    }
+
+    private void CreateMonster()
+    {
+        GetTeams().ForEach(x => x.CreateMonster());
     }
 }

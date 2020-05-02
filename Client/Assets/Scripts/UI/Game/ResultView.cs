@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace UI.Game
@@ -33,7 +32,7 @@ namespace UI.Game
             {
                 case "lobby":
                     {
-                        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+                        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
                     }
                     break;
             }

@@ -4,11 +4,19 @@ namespace UI.Cube
 {
     public class MainView : UIView
     {
-        public MaterialView materialView;
+        private MaterialContainer materialContainer;
 
         protected override void Awake()
         {
-            materialView.OnEventProps = MaterialEvent;
+            base.Awake();
+
+            materialContainer = GetUIContainer<MaterialContainer>();
+            materialContainer.OnEventProps = MaterialEvent;
+        }
+
+        public override void Upsert()
+        {
+            materialContainer?.Upsert();
         }
 
         private void MaterialEvent(bool isSelected, Props<CubeViewModel> props)
@@ -16,7 +24,7 @@ namespace UI.Cube
             LobbyServer.sInstance?.UpdateCubeLv(ServerInfo.User.Id, props.data.CubeId).Callback(
             success: (data) =>
             {
-                materialView.Upsert();
+                materialContainer.Upsert();
             });
         }
     }

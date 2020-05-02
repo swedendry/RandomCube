@@ -61,8 +61,6 @@ public class MyTeam : Team
 
     protected void OnMove(Cube owner, Vector3 target)
     {
-        //owner.Move(target);
-
         var serverPos = Local2Server(target);
 
         GameServer.sInstance?.MoveCube(user.Id, owner.gameCube.CubeSeq, (int)serverPos.x, (int)serverPos.y);
@@ -73,12 +71,6 @@ public class MyTeam : Team
         //owner.Combine(target);
 
         GameServer.sInstance?.CombineCube(user.Id, owner.gameCube.CubeSeq, target.gameCube.CubeSeq);
-
-        //var center = bounds.center;
-        //var positionX = (int)((target.transform.position.x - center.x) * 100f);
-        //var positionY = (int)((target.transform.position.y - center.y) * 100f);
-
-        //GameServer.sInstance?.CombineMoveCube(user.Id, owner.gameCube.CubeSeq, positionX, positionY);
     }
 
     protected void OnCombine(Cube owner, Cube target)

@@ -1,26 +1,60 @@
 ﻿using Extension;
+using Network;
 using Network.GameServer;
 using Network.LobbyServer;
 using System.Linq;
+using UI;
 using UnityEngine;
 
 public class SingleGame : Game
 {
     protected override void Start()
     {
-        MapperFactory.Register();
-        XmlFactory.Load();
-
-        if (string.IsNullOrEmpty(ServerInfo.User.Id))
-            ServerInfo.User = DummyUser(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceName);
-
-        ServerInfo.GameUsers.Clear();
-        ServerInfo.GameUsers.Add(DummyGameUser(ServerInfo.User));
-        ServerInfo.GameUsers.Add(DummyGameUser(DummyUser("ai", "ai")));
+        DummySetting();
 
         base.Start();
 
         StartCoroutine(WaveMonster());
+    }
+
+    protected override void Loading()
+    {
+        teams[0].Register(ServerInfo.MyGameUser(), Map.blue);
+
+        Router.CloseAndOpen("GameView");
+    }
+
+    protected override void CheckResult()
+    {
+        var users = ServerInfo.GameUsers;
+        if (users.TrueForAll(x => x.Life > 0))
+            return; //진행중
+
+        users.OrderBy(x => x.Life).ForEach((x, i) =>
+        {
+            x.Rank += i;
+        });
+
+        GameServer.sInstance?.OnInvocation("Result", PayloadPack.Success(new SC_Result
+        {
+            Users = users
+        }));
+    }
+
+    private void DummySetting()
+    {   //Scene 바로 시작시
+        if (string.IsNullOrEmpty(ServerInfo.User.Id))
+        {
+            MapperFactory.Register();
+            XmlFactory.Load();
+
+            gameObject.AddComponent<GameServer>();
+            ServerInfo.User = DummyUser(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceName);
+        }
+
+        ServerInfo.GameUsers.Clear();
+        ServerInfo.GameUsers.Add(DummyGameUser(ServerInfo.User));
+        //ServerInfo.GameUsers.Add(DummyGameUser(DummyUser("ai", "ai")));
     }
 
     private UserViewModel DummyUser(string id, string name)

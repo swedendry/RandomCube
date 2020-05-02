@@ -25,7 +25,7 @@ public class Team : MonoBehaviour
     protected readonly List<Monster> monsters = new List<Monster>();
     protected readonly List<Missile> missiles = new List<Missile>();
 
-    protected GameUser user;
+    public GameUser user;
     protected Zone zone;
     protected Bounds bounds;
 
@@ -52,6 +52,7 @@ public class Team : MonoBehaviour
         cube.Spawn(gameCube, gameSlot);
         cubes.Add(cube);
 
+        user.Cubes.Add(gameCube);
         if (gameCube.CombineLv == 1)
             user.SP -= ServerDefine.Seq2NeedSP(user.CubeSeq);
 
@@ -80,6 +81,7 @@ public class Team : MonoBehaviour
         deleteCubes.ForEach(x =>
         {
             var cube = cubes.Find(c => c.gameCube.CubeSeq == x);
+            user.Cubes.Remove(cube.gameCube);
             cubes.Remove(cube);
             PoolFactory.Return("Cube", cube);
         });

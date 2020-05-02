@@ -22,6 +22,11 @@ namespace UI
             containers.ForEach(x => { x.OnEvent = Event; });
         }
 
+        protected virtual void Create()
+        {
+
+        }
+
         public virtual void Empty()
         {
             components.ForEach(x => x.Empty());
@@ -32,6 +37,8 @@ namespace UI
 
         public virtual void Upsert()
         {
+            Empty();
+
             gameObject?.SetVisible(true);
         }
 

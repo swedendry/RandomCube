@@ -24,7 +24,7 @@ public partial class GameServer
     public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
     public static Action<Payloader<SC_UpdateSlot>> ActionUpdateSlot;
 
-    protected void OnInvocation(string target, object[] arguments)
+    public void OnInvocation(string target, object[] arguments)
     {
         switch (target)
         {
