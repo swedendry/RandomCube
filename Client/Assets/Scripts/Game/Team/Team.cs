@@ -3,22 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//public interface ITeam
-//{
-//    void Register(GameUser user, Zone zone);
-//    void UnRegister();
-
-//    void CreateCube(byte combineLv);
-//    void CreateCube(byte combineLv, Vector3 position);
-//    void CreateCube(GameCube gameCube);
-//    void MoveCube(int seq, int positionX, int positionY);
-//    void CombineCube(GameCube gameCube, List<int> deleteCubes);
-
-//    void DieMonster(int monsterSeq);
-//    void EscapeMonster(int monsterSeq);
-//    Monster CreateMonster();
-//}
-
 public class Team : MonoBehaviour
 {
     protected readonly List<Cube> cubes = new List<Cube>();
@@ -205,20 +189,6 @@ public class Team : MonoBehaviour
     {
 
     }
-
-    //protected virtual void OnShot(Cube owner)
-    //{
-    //    var target = GetShotTarget(owner);
-    //    if (!target)
-    //        return;
-
-    //    var missile = PoolFactory.Get<Missile>("Missile", owner.transform.position, Quaternion.identity, transform);
-    //    missile.OnHit = OnHit;
-    //    missile.Spawn(owner, target);
-    //    missiles.Add(missile);
-
-    //    owner.Shot(missile);
-    //}
 
     protected virtual void OnHit(Cube owner, Monster target, Missile missile)
     {

@@ -38,7 +38,7 @@ public class Main : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Main Escape");
+            Router.Open("PopupView");
         }
     }
 

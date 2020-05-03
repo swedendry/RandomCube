@@ -32,11 +32,6 @@ public class Game : MonoBehaviour
     private void Update()
     {
         ServerInfo.Room.ProgressTime += Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Game Escape");
-        }
     }
 
     private List<Team> GetTeams()
@@ -205,7 +200,7 @@ public class Game : MonoBehaviour
 
     protected IEnumerator WaveMonster()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         CreateMonster();
         yield return new WaitForSeconds(1f);

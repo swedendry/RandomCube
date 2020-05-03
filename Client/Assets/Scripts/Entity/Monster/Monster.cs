@@ -78,7 +78,7 @@ public class Monster : Entity
 
     private void Escape()
     {
-        if (state != State.Move)
+        if (state != State.Idle)
             return;
 
         state = State.Finish;

@@ -7,28 +7,12 @@ namespace UI
     {
         public string path;
 
-        //private void Awake()
-        //{
-        //    //var parents = GetComponentsInParent<Route>().ToList();
-        //    //parents.Reverse();
-        //    //path = string.Join("/", parents.Select(c => c.name));
-
-        //    //Router.Register(this);
-
-        //    Close();
-        //}
-
-        //private void OnDestroy()
-        //{
-        //    Router.UnRegister(this);
-        //}
-
-        public void Close()
+        public void Close(params object[] values)
         {
             gameObject?.SetVisible(false);
         }
 
-        public void Open()
+        public void Open(params object[] values)
         {
             gameObject?.SetVisible(true);
         }

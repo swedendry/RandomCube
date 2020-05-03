@@ -157,6 +157,7 @@
     <Compile Include="Assets\Scripts\UI\Login\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Match\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Play\MainView.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Register\MainView.cs" />
     <Compile Include="Assets\Scripts\Xml\CubeDataXml.cs" />
     <Compile Include="Assets\Scripts\Xml\SkillDataXml.cs" />
