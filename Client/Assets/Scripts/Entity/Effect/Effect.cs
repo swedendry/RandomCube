@@ -34,10 +34,7 @@ public class Effect : Entity
     private void Update()
     {
         if (target == null || !target.gameObject.activeSelf)
-        {
-            Return();
             return;
-        }
 
         transform.position = target.position;
     }
