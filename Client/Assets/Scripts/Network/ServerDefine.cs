@@ -10,6 +10,8 @@ public static class ServerDefine
     public const int MONSTER_DIE_SP = 10;
     public const int SLOT_LV_PRICE = 100;
     public const int MONSTER_HP = 10;
+    public const int MIN_REWARD_MONEY = 10;
+    public const int MAX_REWARD_MONEY = 1000;
 
     public static int CubeLv2Price(byte lv)
     {
@@ -56,5 +58,15 @@ public static class ServerDefine
     {
         const float AS_MIN = 0.1f;
         return Math.Max(AS_MIN, CubeLv2AS(value, lv) - ((slotLv - 1) * 0.02f));
+    }
+
+    public static int Rank2Money(int rank)
+    {
+        return MAX_REWARD_MONEY - ((MAX_REWARD_MONEY / 2) * rank);
+    }
+
+    public static int Time2Money(float time)
+    {
+        return MIN_REWARD_MONEY + (MIN_REWARD_MONEY * (int)time);
     }
 }

@@ -135,6 +135,27 @@ namespace Service.Controllers
             }
         }
 
+        [HttpPut("{id}/money")]
+        public async Task<IActionResult> UpdateMoney(string id, [FromBody]int money)
+        {
+            try
+            {
+                var entity = await _unitOfWork.Users.GetAsync(x => x.Id == id, isTracking: true);
+                if (entity == null)
+                    return Payloader.Fail(PayloadCode.DbNull);
+
+                entity.Money += money;
+
+                await _unitOfWork.CommitAsync();
+
+                return Payloader.Success(entity.Money);
+            }
+            catch (Exception ex)
+            {
+                return Payloader.Error(ex);
+            }
+        }
+
         private async Task UpdateCube(User user)
         {
             var allCubes = await _unitOfWork.CubeDatas.GetManyAsync(isTracking: true);

@@ -11,6 +11,9 @@ public class SingleGame : Game
     {
         DummySetting();
 
+        GameServer.sInstance.isLockSend = true;
+        ServerInfo.Room.GameMode = GameMode.Single;
+
         base.Start();
 
         StartCoroutine(WaveMonster());
@@ -31,7 +34,8 @@ public class SingleGame : Game
 
         users.OrderBy(x => x.Life).ForEach((x, i) =>
         {
-            x.Rank += i;
+            x.Rank = i;
+            x.Money = ServerDefine.Time2Money(ServerInfo.Room.ProgressTime);
         });
 
         GameServer.sInstance?.SendLocal("Result", new SC_Result

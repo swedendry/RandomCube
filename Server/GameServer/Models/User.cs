@@ -43,6 +43,7 @@ namespace GameServer.Models
         public int Life { get; set; } = 3;
         public float SP { get; set; } = 100;
         public int Rank { get; set; } = 1;
+        public int Money { get; set; }
         public int CubeSeq { get; set; } = 0;
         public int MonsterSeq { get; set; } = 0;
         public List<GameCube> Cubes { get; set; } = new List<GameCube>();

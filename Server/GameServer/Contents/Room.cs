@@ -99,7 +99,8 @@ namespace GameServer.Contents
 
             users.ForEach((x, i) =>
             {
-                x.Rank += i;
+                x.Rank = i;
+                x.Money = ServerDefine.Rank2Money(i);
             });
 
             _context.Clients(_users).SendCoreAsync("Result", PayloadPack.Success(new SC_Result()
@@ -204,8 +205,6 @@ namespace GameServer.Contents
         {
             return _users.TrueForAll(x => x.State == state);
         }
-
-
 
         private void SCID_Loading()
         {

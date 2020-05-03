@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Network\GameServer\GameServer.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GameServerGUI.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Models\Body.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\Models\Room.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Models\User.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Receiver.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\Sender.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Assets\Scripts\UI\Entry\TargetView.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Component\ResultComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Component\SlotComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\Game\Component\TimeConponent.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Component\UserComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Container\SlotContainer.cs" />
     <Compile Include="Assets\Scripts\UI\Game\Container\TeamContainer.cs" />

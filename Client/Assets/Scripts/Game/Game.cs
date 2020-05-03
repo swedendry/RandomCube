@@ -23,7 +23,14 @@ public class Game : MonoBehaviour
         GameServer.ActionEscapeMonster = EscapeMonster;
         GameServer.ActionUpdateSlot = UpdateSlot;
 
+        ServerInfo.Room.ProgressTime = 0f;
+
         Loading();
+    }
+
+    private void Update()
+    {
+        ServerInfo.Room.ProgressTime += Time.deltaTime;
     }
 
     private List<Team> GetTeams()
@@ -75,6 +82,9 @@ public class Game : MonoBehaviour
                     ServerInfo.GameUsers = data.Users;
 
                     Router.Open("ResultView");
+
+                    var my = ServerInfo.MyGameUser();
+                    LobbyServer.sInstance.UpdateMoney(my.Id, my.Money);
                 });
     }
 

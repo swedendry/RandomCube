@@ -1,7 +1,12 @@
-﻿public class MultiGame : Game
+﻿using Network.GameServer;
+
+public class MultiGame : Game
 {
     protected override void Start()
     {
+        GameServer.sInstance.isLockSend = true;
+        ServerInfo.Room.GameMode = GameMode.Multi;
+
         base.Start();
     }
 
