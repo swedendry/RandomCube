@@ -86,27 +86,6 @@ public class MyTeam : Team
         GameServer.sInstance?.EscapeMonster(user.Id, seq);
     }
 
-    protected override void OnShot(Cube owner)
-    {
-        var target = GetShotTarget(owner);
-        if (!target)
-            return;
-
-        var missile = PoolFactory.Get<Missile>("Missile", owner.transform.position, Quaternion.identity, transform);
-        missile.OnHit = OnHit;
-        missile.Spawn(owner, target);
-        missiles.Add(missile);
-    }
-
-    protected override void OnHit(Cube owner, Monster target, Missile collider)
-    {
-        owner.Hit(collider);
-        target.Hit(owner, collider);
-
-        missiles.Remove(collider);
-        PoolFactory.Return("Missile", collider);
-    }
-
     protected override Vector3 Server2Local(Vector3 server)
     {
         var center = bounds.center;

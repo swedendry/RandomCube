@@ -190,15 +190,17 @@ public class Team : MonoBehaviour
         missile.OnHit = OnHit;
         missile.Spawn(owner, target);
         missiles.Add(missile);
+
+        owner.Shot(missile);
     }
 
-    protected virtual void OnHit(Cube owner, Monster target, Missile collider)
+    protected virtual void OnHit(Cube owner, Monster target, Missile missile)
     {
-        owner.Hit(collider);
-        target.Hit(owner, collider);
+        owner.Hit(missile);
+        target.Hit(owner, missile);
 
-        missiles.Remove(collider);
-        PoolFactory.Return("Missile", collider);
+        missiles.Remove(missile);
+        PoolFactory.Return("Missile", missile);
     }
 
     protected Monster GetShotTarget(Cube owner)

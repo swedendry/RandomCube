@@ -137,7 +137,12 @@ public class Cube : Entity
         StartShot();
     }
 
-    public void Hit(Missile collider)
+    public void Shot(Missile missile)
+    {
+        anim.Play("Cube_Shot");
+    }
+
+    public void Hit(Missile missile)
     {
 
     }

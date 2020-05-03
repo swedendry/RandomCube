@@ -87,7 +87,7 @@ public class Monster : Entity
         OnEscape?.Invoke(this);
     }
 
-    public void Hit(Cube cube, Missile collider)
+    public void Hit(Cube cube, Missile missile)
     {
         if (state != State.Move)
             return;
@@ -110,7 +110,7 @@ public class Monster : Entity
             Debug.LogWarning(string.Format("Die {0}:{1}", transform.parent.name, seq));
 
             state = State.Die;
-            OnDie?.Invoke(this, collider);
+            OnDie?.Invoke(this, missile);
         }
     }
 

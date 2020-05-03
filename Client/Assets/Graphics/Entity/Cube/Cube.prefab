@@ -201,6 +201,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 9d360010b53412641a13da365d64fc71, type: 2}
   - {fileID: 7400000, guid: 23277db56b917b14aa4a7834869f336b, type: 2}
+  - {fileID: 7400000, guid: e89d297fa3877294794cec59a2b42b43, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -346,3 +347,4 @@ MonoBehaviour:
   range: {fileID: 2798876017029408911}
   combineLv_text: {fileID: 6851880175385891098}
   speed: 5
+  ownerId: 
