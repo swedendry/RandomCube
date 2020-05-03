@@ -5,12 +5,13 @@ public class Entity : MonoBehaviour
 {
     public virtual void Spawn()
     {
+        iTween.Stop(gameObject);
         gameObject?.SetVisible(true);
     }
 
     public virtual void Release()
     {
-
+        iTween.Stop(gameObject);
     }
 
     protected virtual void Move(Vector3 position, float speed, object completeparams = null)

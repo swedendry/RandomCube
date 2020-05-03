@@ -60,15 +60,16 @@ namespace Pools
             return entry;
         }
 
-        public void Return(GameObject entity)
+        public void Return(GameObject entity, Transform parent)
         {
+            entity.transform.parent = parent;
             entity.gameObject?.SetVisible(false);
             entries.Enqueue(entity);
         }
 
-        public void Delete(GameObject entity)
+        public void Delete(GameObject entity, Transform parent)
         {
-            Return(entity);
+            Return(entity, parent);
             Object.Destroy(entity);
         }
 

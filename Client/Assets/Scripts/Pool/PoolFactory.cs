@@ -4,7 +4,13 @@ using UnityEngine;
 
 public static class PoolFactory
 {
+    private static Transform root;
     private static readonly List<Pool> pools = new List<Pool>();
+
+    public static void Register(Transform parent)
+    {
+        root = parent;
+    }
 
     public static void Register(PoolObject poolObject)
     {
@@ -44,13 +50,13 @@ public static class PoolFactory
     public static void Return(string key, GameObject entity)
     {
         var pool = pools.Find(x => x.poolObject.key == key);
-        pool?.Return(entity);
+        pool?.Return(entity, root);
     }
 
     public static void Delete(string key, GameObject entity)
     {
         var pool = pools.Find(x => x.poolObject.key == key);
-        pool?.Delete(entity);
+        pool?.Delete(entity, root);
     }
 
     public static T Get<T>(string key) where T : Entity

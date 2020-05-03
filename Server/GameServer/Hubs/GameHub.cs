@@ -84,6 +84,12 @@ namespace GameServer.Hubs
             room?.CSID_DeleteCube(cs);
         }
 
+        public void ShotMissile(CS_ShotMissile cs)
+        {
+            var room = _roomService.GetRoomById(cs.Id);
+            room?.CSID_ShotMissile(cs);
+        }
+
         public void DieMonster(CS_DieMonster cs)
         {
             var room = _roomService.GetRoomById(cs.Id);

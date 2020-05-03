@@ -40,6 +40,7 @@ namespace GameServer.Contents
         void CSID_MoveCube(CS_MoveCube cs);
         void CSID_CombineCube(CS_CombineCube cs);
         void CSID_DeleteCube(CS_DeleteCube cs);
+        void CSID_ShotMissile(CS_ShotMissile cs);
         void CSID_DieMonster(CS_DieMonster cs);
         void CSID_EscapeMonster(CS_EscapeMonster cs);
         void CSID_UpdateSlot(CS_UpdateSlot cs);
@@ -289,6 +290,16 @@ namespace GameServer.Contents
             {
                 Id = cs.Id,
                 DeleteCubes = cs.DeleteCubes,
+            }));
+        }
+
+        public void CSID_ShotMissile(CS_ShotMissile cs)
+        {
+            _context.ClientsExceptById(_users, cs.Id).SendCoreAsync("ShotMissile", PayloadPack.Success(new SC_ShotMissile()
+            {
+                Id = cs.Id,
+                CubeSeq = cs.CubeSeq,
+                MonsterSeq = cs.MonsterSeq,
             }));
         }
 

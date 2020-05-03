@@ -29,6 +29,8 @@ public class MyTeam : Team
             PositionY = (int)serverPos.y,
         };
 
+        Debug.Log(string.Format("OnCreateCube {0}:{1}", user.Id, gameCube.CubeSeq));
+
         GameServer.sInstance?.CreateCube(user.Id, gameCube);
     }
 
@@ -49,12 +51,6 @@ public class MyTeam : Team
 
     protected override void OnCombineMove(Cube owner, Cube target)
     {
-        if (owner.gameCube.CubeId != target.gameCube.CubeId)
-            return;
-
-        if (owner.gameCube.CombineLv != target.gameCube.CombineLv)
-            return;
-
         GameServer.sInstance?.CombineCube(user.Id, owner.gameCube.CubeSeq, target.gameCube.CubeSeq);
     }
 
@@ -69,21 +65,28 @@ public class MyTeam : Team
 
         GameServer.sInstance?.DeleteCube(user.Id, deleteSeq);
 
+        Debug.Log(string.Format("OnCombine {0}:{1}:{2}", user.Id, deleteSeq[0], deleteSeq[1]));
+
         OnCreateCube((byte)(combineLv + 1), position);
     }
 
-    protected override void OnDie(Monster target, Missile collider)
+    protected override void OnShot(Cube owner)
     {
-        var seq = target.seq;
+        var target = GetShotTarget(owner);
+        if (!target)
+            return;
 
-        GameServer.sInstance?.DieMonster(user.Id, seq);
+        GameServer.sInstance?.ShotMissile(user.Id, owner.gameCube.CubeSeq, target.seq);
+    }
+
+    protected override void OnDie(Monster target)
+    {
+        GameServer.sInstance?.DieMonster(user.Id, target.seq);
     }
 
     protected override void OnEscape(Monster target)
     {
-        var seq = target.seq;
-
-        GameServer.sInstance?.EscapeMonster(user.Id, seq);
+        GameServer.sInstance?.EscapeMonster(user.Id, target.seq);
     }
 
     protected override Vector3 Server2Local(Vector3 server)

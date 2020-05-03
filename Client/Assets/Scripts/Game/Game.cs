@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
         GameServer.ActionMoveCube = MoveCube;
         GameServer.ActionCombineCube = CombineCube;
         GameServer.ActionDeleteCube = DeleteCube;
+        GameServer.ActionShotMissile = ShotMissile;
         GameServer.ActionDieMonster = DieMonster;
         GameServer.ActionEscapeMonster = EscapeMonster;
         GameServer.ActionUpdateSlot = UpdateSlot;
@@ -31,6 +32,11 @@ public class Game : MonoBehaviour
     private void Update()
     {
         ServerInfo.Room.ProgressTime += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Game Escape");
+        }
     }
 
     private List<Team> GetTeams()
@@ -131,6 +137,15 @@ public class Game : MonoBehaviour
                     Debug.Log("DeleteCube");
 
                     GetTeam(data.Id)?.DeleteCube(data.DeleteCubes);
+                });
+    }
+
+    private void ShotMissile(Payloader<SC_ShotMissile> payloader)
+    {
+        payloader.Callback(
+                success: (data) =>
+                {
+                    GetTeam(data.Id)?.ShotMissile(data.CubeSeq, data.MonsterSeq);
                 });
     }
 

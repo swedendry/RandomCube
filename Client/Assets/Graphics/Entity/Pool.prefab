@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 691595938531230912}
   - component: {fileID: 691595938531230913}
-  - component: {fileID: 691595938531230975}
   m_Layer: 0
   m_Name: Pool
   m_TagString: Untagged
@@ -51,34 +50,9 @@ MonoBehaviour:
     dummy: {fileID: 6897113599400192363, guid: 2ef64e1d6d6e49f49a3106f7ee3ef4ea, type: 3}
   - key: Missile
     dummy: {fileID: 517109113901288482, guid: 45ccf47581350c8499395882898e72dc, type: 3}
-  - key: Skill_Ice
+  - key: Effect_Ice
     dummy: {fileID: 3073823281229886483, guid: adb75c269eed4fa4988c872bd96511b3, type: 3}
-  - key: Skill_Poison
+  - key: Effect_Poison
     dummy: {fileID: 6198937359282982395, guid: 5c44e5c66fb099d4da230c056f3aceaa, type: 3}
---- !u!114 &691595938531230975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691595938531230914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a228b3efc41fd04fa949dc21e5a8330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourceObjects:
-  - key: Red
-    dummy: {fileID: 2100000, guid: bae93b74647a72f449204b5c4cb299c0, type: 2}
-  - key: Orange
-    dummy: {fileID: 2100000, guid: ce04bd8a7a86d2a49a502d67d126a02f, type: 2}
-  - key: Yellow
-    dummy: {fileID: 2100000, guid: 443f52e5a8216dd4ea38378fc02b8b76, type: 2}
-  - key: Green
-    dummy: {fileID: 2100000, guid: bf61c8d245c660b4caf70aa08f381377, type: 2}
-  - key: Blue
-    dummy: {fileID: 2100000, guid: 7494da5e20ce12c42ab9e49868184f60, type: 2}
-  - key: Indigo
-    dummy: {fileID: 2100000, guid: 0c2800348eb9aa849ab584d299775599, type: 2}
-  - key: Purple
-    dummy: {fileID: 2100000, guid: ef14bf9f576ac5a4dbc4df094c8c6406, type: 2}
+  - key: Effect_Damage
+    dummy: {fileID: 6314951698128201901, guid: 43a1b9bbc21305c43be48ea897cc072c, type: 3}

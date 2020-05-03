@@ -10,6 +10,8 @@ public class Main : MonoBehaviour
 {
     private void Start()
     {
+        GameServer.sInstance.isLockSend = false;
+
         if (!ServerInfo.isLogin)
         {   //첫 로그인
             MapperFactory.Register();
@@ -29,6 +31,14 @@ public class Main : MonoBehaviour
         else
         {
             Router.CloseAndOpen("LobbyView/PlayView");
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Main Escape");
         }
     }
 

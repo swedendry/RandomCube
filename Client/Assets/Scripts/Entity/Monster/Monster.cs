@@ -9,13 +9,13 @@ public class Monster : Entity
 {
     private enum State
     {
-        Spawn,
+        Idle,
         Move,
         Die,
         Finish,
     }
 
-    public Action<Monster, Missile> OnDie;
+    public Action<Monster> OnDie;
     public Action<Monster> OnEscape;
 
     public TextMesh hp_text;
@@ -23,7 +23,7 @@ public class Monster : Entity
     private List<Transform> paths;
     private float speed = 0.5f;
     private float hp = 100f;
-    private State state = State.Spawn;
+    private State state = State.Idle;
     private readonly Dictionary<string, GameObject> skills = new Dictionary<string, GameObject>();
 
     public int seq;
@@ -31,11 +31,10 @@ public class Monster : Entity
     public void Spawn(int seq)
     {
         this.seq = seq;
-        iTween.Stop(gameObject);
         hp = ServerDefine.MonsterSeq2HP(seq);
         speed = 1f;
         hp_text.text = ((int)hp).ToString();
-        state = State.Spawn;
+        state = State.Idle;
 
         base.Spawn();
     }
@@ -48,8 +47,6 @@ public class Monster : Entity
 
     public void Move(List<GameObject> paths)
     {
-        state = State.Move;
-
         this.paths = paths.Select(x => x.transform).ToList();
 
         Move(1);
@@ -61,11 +58,14 @@ public class Monster : Entity
         position.z = 0f;
         var nextIndex = targetIndex + 1;
 
+        state = State.Move;
         base.Move(position, speed, nextIndex);
     }
 
     protected override void MoveComplete(object cmpParams)
     {
+        state = State.Idle;
+
         var targetIndex = int.Parse(cmpParams.ToString());
         if (paths.Count <= targetIndex)
         {   //Escape
@@ -81,8 +81,6 @@ public class Monster : Entity
         if (state != State.Move)
             return;
 
-        Debug.LogWarning(string.Format("Escape {0}:{1}", transform.parent.name, seq));
-
         state = State.Finish;
         OnEscape?.Invoke(this);
     }
@@ -92,25 +90,38 @@ public class Monster : Entity
         if (state != State.Move)
             return;
 
-        hp -= cube.AD();
+        var ad = cube.AD();
+
+        //EffectFactory.Spawn(EffectId.Poison, transform, 1f);
+
+        Damage(cube.AD());
+    }
+
+    private void Damage(float damage)
+    {
+        EffectFactory.Spawn(EffectId.Damage, transform, 0f, damage);
+
+        hp -= damage;
 
         var virtualHP = Math.Max(1, hp);
         hp_text.text = ((int)virtualHP).ToString();
 
-        //var skillKey = "Skill_Ice";
-        //if (skills.ContainsKey(skillKey))
-        //{   //같은 스킬 활성화중
-        //    DeleteSkill(skillKey);
-        //}
-
-        //StartCoroutine(Particle("Skill_Ice"));
-
         if (hp <= 0)
         {
-            Debug.LogWarning(string.Format("Die {0}:{1}", transform.parent.name, seq));
-
             state = State.Die;
-            OnDie?.Invoke(this, missile);
+            OnDie?.Invoke(this);
+        }
+    }
+
+    public void Skill(EffectId id)
+    {
+        switch (id)
+        {
+            case EffectId.Poison:
+                {
+                    Damage(1);
+                }
+                break;
         }
     }
 

@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class Cube : Entity
 {
+    private enum State
+    {
+        Idle,
+        Move,
+        CombineMove,
+    }
+
     public Action<Cube> OnShot;
     public Action<Cube, Vector3> OnMove;
     public Action<Cube, Cube> OnCombineMove;
@@ -15,6 +22,7 @@ public class Cube : Entity
     private Animation anim;
     private Renderer render;
 
+    private State state = State.Idle;
     public TextMesh combineLv_text;
 
     public float speed = 5.0f;
@@ -48,6 +56,7 @@ public class Cube : Entity
         ownerId = userId;
         this.gameCube = gameCube;
         this.gameSlot = gameSlot;
+        state = State.Idle;
 
         cubeData = XmlKey.CubeData.Find<CubeDataXml.Data>(x => x.CubeId == gameSlot.CubeId);
 
@@ -76,6 +85,7 @@ public class Cube : Entity
     {
         var speed = 3f;
 
+        state = State.Move;
         base.Move(position, speed);
 
         anim.Play("Cube_Move");
@@ -83,10 +93,28 @@ public class Cube : Entity
         StopShot();
     }
 
+    public void CombineMove(Cube target)
+    {
+        if (gameCube.CubeSeq == target.gameCube.CubeSeq)
+            return;
+
+        if (gameCube.CubeId != target.gameCube.CubeId)
+            return;
+
+        if (gameCube.CombineLv != target.gameCube.CombineLv)
+            return;
+
+        if (state == State.CombineMove)
+            return;
+
+        OnCombineMove?.Invoke(this, target);
+    }
+
     public void Combine(Cube cube)
     {
         var speed = 3f;
 
+        state = State.CombineMove;
         Move(cube.transform.position, speed, "CombineComplete", cube);
 
         anim.Play("Cube_Move");
@@ -95,6 +123,8 @@ public class Cube : Entity
 
     protected override void MoveComplete(object cmpParams)
     {
+        state = State.Idle;
+
         anim.Stop("Cube_Move");
         anim.transform.localRotation = Quaternion.identity;
 
@@ -104,6 +134,8 @@ public class Cube : Entity
 
     protected void CombineComplete(object cmpParams)
     {
+        state = State.Idle;
+
         anim.Stop("Cube_Move");
         anim.transform.localRotation = Quaternion.identity;
 

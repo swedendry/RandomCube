@@ -20,6 +20,7 @@ public partial class GameServer
     public static Action<Payloader<SC_MoveCube>> ActionMoveCube;
     public static Action<Payloader<SC_CombineCube>> ActionCombineCube;
     public static Action<Payloader<SC_DeleteCube>> ActionDeleteCube;
+    public static Action<Payloader<SC_ShotMissile>> ActionShotMissile;
     public static Action<Payloader<SC_DieMonster>> ActionDieMonster;
     public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
     public static Action<Payloader<SC_UpdateSlot>> ActionUpdateSlot;
@@ -137,6 +138,13 @@ public partial class GameServer
                 {
                     var payloader = new Payloader<SC_DeleteCube>();
                     ActionDeleteCube?.Invoke(payloader);
+                    signalr.Call(payloader, isLocal, arguments);
+                }
+                break;
+            case "ShotMissile":
+                {
+                    var payloader = new Payloader<SC_ShotMissile>();
+                    ActionShotMissile?.Invoke(payloader);
                     signalr.Call(payloader, isLocal, arguments);
                 }
                 break;

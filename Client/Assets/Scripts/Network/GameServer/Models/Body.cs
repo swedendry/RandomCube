@@ -198,6 +198,23 @@ namespace Network.GameServer
     }
 
     /// <summary>
+    /// 미사일 정보
+    /// </summary>
+    public class CS_ShotMissile
+    {
+        public string Id { get; set; }
+        public int CubeSeq { get; set; }
+        public int MonsterSeq { get; set; }
+    }
+
+    public class SC_ShotMissile
+    {
+        public string Id { get; set; }
+        public int CubeSeq { get; set; }
+        public int MonsterSeq { get; set; }
+    }
+
+    /// <summary>
     /// 몬스터 파괴 정보
     /// </summary>
     public class CS_DieMonster

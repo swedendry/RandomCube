@@ -73,6 +73,10 @@
     <Compile Include="Assets\Scripts\AutoMapper\MapperFactory.cs" />
     <Compile Include="Assets\Scripts\Entity\Cube\Cube.cs" />
     <Compile Include="Assets\Scripts\Entity\Cube\CubeInput.cs" />
+    <Compile Include="Assets\Scripts\Entity\Effect\Damage.cs" />
+    <Compile Include="Assets\Scripts\Entity\Effect\Effect.cs" />
+    <Compile Include="Assets\Scripts\Entity\Effect\Ice.cs" />
+    <Compile Include="Assets\Scripts\Entity\Effect\Poison.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\Missile\Missile.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster\Monster.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="Assets\Scripts\Network\Payloader.cs" />
     <Compile Include="Assets\Scripts\Network\ServerDefine.cs" />
     <Compile Include="Assets\Scripts\Network\ServerInfo.cs" />
+    <Compile Include="Assets\Scripts\Pool\EffectFactory.cs" />
     <Compile Include="Assets\Scripts\Pool\Pool.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolFactory.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolObject.cs" />

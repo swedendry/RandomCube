@@ -45,7 +45,7 @@ public class CubeInput : MonoBehaviour
                     if (cube)
                     {
                         if (cube.ownerId == ServerInfo.MyGameUser().Id)
-                            selectedCube?.OnCombineMove?.Invoke(selectedCube, cube);
+                            selectedCube?.CombineMove(cube);
                     }
                 }
             }
