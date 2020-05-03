@@ -81,8 +81,6 @@ public class Main : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("SuccessMatch");
-
                     var slots = ServerInfo.User.Entry.Slots.ToList().Select((x, i) =>
                     {
                         var cube = ServerInfo.User.Cubes.Find(c => c.CubeId == x);
@@ -108,7 +106,7 @@ public class Main : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("EnterRoom");
+
                 });
     }
 

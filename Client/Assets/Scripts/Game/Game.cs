@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("CompleteLoading");
+                    
                 });
     }
 
@@ -58,7 +58,7 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("Play");
+                    
                 });
     }
 
@@ -67,8 +67,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("Wave");
-
                     StartCoroutine(WaveMonster());
                 });
     }
@@ -94,8 +92,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("CreateCube");
-
                     GetTeam(data.Id)?.CreateCube(data.NewCube);
 
                     Router.Refresh();
@@ -107,8 +103,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("MoveCube");
-
                     GetTeam(data.Id)?.MoveCube(data.CubeSeq, data.PositionX, data.PositionY);
                 });
     }
@@ -118,8 +112,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("MoveCube");
-
                     GetTeam(data.Id)?.CombineCube(data.OwnerSeq, data.TargetSeq);
                 });
     }
@@ -129,8 +121,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("DeleteCube");
-
                     GetTeam(data.Id)?.DeleteCube(data.DeleteCubes);
                 });
     }
@@ -149,8 +139,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("DieMonster");
-
                     GetTeam(data.Id)?.DieMonster(data.MonsterSeq);
 
                     Router.Refresh();
@@ -162,8 +150,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("EscapeMonster");
-
                     GetTeam(data.Id)?.EscapeMonster(data.MonsterSeq);
 
                     Router.Refresh();
@@ -177,8 +163,6 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    Debug.Log("UpdateSlot");
-
                     GetTeam(data.Id)?.UpdateSlot(data.SlotIndex, data.SlotLv);
 
                     Router.Refresh();

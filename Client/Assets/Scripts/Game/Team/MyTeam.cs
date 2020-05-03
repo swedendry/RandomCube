@@ -29,8 +29,6 @@ public class MyTeam : Team
             PositionY = (int)serverPos.y,
         };
 
-        Debug.Log(string.Format("OnCreateCube {0}:{1}", user.Id, gameCube.CubeSeq));
-
         GameServer.sInstance?.CreateCube(user.Id, gameCube);
     }
 
@@ -64,8 +62,6 @@ public class MyTeam : Team
         deleteSeq.Add(target.gameCube.CubeSeq);
 
         GameServer.sInstance?.DeleteCube(user.Id, deleteSeq);
-
-        Debug.Log(string.Format("OnCombine {0}:{1}:{2}", user.Id, deleteSeq[0], deleteSeq[1]));
 
         OnCreateCube((byte)(combineLv + 1), position);
     }

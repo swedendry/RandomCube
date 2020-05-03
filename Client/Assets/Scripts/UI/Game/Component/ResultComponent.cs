@@ -28,8 +28,6 @@ namespace UI.Game
                 case GameMode.Multi:
                     {
                         var user = ServerInfo.MyGameUser();
-
-                        Debug.Log(string.Format("Rank {0}:{1}", user.Id, user.Rank));
                         var result = user.Rank == 0 ? "WIN" : "LOSE";
                         result_text.SetText(result);
                         money_text.SetText(user.Money.ToString());

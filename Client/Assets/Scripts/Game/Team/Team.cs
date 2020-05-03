@@ -29,8 +29,6 @@ public class Team : MonoBehaviour
 
     public virtual Cube CreateCube(GameCube gameCube)
     {
-        Debug.Log(string.Format("CreateCube {0}:{1}", user.Id, gameCube.CubeSeq));
-
         var position = Server2Local(new Vector3(gameCube.PositionX, gameCube.PositionY, 0f));
         var gameSlot = user.Slots.Find(x => x.CubeId == gameCube.CubeId);
         var cube = PoolFactory.Get<Cube>("Cube", position, Quaternion.identity, transform);
@@ -60,8 +58,6 @@ public class Team : MonoBehaviour
 
     public virtual void CombineCube(int ownerSeq, int targetSeq)
     {
-        Debug.Log(string.Format("CombineCube {0}:{1}:{2}", user.Id, ownerSeq, targetSeq));
-
         var owner = cubes.Find(x => x.gameCube.CubeSeq == ownerSeq);
         var target = cubes.Find(x => x.gameCube.CubeSeq == targetSeq);
         owner?.Combine(target);
@@ -69,8 +65,6 @@ public class Team : MonoBehaviour
 
     public virtual void DeleteCube(List<int> deleteCubes)
     {
-        Debug.Log(string.Format("DeleteCube {0}:{1}:{2}", user.Id, deleteCubes[0], deleteCubes[1]));
-
         deleteCubes.ForEach(x =>
         {
             var cube = cubes.Find(c => c.gameCube.CubeSeq == x);
@@ -109,8 +103,6 @@ public class Team : MonoBehaviour
 
         monsters.Add(monster);
 
-        Debug.LogWarning(string.Format("CreateMonster {0}:{1}", user.Id, user.MonsterSeq));
-
         user.MonsterSeq++;
 
         return monster;
@@ -120,7 +112,6 @@ public class Team : MonoBehaviour
     {
         var monster = monsters.Find(x => x.seq == monsterSeq);
         monster.Release();
-        Debug.LogWarning(string.Format("DieMonster {0}:{1}", user.Id, monsterSeq));
         monsters.Remove(monster);
         PoolFactory.Return("Monster", monster);
 
@@ -131,7 +122,6 @@ public class Team : MonoBehaviour
     {
         var monster = monsters.Find(x => x.seq == monsterSeq);
         monster.Release();
-        Debug.LogWarning(string.Format("EscapeMonster {0}:{1}", user.Id, monsterSeq));
         monsters.Remove(monster);
         PoolFactory.Return("Monster", monster);
 
