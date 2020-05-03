@@ -1,6 +1,4 @@
-﻿using Extension;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,7 +22,6 @@ public class Monster : Entity
     private float speed = 0.5f;
     private float hp = 100f;
     private State state = State.Idle;
-    private readonly Dictionary<string, GameObject> skills = new Dictionary<string, GameObject>();
 
     public int seq;
 
@@ -37,12 +34,6 @@ public class Monster : Entity
         state = State.Idle;
 
         base.Spawn();
-    }
-
-    public override void Release()
-    {
-        iTween.Stop(gameObject);
-        DeleteSkills();
     }
 
     public void Move(List<GameObject> paths)
@@ -90,16 +81,12 @@ public class Monster : Entity
         if (state != State.Move)
             return;
 
-        var ad = cube.AD();
-
-        //EffectFactory.Spawn(EffectId.Poison, transform, 1f);
-
         Damage(cube.AD());
     }
 
     private void Damage(float damage)
     {
-        EffectFactory.Spawn(EffectId.Damage, transform, 0f, damage);
+        EffectFactory.Spawn(EffectId.Damage, transform, 0f, (int)damage);
 
         hp -= damage;
 
@@ -111,52 +98,5 @@ public class Monster : Entity
             state = State.Die;
             OnDie?.Invoke(this);
         }
-    }
-
-    public void Skill(EffectId id)
-    {
-        switch (id)
-        {
-            case EffectId.Poison:
-                {
-                    Damage(1);
-                }
-                break;
-        }
-    }
-
-    private void DeleteSkills()
-    {
-        foreach (var skill in skills)
-        {
-            StopCoroutine(Particle(skill.Key));
-            PoolFactory.Return(skill.Key, skill.Value);
-        }
-
-        skills.Clear();
-    }
-
-    private void DeleteSkill(string key)
-    {
-        if (!skills.ContainsKey(key))
-            return;
-
-        var skill = skills[key];
-        StopCoroutine(Particle(key));
-        PoolFactory.Return(key, skill);
-        skills.Remove(key);
-    }
-
-    private IEnumerator Particle(string key)
-    {
-        var skill = PoolFactory.Get(key, transform);
-        var particle = skill.GetComponent<ParticleSystem>();
-        skill.transform.localPosition = new Vector3(0f, 0f, 0f);
-        skill?.gameObject?.SetVisible(true);
-        skills.Add(key, skill);
-
-        yield return new WaitForSeconds(2f);
-
-        DeleteSkill(key);
     }
 }

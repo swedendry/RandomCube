@@ -53,6 +53,8 @@ public class Cube : Entity
 
     public void Spawn(string userId, GameCube gameCube, GameSlot gameSlot)
     {
+        anim.Stop();
+
         ownerId = userId;
         this.gameCube = gameCube;
         this.gameSlot = gameSlot;
@@ -177,5 +179,10 @@ public class Cube : Entity
     public void Hit(Missile missile)
     {
 
+    }
+
+    public void Lvup()
+    {
+        EffectFactory.Spawn(EffectId.Lvup, transform, 0f);
     }
 }

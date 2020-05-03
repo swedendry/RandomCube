@@ -96,7 +96,7 @@ namespace GameServer.Contents
         {
             _state = RoomState.Result;
 
-            var users = _users.OrderBy(x => x.Life).ToList();
+            var users = _users.OrderByDescending(x => x.Life).ToList();
 
             users.ForEach((x, i) =>
             {
@@ -327,7 +327,7 @@ namespace GameServer.Contents
 
                 if (user.Life <= 0)
                 {   //게임 종료
-                    //Result();
+                    Result();
                 }
             }
         }

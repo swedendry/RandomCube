@@ -50,9 +50,7 @@ MonoBehaviour:
     dummy: {fileID: 6897113599400192363, guid: 2ef64e1d6d6e49f49a3106f7ee3ef4ea, type: 3}
   - key: Missile
     dummy: {fileID: 517109113901288482, guid: 45ccf47581350c8499395882898e72dc, type: 3}
-  - key: Effect_Ice
-    dummy: {fileID: 3073823281229886483, guid: adb75c269eed4fa4988c872bd96511b3, type: 3}
-  - key: Effect_Poison
-    dummy: {fileID: 6198937359282982395, guid: 5c44e5c66fb099d4da230c056f3aceaa, type: 3}
   - key: Effect_Damage
     dummy: {fileID: 6314951698128201901, guid: 43a1b9bbc21305c43be48ea897cc072c, type: 3}
+  - key: Effect_Lvup
+    dummy: {fileID: 3762895671378936218, guid: 94afa43d856a5a544b354b5833b7a717, type: 3}

@@ -7,6 +7,8 @@ public class PoolRegister : MonoBehaviour
 
     private void Awake()
     {
+        PoolFactory.Register(transform);
+
         poolObjects.ForEach(x => PoolFactory.Register(x));
     }
 

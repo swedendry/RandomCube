@@ -143,6 +143,8 @@ public class Team : MonoBehaviour
         var slot = user.Slots.Find(x => x.SlotIndex == index);
         user.SP -= ServerDefine.SlotLv2Price(slot.SlotLv);
         slot.SlotLv = lv;
+
+        cubes.Where(x => x.gameCube.CubeId == slot.CubeId).ToList().ForEach(x => x.Lvup());
     }
 
     public virtual void OnCreateCube(byte combineLv)

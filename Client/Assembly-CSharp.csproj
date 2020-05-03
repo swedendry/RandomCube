@@ -63,20 +63,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\NeonShapes\SelfDestroyScript.cs" />
-    <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\CameraTarget.cs" />
-    <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\EffectController.cs" />
-    <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\EffectDemo.cs" />
-    <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\EffectShaderPropertyStr.cs" />
-    <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\RenderEffect.cs" />
-    <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\TransformExtension.cs" />
     <Compile Include="Assets\Scripts\AutoMapper\MapperFactory.cs" />
     <Compile Include="Assets\Scripts\Entity\Cube\Cube.cs" />
     <Compile Include="Assets\Scripts\Entity\Cube\CubeInput.cs" />
     <Compile Include="Assets\Scripts\Entity\Effect\Damage.cs" />
     <Compile Include="Assets\Scripts\Entity\Effect\Effect.cs" />
     <Compile Include="Assets\Scripts\Entity\Effect\Ice.cs" />
+    <Compile Include="Assets\Scripts\Entity\Effect\Lvup.cs" />
     <Compile Include="Assets\Scripts\Entity\Effect\Poison.cs" />
+    <Compile Include="Assets\Scripts\Entity\Effect\TextEffect.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\Missile\Missile.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster\Monster.cs" />
@@ -1795,23 +1790,15 @@
     <Compile Include="Assets\ThirdParty\iTween\Sample\RotateSample.cs" />
     <Compile Include="Assets\ThirdParty\iTween\Sample\SampleInfo.cs" />
     <Compile Include="Assets\ThirdParty\iTween\iTween.cs" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\Toon Blended Premmultiply.shader" />
-    <None Include="Assets\Particlecollection_Free samples\READ ME.txt" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleBlendEffect.shader" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\license.txt" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\effect_distortion_mask.shader" />
     <None Include="Assets\ThirdParty\JsonDotNet\link.xml" />
     <None Include="Assets\ThirdParty\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\ReleaseNotes.txt" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\link_android_subset.xml" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleAddEffect.shader" />
     <None Include="Assets\Resources\xml\SkillData.xml" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\BestHTTP\SecureProtocol\License.txt" />
     <None Include="Assets\Resources\xml\CubeData.xml" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\link.xml" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleAddSoftEffect.shader" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticlePremultiplyBlend.shader" />
-    <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\Toon Additive.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Project/thegido/RandomCube/Client/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

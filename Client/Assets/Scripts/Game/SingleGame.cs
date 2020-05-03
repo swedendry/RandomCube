@@ -32,7 +32,7 @@ public class SingleGame : Game
         if (users.TrueForAll(x => x.Life > 0))
             return; //진행중
 
-        users.OrderBy(x => x.Life).ForEach((x, i) =>
+        users.OrderByDescending(x => x.Life).ForEach((x, i) =>
         {
             x.Rank = i;
             x.Money = ServerDefine.Time2Money(ServerInfo.Room.ProgressTime);

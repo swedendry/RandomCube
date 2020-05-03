@@ -4,8 +4,7 @@ using UnityEngine;
 public enum EffectId
 {
     Damage,
-    Ice,
-    Poison,
+    Lvup,
 }
 
 public static class EffectFactory
