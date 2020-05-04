@@ -34,12 +34,12 @@ public class Game : MonoBehaviour
         ServerInfo.Room.ProgressTime += Time.deltaTime;
     }
 
-    private List<Team> GetTeams()
+    protected List<Team> GetTeams()
     {
         return teams.FindAll(x => x.user != null);
     }
 
-    private Team GetTeam(string userId)
+    protected Team GetTeam(string userId)
     {
         return GetTeams().Find(x => x.user.Id == userId);
     }
@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    
+
                 });
     }
 
@@ -58,7 +58,7 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    
+
                 });
     }
 
@@ -71,7 +71,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void Result(Payloader<SC_Result> payloader)
+    protected virtual void Result(Payloader<SC_Result> payloader)
     {
         payloader.Callback(
                 success: (data) =>

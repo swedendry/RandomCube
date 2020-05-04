@@ -18,6 +18,11 @@ namespace UI.Play
                         GameServer.sInstance.EnterMatch(ServerInfo.User.Id);
                     }
                     break;
+                case "recordplay":
+                    {
+                        SceneManager.LoadScene("RecordGame", LoadSceneMode.Single);
+                    }
+                    break;
             }
         }
     }

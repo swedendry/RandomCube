@@ -239,7 +239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 883734876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1681cb8c44459004d9048c9f7f888b52, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fbcafa440fbc9d42a2270b79c00e81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &883734878
@@ -378,11 +378,6 @@ PrefabInstance:
       propertyPath: teamHandler
       value: 
       objectReference: {fileID: 1008648999}
-    - target: {fileID: 5150354678049592398, guid: e2ae296b323e0c54eb5c9d1f10786a75,
-        type: 3}
-      propertyPath: teamHandler
-      value: 
-      objectReference: {fileID: 883734877}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2ae296b323e0c54eb5c9d1f10786a75, type: 3}
 --- !u!1 &963194225
@@ -564,7 +559,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1008648998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b40519cc66b85a43958b1727b8942b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e3c8bb99e4714e40bad0f28b4cb8b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1008649000

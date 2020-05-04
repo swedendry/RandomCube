@@ -77,11 +77,16 @@
     <Compile Include="Assets\Scripts\Extension\ListExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\RandomExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\TextExtension.cs" />
+    <Compile Include="Assets\Scripts\Extension\UserExtension.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\MultiGame.cs" />
+    <Compile Include="Assets\Scripts\Game\RecordGame.cs" />
     <Compile Include="Assets\Scripts\Game\SingleGame.cs" />
+    <Compile Include="Assets\Scripts\Game\Team\AITeam.cs" />
     <Compile Include="Assets\Scripts\Game\Team\EnemyTeam.cs" />
+    <Compile Include="Assets\Scripts\Game\Team\InputTeam.cs" />
     <Compile Include="Assets\Scripts\Game\Team\MyTeam.cs" />
+    <Compile Include="Assets\Scripts\Game\Team\RecordTeam.cs" />
     <Compile Include="Assets\Scripts\Game\Team\Team.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Map\Map.cs" />
@@ -146,6 +151,7 @@
     <Compile Include="Assets\Scripts\UI\Popup\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Register\MainView.cs" />
     <Compile Include="Assets\Scripts\Xml\CubeDataXml.cs" />
+    <Compile Include="Assets\Scripts\Xml\RecordDataXml.cs" />
     <Compile Include="Assets\Scripts\Xml\SkillDataXml.cs" />
     <Compile Include="Assets\Scripts\Xml\Xml.cs" />
     <Compile Include="Assets\Scripts\Xml\XmlFactory.cs" />
@@ -1786,6 +1792,7 @@
     <None Include="Assets\ThirdParty\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\ReleaseNotes.txt" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\link_android_subset.xml" />
+    <None Include="Assets\Resources\xml\RecordData.xml" />
     <None Include="Assets\Resources\xml\SkillData.xml" />
     <None Include="Assets\ThirdParty\Best HTTP (Pro)\BestHTTP\SecureProtocol\License.txt" />
     <None Include="Assets\Resources\xml\CubeData.xml" />

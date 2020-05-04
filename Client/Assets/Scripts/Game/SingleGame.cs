@@ -1,15 +1,16 @@
 ﻿using Extension;
 using Network.GameServer;
-using Network.LobbyServer;
+using Newtonsoft.Json;
 using System.Linq;
 using UI;
-using UnityEngine;
 
 public class SingleGame : Game
 {
+    private Record record;
+
     protected override void Start()
     {
-        DummySetting();
+        CretaeUsers();
 
         GameServer.sInstance.isLockSend = true;
         ServerInfo.Room.GameMode = GameMode.Single;
@@ -22,6 +23,7 @@ public class SingleGame : Game
     protected override void Loading()
     {
         teams[0].Register(ServerInfo.MyGameUser(), Map.blue);
+        teams[1].Register(ServerInfo.EnemyGameUser(), Map.red, record);
 
         Router.CloseAndOpen("GameView");
     }
@@ -35,7 +37,7 @@ public class SingleGame : Game
         users.OrderByDescending(x => x.Life).ForEach((x, i) =>
         {
             x.Rank = i;
-            x.Money = ServerDefine.Time2Money(ServerInfo.Room.ProgressTime);
+            x.Money = ServerDefine.Rank2Money(i);
         });
 
         GameServer.sInstance?.SendLocal("Result", new SC_Result
@@ -44,67 +46,18 @@ public class SingleGame : Game
         });
     }
 
-    private void DummySetting()
-    {   //Scene 바로 시작시
-        if (string.IsNullOrEmpty(ServerInfo.User.Id))
-        {
-            MapperFactory.Register();
-            XmlFactory.Load();
+    private void CretaeUsers()
+    {
+        var recordDatas = XmlKey.RecordData.FindAll<RecordDataXml.Data>();
+        var recordData = recordDatas.Random();
+        record = JsonConvert.DeserializeObject<Record>(recordData.Pack);
 
-            gameObject.AddComponent<GameServer>();
-            ServerInfo.User = DummyUser(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceName);
-        }
+        var aiUser = record.User.Map<GameUser>();
+        aiUser.Name = "ai_" + recordData.Index;
+        aiUser.Slots.ForEach(x => x.SlotLv = 1);
 
         ServerInfo.GameUsers.Clear();
-        ServerInfo.GameUsers.Add(DummyGameUser(ServerInfo.User));
-        //ServerInfo.GameUsers.Add(DummyGameUser(DummyUser("ai", "ai")));
-    }
-
-    private UserViewModel DummyUser(string id, string name)
-    {
-        var allCubes = XmlKey.CubeData.FindAll<CubeDataXml.Data>();
-        var cubes = allCubes.Random(ServerDefine.MAX_ENTRY_SLOT).Select((x, i) => new CubeViewModel()
-        {
-            CubeId = x.CubeId,
-            CubeData = x.Map<CubeDataViewModel>(),
-            Lv = 1,
-            Parts = 0,
-        }).ToList();
-
-        var entry = new EntryViewModel()
-        {
-            Slots = cubes.Select(x => x.CubeId).ToArray(),
-        };
-
-        return new UserViewModel()
-        {
-            Id = id,
-            Name = name,
-            Money = 1000,
-            Cubes = cubes,
-            Entry = entry
-        };
-    }
-
-    private GameUser DummyGameUser(UserViewModel user)
-    {
-        var slots = user.Entry.Slots.ToList().Select((x, i) =>
-        {
-            var cube = user.Cubes.Find(c => c.CubeId == x);
-
-            return new GameSlot()
-            {
-                SlotIndex = (byte)i,
-                CubeId = cube.CubeId,
-                CubeLv = cube.Lv,
-            };
-        }).ToList();
-
-        return new GameUser()
-        {
-            Id = user.Id,
-            Name = user.Name,
-            Slots = slots,
-        };
+        ServerInfo.GameUsers.Add(ServerInfo.User.ToGameUser());
+        ServerInfo.GameUsers.Add(aiUser);
     }
 }

@@ -108,7 +108,7 @@ public partial class GameServer : MonoBehaviour
         {
             case MessageTypes.Invocation:
                 {
-                    OnInvocation(message.target, false, message.arguments);
+                    OnInvocation(message.target, ParsingType.Protocol, message.arguments);
                 }
                 break;
         }
@@ -124,6 +124,11 @@ public partial class GameServer : MonoBehaviour
 
     public void SendLocal(string method, object args)
     {
-        OnInvocation(method, true, PayloadPack.Success(args));
+        OnInvocation(method, ParsingType.Default, PayloadPack.Success(args));
+    }
+
+    public void SendLocalAI(string method, object args)
+    {
+        OnInvocation(method, ParsingType.Json, PayloadPack.Success(args));
     }
 }

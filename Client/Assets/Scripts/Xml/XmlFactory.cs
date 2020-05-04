@@ -8,6 +8,7 @@ public enum XmlKey
 {
     CubeData,
     SkillData,
+    RecordData,
 }
 
 public static class XmlExtension
@@ -36,6 +37,7 @@ public static class XmlFactory
     {
         Load(new CubeDataXml(), XmlKey.CubeData.ToString());
         Load(new SkillDataXml(), XmlKey.SkillData.ToString());
+        Load(new RecordDataXml(), XmlKey.RecordData.ToString());
     }
 
     private static bool Load(Xml xml, string key)
@@ -46,13 +48,15 @@ public static class XmlFactory
             TextAsset textAsset = Resources.Load(fullpath) as TextAsset;
 
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(textAsset.text);
+            if (textAsset != null)
+                xmlDoc.LoadXml(textAsset.text);
             if (xmlDoc == null)
                 return false;
 
             xml.key = key;
-            if (!xml.LoadXML(xmlDoc.DocumentElement))
-                return false;
+            if (xmlDoc.DocumentElement != null)
+                if (!xml.LoadXML(xmlDoc.DocumentElement))
+                    return false;
 
             //중복 키 XML 존재시 덮처쓰기
             Xml tempxml = Find(key);
@@ -72,6 +76,12 @@ public static class XmlFactory
         }
 
         return false;
+    }
+
+    public static bool Save(string key, params object[] values)
+    {
+        var xml = Find(key);
+        return xml.Save(values);
     }
 
     public static Xml Find(string key)

@@ -65,55 +65,63 @@ public partial class GameServer
         Send("CompleteLoading", cs);
     }
 
-    public virtual void CreateCube(string id, GameCube cube)
+    public KeyValuePair<string, CS_CreateCube> CreateCube(string id, GameCube cube)
     {
-        var cs = new CS_CreateCube()
+        var pair = new KeyValuePair<string, CS_CreateCube>("CreateCube", new CS_CreateCube()
         {
             Id = id,
             NewCube = cube,
-        };
+        });
 
-        SendLocal("CreateCube", cs.Map<SC_CreateCube>());
-        Send("CreateCube", cs);
+        SendLocal(pair.Key, pair.Value.Map<SC_CreateCube>());
+        Send(pair.Key, pair.Value);
+
+        return pair;
     }
 
-    public virtual void MoveCube(string id, int cubeSeq, int positionX, int positionY)
+    public KeyValuePair<string, CS_MoveCube> MoveCube(string id, int cubeSeq, int positionX, int positionY)
     {
-        var cs = new CS_MoveCube()
+        var pair = new KeyValuePair<string, CS_MoveCube>("MoveCube", new CS_MoveCube()
         {
             Id = id,
             CubeSeq = cubeSeq,
             PositionX = positionX,
             PositionY = positionY
-        };
+        });
 
-        SendLocal("MoveCube", cs.Map<SC_MoveCube>());
-        Send("MoveCube", cs);
+        SendLocal(pair.Key, pair.Value.Map<SC_MoveCube>());
+        Send(pair.Key, pair.Value);
+
+        return pair;
     }
 
-    public virtual void CombineCube(string id, int ownerSeq, int targetSeq)
+    public KeyValuePair<string, CS_CombineCube> CombineCube(string id, int ownerSeq, int targetSeq)
     {
-        var cs = new CS_CombineCube()
+        var pair = new KeyValuePair<string, CS_CombineCube>("CombineCube", new CS_CombineCube()
         {
             Id = id,
             OwnerSeq = ownerSeq,
             TargetSeq = targetSeq,
-        };
+        });
 
-        SendLocal("CombineCube", cs.Map<SC_CombineCube>());
-        Send("CombineCube", cs);
+        SendLocal(pair.Key, pair.Value.Map<SC_CombineCube>());
+        Send(pair.Key, pair.Value);
+
+        return pair;
     }
 
-    public void DeleteCube(string id, List<int> deleteSeq)
+    public KeyValuePair<string, CS_DeleteCube> DeleteCube(string id, List<int> deleteSeq)
     {
-        var cs = new CS_DeleteCube()
+        var pair = new KeyValuePair<string, CS_DeleteCube>("DeleteCube", new CS_DeleteCube()
         {
             Id = id,
             DeleteCubes = deleteSeq,
-        };
+        });
 
-        SendLocal("DeleteCube", cs.Map<SC_DeleteCube>());
-        Send("DeleteCube", cs);
+        SendLocal(pair.Key, pair.Value.Map<SC_DeleteCube>());
+        Send(pair.Key, pair.Value);
+
+        return pair;
     }
 
     public void ShotMissile(string id, int cubeSeq, int monsterSeq)
@@ -153,16 +161,18 @@ public partial class GameServer
         Send("EscapeMonster", cs);
     }
 
-    public void UpdateSlot(string id, byte slotIndex, byte slotLv)
+    public KeyValuePair<string, CS_UpdateSlot> UpdateSlot(string id, byte slotIndex, byte slotLv)
     {
-        var cs = new CS_UpdateSlot()
+        var pair = new KeyValuePair<string, CS_UpdateSlot>("UpdateSlot", new CS_UpdateSlot()
         {
             Id = id,
             SlotIndex = slotIndex,
             SlotLv = slotLv,
-        };
+        });
 
-        SendLocal("UpdateSlot", cs.Map<SC_UpdateSlot>());
-        Send("UpdateSlot", cs);
+        SendLocal(pair.Key, pair.Value.Map<SC_UpdateSlot>());
+        Send(pair.Key, pair.Value);
+
+        return pair;
     }
 }

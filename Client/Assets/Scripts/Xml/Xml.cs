@@ -28,7 +28,7 @@ namespace Xmls
         public virtual List<T> FindAll<T>() { return _datas.Cast<T>().ToList(); }
         public virtual List<T> FindAll<T>(Predicate<T> match) { return FindAll<T>().FindAll(match); }
         public virtual T Find<T>(Predicate<T> match) { return FindAll<T>().Find(match); }
-        public virtual bool Save(object value) { return true; }
+        public virtual bool Save(params object[] values) { return false; }
 
         public T GetValue<T>(XmlNode node, string key)
         {

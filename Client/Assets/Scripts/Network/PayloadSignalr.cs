@@ -1,11 +1,19 @@
 ﻿using BestHTTP;
+using Newtonsoft.Json;
 using System;
 
 namespace Network
 {
+    public enum ParsingType
+    {
+        Default,
+        Json,
+        Protocol,
+    }
+
     public class PayloadSignalr : BaseSignalr
     {
-        public void Call<T>(Payloader<T> payloader, bool isLocal, object[] arguments) where T : class
+        public void Call<T>(Payloader<T> payloader, ParsingType type, object[] arguments) where T : class
         {
             try
             {
@@ -21,7 +29,14 @@ namespace Network
                         break;
                     case PayloadCode.Success:
                         {
-                            var data = isLocal ? (T)arguments[1] : (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]);
+                            var data = default(T);
+                            switch (type)
+                            {
+                                case ParsingType.Json: data = JsonConvert.DeserializeObject<T>(arguments[1].ToString()); break;
+                                case ParsingType.Protocol: data = (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]); break;
+                                default: data = (T)arguments[1]; break;
+                            }
+                            //var data = isLocal ? (T)arguments[1] : (T)connection.Protocol.ConvertTo(typeof(T), arguments[1]);
                             payloader.OnSuccess(data);
                             payloader.OnComplete(data);
                         }

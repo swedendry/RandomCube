@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class EnemyTeam : Team
+﻿public class EnemyTeam : Team
 {
 
 }

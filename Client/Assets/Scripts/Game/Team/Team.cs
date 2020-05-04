@@ -13,14 +13,19 @@ public class Team : MonoBehaviour
     protected Zone zone;
     protected Bounds bounds;
 
-    public void Register(GameUser user, Zone zone)
+    public virtual void Register(GameUser user, Zone zone)
     {
         this.user = user;
         this.zone = zone;
         bounds = this.zone.box.GetComponent<BoxCollider>().bounds;
     }
 
-    public void UnRegister()
+    public virtual void Register(GameUser user, Zone zone, Record record)
+    {
+
+    }
+
+    public virtual void UnRegister()
     {
         cubes.Clear();
         monsters.Clear();

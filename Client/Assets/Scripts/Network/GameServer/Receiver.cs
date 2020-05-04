@@ -25,148 +25,148 @@ public partial class GameServer
     public static Action<Payloader<SC_EscapeMonster>> ActionEscapeMonster;
     public static Action<Payloader<SC_UpdateSlot>> ActionUpdateSlot;
 
-    private void OnInvocation(string target, bool isLocal, object[] arguments)
+    private void OnInvocation(string method, ParsingType type, object[] arguments)
     {
-        switch (target)
+        switch (method)
         {
             case "Login":
                 {
                     var payloader = new Payloader<SC_Login>();
                     ActionLogin?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "EnterMatch":
                 {
                     var payloader = new Payloader<SC_EnterMatch>();
                     ActionEnterMatch?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "ExitMatch":
                 {
                     var payloader = new Payloader<SC_ExitMatch>();
                     ActionExitMatch?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "SuccessMatch":
                 {
                     var payloader = new Payloader<SC_SuccessMatch>();
                     ActionSuccessMatch?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "EnterRoom":
                 {
                     var payloader = new Payloader<SC_EnterRoom>();
                     ActionEnterRoom?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "ExitRoom":
                 {
                     var payloader = new Payloader<SC_ExitRoom>();
                     ActionExitRoom?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "DeleteRoom":
                 {
                     var payloader = new Payloader<SC_DeleteRoom>();
                     ActionDeleteRoom?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "Loading":
                 {
                     var payloader = new Payloader<SC_Loading>();
                     ActionLoading?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "CompleteLoading":
                 {
                     var payloader = new Payloader<SC_CompleteLoading>();
                     ActionCompleteLoading?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "Play":
                 {
                     var payloader = new Payloader<SC_Play>();
                     ActionPlay?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "Wave":
                 {
                     var payloader = new Payloader<SC_Wave>();
                     ActionWave?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "Result":
                 {
                     var payloader = new Payloader<SC_Result>();
                     ActionResult?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "CreateCube":
                 {
                     var payloader = new Payloader<SC_CreateCube>();
                     ActionCreateCube?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "MoveCube":
                 {
                     var payloader = new Payloader<SC_MoveCube>();
                     ActionMoveCube?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "CombineCube":
                 {
                     var payloader = new Payloader<SC_CombineCube>();
                     ActionCombineCube?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "DeleteCube":
                 {
                     var payloader = new Payloader<SC_DeleteCube>();
                     ActionDeleteCube?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "ShotMissile":
                 {
                     var payloader = new Payloader<SC_ShotMissile>();
                     ActionShotMissile?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "DieMonster":
                 {
                     var payloader = new Payloader<SC_DieMonster>();
                     ActionDieMonster?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "EscapeMonster":
                 {
                     var payloader = new Payloader<SC_EscapeMonster>();
                     ActionEscapeMonster?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
             case "UpdateSlot":
                 {
                     var payloader = new Payloader<SC_UpdateSlot>();
                     ActionUpdateSlot?.Invoke(payloader);
-                    signalr.Call(payloader, isLocal, arguments);
+                    signalr.Call(payloader, type, arguments);
                 }
                 break;
         }

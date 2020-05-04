@@ -73,6 +73,13 @@ public class Cube : Entity
         StartShot();
     }
 
+    public override void Release()
+    {
+        anim.Stop();
+
+        base.Release();
+    }
+
     public void Selected()
     {
         range?.gameObject?.SetVisible(true);
