@@ -1,6 +1,7 @@
 ﻿using BestHTTP.SignalRCore;
 using Network;
 using Network.GameServer;
+using System;
 using System.Linq;
 using UI;
 using UnityEngine;
@@ -8,12 +9,36 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
+    private void SettingEnvironment()
+    {
+        try
+        {
+            //멀티 테스트용
+            var arguments = Environment.GetCommandLineArgs();
+            var keyIndex = arguments.ToList().FindIndex(x => x.Equals("-u"));
+            if (keyIndex >= 0)
+            {
+                var valueIndex = keyIndex + 1;
+                ServerInfo.userId = arguments[valueIndex];
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     private void Start()
     {
         GameServer.sInstance.isLockSend = false;
 
         if (!ServerInfo.isLogin)
         {   //첫 로그인
+            ServerInfo.userId = SystemInfo.deviceUniqueIdentifier;
+#if !UNITY_EDITOR
+            SettingEnvironment();
+#endif
+
             MapperFactory.Register();
             XmlFactory.Load();
 

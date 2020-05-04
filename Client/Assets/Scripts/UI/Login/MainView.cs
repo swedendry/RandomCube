@@ -1,5 +1,4 @@
 ﻿using Network;
-using UnityEngine;
 
 namespace UI.Login
 {
@@ -19,7 +18,7 @@ namespace UI.Login
 
         private void Login()
         {
-            var id = SystemInfo.deviceUniqueIdentifier;
+            var id = ServerInfo.userId;// SystemInfo.deviceUniqueIdentifier;
 
             LobbyServer.sInstance?.GetUser(id).Callback(
             success: (data) =>

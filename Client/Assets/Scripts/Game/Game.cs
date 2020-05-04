@@ -67,7 +67,7 @@ public class Game : MonoBehaviour
         payloader.Callback(
                 success: (data) =>
                 {
-                    StartCoroutine(WaveMonster());
+                    StartCoroutine(WaveMonster(8f));
                 });
     }
 
@@ -182,9 +182,9 @@ public class Game : MonoBehaviour
 
     }
 
-    protected IEnumerator WaveMonster()
+    protected virtual IEnumerator WaveMonster(float delay)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(delay);
 
         CreateMonster();
         yield return new WaitForSeconds(1f);
@@ -192,7 +192,7 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(1f);
         CreateMonster();
 
-        StartCoroutine(WaveMonster());
+        StartCoroutine(WaveMonster(3f));
     }
 
     private void CreateMonster()

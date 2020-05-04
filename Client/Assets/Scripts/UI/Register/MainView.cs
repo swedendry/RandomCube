@@ -22,7 +22,7 @@ namespace UI.Register
 
         private void Register()
         {
-            var id = SystemInfo.deviceUniqueIdentifier;
+            var id = ServerInfo.userId; //var id = SystemInfo.deviceUniqueIdentifier;
             var name = name_input.text;
 
             var body = new CreateUserBody()

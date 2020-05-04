@@ -83,9 +83,7 @@
     <Compile Include="Assets\Scripts\Game\RecordGame.cs" />
     <Compile Include="Assets\Scripts\Game\SingleGame.cs" />
     <Compile Include="Assets\Scripts\Game\Team\AITeam.cs" />
-    <Compile Include="Assets\Scripts\Game\Team\EnemyTeam.cs" />
     <Compile Include="Assets\Scripts\Game\Team\InputTeam.cs" />
-    <Compile Include="Assets\Scripts\Game\Team\MyTeam.cs" />
     <Compile Include="Assets\Scripts\Game\Team\RecordTeam.cs" />
     <Compile Include="Assets\Scripts\Game\Team\Team.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />

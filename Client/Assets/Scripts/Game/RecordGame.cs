@@ -20,7 +20,7 @@ public class RecordGame : Game
 
         base.Start();
 
-        StartCoroutine(WaveMonster());
+        StartCoroutine(WaveMonster(3f));
     }
 
     protected override void Loading()

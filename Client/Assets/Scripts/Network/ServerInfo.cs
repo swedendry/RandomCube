@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public static class ServerInfo
 {
+    public static string userId;
+
     //Lobby 정보
     public static bool isLogin = false;
     public static UserViewModel User = new UserViewModel();
