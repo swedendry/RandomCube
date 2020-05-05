@@ -34,11 +34,6 @@ namespace UI
             Upsert();
         }
 
-        protected virtual void Create()
-        {
-
-        }
-
         protected virtual void Empty()
         {
             components.ForEach(x => x.Empty());
@@ -78,34 +73,6 @@ namespace UI
         protected virtual List<T> GetUIContainers<T>() where T : UIContainer
         {
             return containers.FindAll(x => x.GetType() == typeof(T)).Cast<T>().ToList();
-        }
-    }
-
-    public class UIView<U, T> : UIView where U : UIComponent<T>
-    {
-        public Action<bool, Props<T>> OnEventProps;
-
-        [HideInInspector]
-        public List<Props<T>> selectProps = new List<Props<T>>();
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            var components = GetUIComponents<U>();
-            components.ForEach(x => { x.OnEventProps = Event; });
-        }
-
-        protected override void Empty()
-        {
-            base.Empty();
-
-            selectProps.Clear();
-        }
-
-        public virtual void Event(bool isSelected, Props<T> props)
-        {
-            OnEventProps?.Invoke(isSelected, props);
         }
     }
 }

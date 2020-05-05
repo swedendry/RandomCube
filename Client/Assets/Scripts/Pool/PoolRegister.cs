@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PoolRegister : MonoBehaviour
 {
-    public List<PoolObject> poolObjects = new List<PoolObject>();
+    [SerializeField]
+    private List<PoolObject> poolObjects = new List<PoolObject>();
 
     private void Awake()
     {

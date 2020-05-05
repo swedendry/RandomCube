@@ -8,7 +8,7 @@ namespace Pools
     {
         public PoolObject poolObject;
 
-        protected readonly Queue<GameObject> entries = new Queue<GameObject>();
+        private readonly Queue<GameObject> entries = new Queue<GameObject>();
 
         private int seq = 0;
 

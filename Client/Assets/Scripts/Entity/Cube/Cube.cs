@@ -64,6 +64,7 @@ public class Cube : Entity
 
         var color = new Color(cubeData.Color[0], cubeData.Color[1], cubeData.Color[2], 1f);
         render.material.color = color;
+        render.transform.localRotation = Quaternion.identity;
         range.material.color = new Color(color.r, color.g, color.b, 0.1f);
         range.transform.localScale = new Vector3(gameCube.CombineLv * 2f, gameCube.CombineLv * 2f, range.transform.localScale.z);
         combineLv_text.text = gameCube.CombineLv.ToString();

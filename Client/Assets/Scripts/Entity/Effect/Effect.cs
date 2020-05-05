@@ -7,7 +7,7 @@ public class Effect : Entity
     public Action<string, GameObject> OnReturn;
 
     protected string key;
-    private Transform target;
+    protected Transform target;
 
     protected void Spawn(string key, Transform target)
     {

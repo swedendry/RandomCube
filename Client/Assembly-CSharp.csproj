@@ -135,13 +135,10 @@
     <Compile Include="Assets\Scripts\UI\Lobby\Cube\Component\SlotComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Cube\Container\MaterialContainer.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Cube\MainView.cs" />
-    <Compile Include="Assets\Scripts\UI\Lobby\Cube\MaterialView.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Entry\Component\SlotComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Entry\Container\MaterialContainer.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Entry\Container\TargetContainer.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Entry\MainView.cs" />
-    <Compile Include="Assets\Scripts\UI\Lobby\Entry\MaterialView.cs" />
-    <Compile Include="Assets\Scripts\UI\Lobby\Entry\TargetView.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Match\MainView.cs" />
     <Compile Include="Assets\Scripts\UI\Lobby\Play\MainView.cs" />

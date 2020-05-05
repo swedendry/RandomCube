@@ -2,8 +2,10 @@
 
 public class MapRegister : MonoBehaviour
 {
-    public Zone blue;
-    public Zone red;
+    [SerializeField]
+    private Zone blue;
+    [SerializeField]
+    private Zone red;
 
     private void Awake()
     {

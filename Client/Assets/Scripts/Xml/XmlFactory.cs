@@ -31,7 +31,7 @@ public static class XmlExtension
 
 public static class XmlFactory
 {
-    private static readonly List<Xml> _xml = new List<Xml>();
+    private static readonly List<Xml> xmls = new List<Xml>();
 
     public static void Load()
     {
@@ -62,10 +62,10 @@ public static class XmlFactory
             Xml tempxml = Find(key);
             if (tempxml != null)
             {
-                _xml.Remove(tempxml);
+                xmls.Remove(tempxml);
             }
 
-            _xml.Add(xml);
+            xmls.Add(xml);
 
             return true;
         }
@@ -86,6 +86,6 @@ public static class XmlFactory
 
     public static Xml Find(string key)
     {
-        return _xml.Find(p => p.key == key);
+        return xmls.Find(p => p.key == key);
     }
 }

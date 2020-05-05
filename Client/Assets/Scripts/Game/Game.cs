@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public List<Team> teams = new List<Team>();
+    [SerializeField]
+    protected List<Team> teams = new List<Team>();
 
     protected virtual void Start()
     {
@@ -44,7 +45,7 @@ public class Game : MonoBehaviour
         return GetTeams().Find(x => x.user.Id == userId);
     }
 
-    private void CompleteLoading(Payloader<SC_CompleteLoading> payloader)
+    protected void CompleteLoading(Payloader<SC_CompleteLoading> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -53,7 +54,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void Play(Payloader<SC_Play> payloader)
+    protected void Play(Payloader<SC_Play> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -62,7 +63,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void Wave(Payloader<SC_Wave> payloader)
+    protected void Wave(Payloader<SC_Wave> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -87,7 +88,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void CreateCube(Payloader<SC_CreateCube> payloader)
+    protected void CreateCube(Payloader<SC_CreateCube> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -98,7 +99,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void MoveCube(Payloader<SC_MoveCube> payloader)
+    protected void MoveCube(Payloader<SC_MoveCube> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -107,7 +108,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void CombineCube(Payloader<SC_CombineCube> payloader)
+    protected void CombineCube(Payloader<SC_CombineCube> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -116,7 +117,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void DeleteCube(Payloader<SC_DeleteCube> payloader)
+    protected void DeleteCube(Payloader<SC_DeleteCube> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -125,7 +126,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void ShotMissile(Payloader<SC_ShotMissile> payloader)
+    protected void ShotMissile(Payloader<SC_ShotMissile> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -134,7 +135,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void DieMonster(Payloader<SC_DieMonster> payloader)
+    protected void DieMonster(Payloader<SC_DieMonster> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -145,7 +146,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void EscapeMonster(Payloader<SC_EscapeMonster> payloader)
+    protected void EscapeMonster(Payloader<SC_EscapeMonster> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -158,7 +159,7 @@ public class Game : MonoBehaviour
                 });
     }
 
-    private void UpdateSlot(Payloader<SC_UpdateSlot> payloader)
+    protected void UpdateSlot(Payloader<SC_UpdateSlot> payloader)
     {
         payloader.Callback(
                 success: (data) =>
@@ -195,7 +196,7 @@ public class Game : MonoBehaviour
         StartCoroutine(WaveMonster(3f));
     }
 
-    private void CreateMonster()
+    protected virtual void CreateMonster()
     {
         GetTeams().ForEach(x => x.CreateMonster());
     }
