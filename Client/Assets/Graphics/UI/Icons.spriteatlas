@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Icons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f1cb850d0a796274b92e541297666d81, type: 3}
+    totalSpriteSurfaceArea: 0
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8c05173172a204c4f8d01299c77dc101, type: 3}
+  - {fileID: 21300000, guid: ae2d1015e15df4abab1d825856a6a60c, type: 3}
+  - {fileID: 21300000, guid: b2353d2543ffecb46ac5f9ff4c022bd5, type: 3}
+  - {fileID: 21300000, guid: f7ff1f18de3d54c5781e000a59b0528f, type: 3}
+  - {fileID: 21300000, guid: f816f63babfcb3e4d92c5cd9bb193149, type: 3}
+  - {fileID: 21300000, guid: 9c8bbf7e6ce8f4eeebcdb9752dc45ea9, type: 3}
+  - {fileID: 21300000, guid: 49b89bdefb5d8498ab4fd8c3742aa94f, type: 3}
+  - {fileID: 21300000, guid: 158d979f5ae256a4792c27e44df14b20, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - scrollhandle
+  - container
+  - RedSquare
+  - Icon_001
+  - T_2_bottle_half_
+  - cancel
+  - Icon_006
+  - shape040_style02_color01
+  m_Tag: Icons
+  m_IsVariant: 0
